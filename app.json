@@ -9,7 +9,17 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "deploymentTarget": "12.0",
+      "bundleIdentifier": "com.anonymous.yeet",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app needs access to your microphone to enable voice conversations with AI avatars for practicing social skills.",
+        "NSCameraUsageDescription": "This app may need camera access for enhanced avatar interactions.",
+        "NSLocalNetworkUsageDescription": "This app needs network access to connect with voice AI services for real-time conversations.",
+        "UIBackgroundModes": ["audio", "voip"],
+        "AVAudioSessionCategory": "AVAudioSessionCategoryPlayAndRecord",
+        "AVAudioSessionCategoryOptions": ["AVAudioSessionCategoryOptionDefaultToSpeaker", "AVAudioSessionCategoryOptionAllowBluetooth"]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,13 +29,25 @@
         "monochromeImage": "./assets/images/yeet.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "compileSdkVersion": 34,
+      "targetSdkVersion": 34,
+      "minSdkVersion": 24,
+      "permissions": [
+        "RECORD_AUDIO",
+        "MODIFY_AUDIO_SETTINGS",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "WAKE_LOCK",
+        "FOREGROUND_SERVICE"
+      ]
     },
     "web": {
       "output": "static",
       "favicon": "./assets/images/yeet.png"
     },
     "plugins": [
+      "expo-dev-client",
       "expo-router",
       [
         "expo-splash-screen",

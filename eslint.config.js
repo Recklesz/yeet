@@ -7,4 +7,13 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*'],
   },
+  {
+    extends: [
+      'prettier', // Disables ESLint rules that conflict with Prettier
+    ],
+    plugins: ['prettier'],
+    rules: {
+      'prettier/prettier': 'error', // Shows Prettier issues as ESLint errors
+    },
+  },
 ]);

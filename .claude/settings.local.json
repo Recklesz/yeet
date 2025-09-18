@@ -5,9 +5,15 @@
       "Bash(pkill:*)",
       "WebSearch",
       "WebFetch(domain:docs.vapi.ai)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:gluestack.io)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "context7",
+    "gluestack-ui"
+  ]
 }

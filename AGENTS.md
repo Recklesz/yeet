@@ -6,6 +6,8 @@
 
 **Vision:** Pick a scenario → voice chat with an avatar → receive feedback → retry → track progress.
 
+This app is only going to be developed for iOS - iphones.
+
 ## Current Status
 
 🚧 **Early Development** - This is currently a fresh Expo project with foundation setup complete. Core yeet features are not yet implemented.
