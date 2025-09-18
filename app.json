@@ -16,9 +16,15 @@
         "NSMicrophoneUsageDescription": "This app needs access to your microphone to enable voice conversations with AI avatars for practicing social skills.",
         "NSCameraUsageDescription": "This app may need camera access for enhanced avatar interactions.",
         "NSLocalNetworkUsageDescription": "This app needs network access to connect with voice AI services for real-time conversations.",
-        "UIBackgroundModes": ["audio", "voip"],
+        "UIBackgroundModes": [
+          "audio",
+          "voip"
+        ],
         "AVAudioSessionCategory": "AVAudioSessionCategoryPlayAndRecord",
-        "AVAudioSessionCategoryOptions": ["AVAudioSessionCategoryOptionDefaultToSpeaker", "AVAudioSessionCategoryOptionAllowBluetooth"]
+        "AVAudioSessionCategoryOptions": [
+          "AVAudioSessionCategoryOptionDefaultToSpeaker",
+          "AVAudioSessionCategoryOptionAllowBluetooth"
+        ]
       }
     },
     "android": {
@@ -39,8 +45,15 @@
         "INTERNET",
         "ACCESS_NETWORK_STATE",
         "WAKE_LOCK",
+        "FOREGROUND_SERVICE",
+        "RECORD_AUDIO",
+        "MODIFY_AUDIO_SETTINGS",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "WAKE_LOCK",
         "FOREGROUND_SERVICE"
-      ]
+      ],
+      "package": "com.anonymous.yeet"
     },
     "web": {
       "output": "static",
