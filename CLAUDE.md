@@ -93,3 +93,31 @@ npx expo start
   - Not compatible with Expo Go; Dev Client build is required.
   - iOS 12+; background audio and VoIP modes enabled in `app.json`.
   - Assistant behavior is managed in VAPI; we reference the preconfigured `DATING_COACH_ASSISTANT_ID`.
+
+## VAPI Voice Chat Integration (Concise)
+
+- **What it is**
+  - Real-time voice conversations powered by `@vapi-ai/react-native` with sub-second latency. The `Explore` tab hosts the first voice chat UI.
+
+- **Key files**
+  - `app/(tabs)/explore.tsx` — Voice chat UI and VAPI client lifecycle (init, `call-start`/`call-end`/`error` listeners, controls for start/mute/end).
+  - `constants/vapi.ts` — Loads `EXPO_PUBLIC_VAPI_API_KEY` and holds `DATING_COACH_ASSISTANT_ID` used by the client.
+  - `.env` / `.env.example` — Defines `EXPO_PUBLIC_VAPI_API_KEY` used at runtime.
+  - `app.json` — iOS mic permission plus background audio/VoIP modes configured.
+
+- **Setup**
+  1) Add your VAPI key to `.env` as `EXPO_PUBLIC_VAPI_API_KEY`.
+  2) Use a Dev Client (required for native modules):
+     - Build: `npm run ios:sim` (or open via Xcode)
+     - Start: `npm run start:dev`
+  3) Open the app → `Explore` tab → Tap the call button.
+
+- **Runtime flow**
+  - `new Vapi(API_KEY)` created on mount; event handlers update UI state.
+  - Start call with `vapi.start(DATING_COACH_ASSISTANT_ID)`; controls: `setMuted()` and `stop()`.
+  - Errors are surfaced via alerts and console logs; status shows connecting/connected/ended.
+
+- **Notes**
+  - Not compatible with Expo Go; Dev Client build is required.
+  - iOS 12+; background audio and VoIP modes enabled in `app.json`.
+  - Assistant behavior is managed in VAPI; we reference the preconfigured `DATING_COACH_ASSISTANT_ID`.
