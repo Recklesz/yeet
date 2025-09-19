@@ -2,7 +2,7 @@
 
 ## Project
 
-**yeet** — a mobile practice gym that helps men get better at talking to women *in real life* by rehearsing with AI avatars in realistic scenarios and getting instant, actionable feedback.
+**yeet** — a mobile practice gym that helps men get better at talking to women *in real life* by rehearsing with AI avatars in realistic scenarios and getting instant, actionable feedback. fs
 
 **Vision:** Pick a scenario → voice chat with an avatar → receive feedback → retry → track progress.
 
