@@ -8,7 +8,8 @@
       "WebFetch(domain:github.com)",
       "Bash(npm install:*)",
       "WebFetch(domain:gluestack.io)",
-      "Bash(npm run ios:sim:*)"
+      "Bash(npm run ios:sim:*)",
+      "mcp__context7__get-library-docs"
     ],
     "deny": [],
     "ask": []
