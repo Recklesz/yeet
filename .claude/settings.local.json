@@ -10,7 +10,10 @@
       "WebFetch(domain:gluestack.io)",
       "Bash(npm run ios:sim:*)",
       "mcp__context7__get-library-docs",
-      "WebFetch(domain:expo.dev)"
+      "WebFetch(domain:expo.dev)",
+      "Bash(npm --version)",
+      "Bash(nvm install:*)",
+      "Bash(echo $SHELL)"
     ],
     "deny": [],
     "ask": []
