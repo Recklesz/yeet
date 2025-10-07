@@ -11,7 +11,6 @@ import {
   Heading,
   Text,
 } from '@gluestack-ui/themed';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -34,8 +33,6 @@ export function ConfirmDialog({
   cancelText = 'Cancel',
   confirmButtonColor = '$red500',
 }: ConfirmDialogProps) {
-  const colorScheme = useColorScheme();
-
   const handleConfirm = () => {
     onConfirm();
     onClose();
@@ -44,19 +41,19 @@ export function ConfirmDialog({
   return (
     <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogBackdrop />
-      <AlertDialogContent backgroundColor={colorScheme === 'dark' ? '$gray900' : '$white'}>
+      <AlertDialogContent backgroundColor='$white'>
         <AlertDialogHeader borderBottomWidth={1} borderColor="$gray700">
           <Heading
             fontSize={18}
             fontWeight="$bold"
-            color={colorScheme === 'dark' ? '$white' : '$black'}
+            color='$black'
           >
             {title}
           </Heading>
         </AlertDialogHeader>
 
         <AlertDialogBody paddingVertical={20}>
-          <Text fontSize={14} color={colorScheme === 'dark' ? '$gray400' : '$gray600'}>
+          <Text fontSize={14} color='$gray600'>
             {message}
           </Text>
         </AlertDialogBody>
@@ -69,7 +66,7 @@ export function ConfirmDialog({
             onPress={onClose}
             sx={{ marginRight: 8 }}
           >
-            <ButtonText color={colorScheme === 'dark' ? '$white' : '$black'}>
+            <ButtonText color='$black'>
               {cancelText}
             </ButtonText>
           </Button>

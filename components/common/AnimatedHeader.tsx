@@ -4,8 +4,6 @@ import React, { ReactNode } from 'react';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
 type AnimatedHeaderProps = {
   /**
    * Animated height value (SharedValue from Reanimated)
@@ -69,8 +67,7 @@ export function AnimatedHeader({
   backgroundColor,
 }: AnimatedHeaderProps) {
   const insets = useSafeAreaInsets();
-  const colorScheme = useColorScheme();
-  const defaultBg = colorScheme === 'dark' ? '#1E1743' : '#7C5CFF';
+  const defaultBg = '#7C5CFF';
 
   // Title font size animation
   const titleStyle = useAnimatedStyle(() => ({

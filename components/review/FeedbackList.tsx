@@ -1,6 +1,5 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { FeedbackItem } from '@/constants/review';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 
@@ -10,17 +9,11 @@ interface FeedbackListProps {
 }
 
 export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
-  const colorScheme = useColorScheme();
-
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
     const bgColor = isWin
-      ? colorScheme === 'dark'
-        ? '$green950'
-        : '$green50'
-      : colorScheme === 'dark'
-        ? '$amber950'
-        : '$amber50';
+      ? '$green50'
+      : '$amber50';
     const borderColor = isWin ? '$green500' : '$amber500';
 
     return (
@@ -41,11 +34,11 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
             <Text
               fontSize={16}
               fontWeight="$bold"
-              color={colorScheme === 'dark' ? '$white' : '$black'}
+              color='$black'
             >
               {item.title}
             </Text>
-            <Text fontSize={14} color={colorScheme === 'dark' ? '$gray300' : '$gray700'}>
+            <Text fontSize={14} color='$gray700'>
               {item.description}
             </Text>
           </VStack>
@@ -62,7 +55,7 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
           <Text
             fontSize={20}
             fontWeight="$bold"
-            color={colorScheme === 'dark' ? '$white' : '$black'}
+            color='$black'
           >
             🎉 What Went Well
           </Text>
@@ -76,7 +69,7 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
           <Text
             fontSize={20}
             fontWeight="$bold"
-            color={colorScheme === 'dark' ? '$white' : '$black'}
+            color='$black'
           >
             💡 Areas to Improve
           </Text>

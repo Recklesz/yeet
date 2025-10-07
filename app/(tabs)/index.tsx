@@ -14,7 +14,6 @@ import React, { useMemo } from 'react';
 
 import { CustomHeader } from '@/components/common/CustomHeader';
 import { mockReviewData } from '@/constants/review';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 type Scenario = {
   id: string;
@@ -56,14 +55,12 @@ const PRACTICE_TIPS = [
 
 export default function HomeScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
 
   const latestScore = useMemo(() => `${mockReviewData.overallScore}/10`, []);
 
   return (
     <VStack className="flex-1 bg-background-0">
-      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <StatusBar style="dark" />
 
       <CustomHeader
         variant="search"
@@ -86,9 +83,7 @@ export default function HomeScreen() {
         <VStack className="gap-3">
           {FEATURED_SCENARIOS.map(scenario => (
             <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/explore')}>
-              <Box
-                className={`rounded-2xl p-4 border ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}
-              >
+              <Box className="rounded-2xl p-4 border bg-gray-50 border-gray-200">
                 <VStack className="gap-2">
                   <HStack className="items-center justify-between">
                     <Text className="text-lg font-semibold text-typography-900">
@@ -126,14 +121,9 @@ export default function HomeScreen() {
           </Text>
           <VStack className="gap-3">
             {PRACTICE_TIPS.map((tip, index) => (
-              <Box
-                key={tip}
-                className={`rounded-2xl p-4 border ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}
-              >
+              <Box key={tip} className="rounded-2xl p-4 border bg-gray-50 border-gray-200">
                 <HStack className="items-center gap-2">
-                  <Badge
-                    className={`rounded-full px-2.5 py-0.5 ${isDark ? 'bg-purple-800' : 'bg-purple-600'}`}
-                  >
+                  <Badge className="rounded-full px-2.5 py-0.5 bg-purple-600">
                     <BadgeText className="text-white font-bold">
                       {index + 1}
                     </BadgeText>

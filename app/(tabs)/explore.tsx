@@ -8,7 +8,6 @@ import { AnimatedHeader } from '@/components/common/AnimatedHeader';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
   Avatar,
   AvatarImage,
@@ -25,7 +24,6 @@ import {
 type CallStatus = 'idle' | 'connecting' | 'connected' | 'disconnected';
 
 export default function VoiceChatScreen() {
-  const colorScheme = useColorScheme();
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
   const vapiRef = useRef<Vapi | null>(null);
@@ -147,8 +145,8 @@ export default function VoiceChatScreen() {
         : 'Warm up with a guided conversation before heading out';
 
   return (
-    <Box flex={1} backgroundColor={colorScheme === 'dark' ? '$black' : '$white'}>
-      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+    <Box flex={1} backgroundColor="$white">
+      <StatusBar style="dark" />
       <Animated.View
         style={[
           {
@@ -217,11 +215,7 @@ export default function VoiceChatScreen() {
           </Box>
 
           <VStack alignItems="center" gap="$2">
-            <Text
-              fontSize={24}
-              fontWeight="$bold"
-              color={colorScheme === 'dark' ? '$white' : '$black'}
-            >
+            <Text fontSize={24} fontWeight="$bold" color="$black">
               Sarah
             </Text>
             <Text fontSize={16} color={getStatusColor()} fontWeight="$medium">
@@ -281,45 +275,21 @@ export default function VoiceChatScreen() {
 
           {callStatus === 'idle' && (
             <VStack alignItems="center" gap={12} marginTop={16}>
-              <Text
-                fontSize={18}
-                fontWeight="$semibold"
-                color={colorScheme === 'dark' ? '$white' : '$black'}
-                textAlign="center"
-              >
+              <Text fontSize={18} fontWeight="$semibold" color="$black" textAlign="center">
                 Practice Your Conversation Skills
               </Text>
-              <Text
-                fontSize={14}
-                color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
-                textAlign="center"
-                paddingHorizontal={16}
-              >
+              <Text fontSize={14} color="$gray600" textAlign="center" paddingHorizontal={16}>
                 Tap the call button to start a voice conversation with Sarah, your AI dating coach.
                 She&apos;ll help you practice and improve your social skills.
               </Text>
             </VStack>
           )}
 
-          <VStack
-            width="100%"
-            padding={20}
-            backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
-            borderRadius="$lg"
-            gap="$3"
-          >
-            <Text
-              fontSize={16}
-              fontWeight="$semibold"
-              color={colorScheme === 'dark' ? '$white' : '$black'}
-            >
+          <VStack width="100%" padding={20} backgroundColor="$gray50" borderRadius="$lg" gap="$3">
+            <Text fontSize={16} fontWeight="$semibold" color="$black">
               Tip of the Day
             </Text>
-            <Text
-              fontSize={14}
-              lineHeight={20}
-              color={colorScheme === 'dark' ? '$gray300' : '$gray700'}
-            >
+            <Text fontSize={14} lineHeight={20} color="$gray700">
               Focus on mirroring her pace and tone. When you sound relaxed, the conversation feels
               more natural and confident.
             </Text>

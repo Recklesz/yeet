@@ -12,8 +12,6 @@ import {
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
 export type CustomHeaderVariant = 'general' | 'search';
 
 type CustomHeaderProps = {
@@ -36,8 +34,7 @@ export function CustomHeader({
   onMicPress,
 }: CustomHeaderProps) {
   const insets = useSafeAreaInsets();
-  const colorScheme = useColorScheme();
-  const backgroundColor = colorScheme === 'dark' ? '#1E1743' : '#7C5CFF';
+  const backgroundColor = '#7C5CFF';
 
   return (
     <Box className="rounded-b-3xl" style={{ paddingTop: insets.top, backgroundColor }}>

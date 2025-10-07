@@ -23,12 +23,9 @@ import { PromptList } from '@/components/review/PromptList';
 import { ReviewHeader } from '@/components/review/ReviewHeader';
 import { mockReviewData } from '@/constants/review';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function ReviewScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
   const toast = useToast();
   const hasShownToast = useRef(false);
   const {
@@ -116,8 +113,8 @@ export default function ReviewScreen() {
   const headerSubtitle = `Practice with ${reviewData.avatarName} • ${formattedCompletedAt}`;
 
   return (
-    <Box className={cx('flex-1', isDark ? 'bg-black' : 'bg-white')}>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
+    <Box className={cx('flex-1', 'bg-white')}>
+      <StatusBar style='dark' />
 
       <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
         <AnimatedHeader
@@ -151,21 +148,21 @@ export default function ReviewScreen() {
 
           <MetricGrid metrics={reviewData.metrics} />
 
-          <Divider backgroundColor={isDark ? '$gray800' : '$gray200'} />
+          <Divider backgroundColor='$gray200' />
 
           {reviewData.transcriptSummary && (
             <VStack className="gap-3">
-              <Text className={cx('text-xl font-bold', isDark ? 'text-white' : 'text-black')}>
+              <Text className={cx('text-xl font-bold', 'text-black')}>
                 📝 Summary
               </Text>
               <Box
                 className={cx(
                   'rounded-2xl border p-4',
-                  isDark ? 'border-gray-800 bg-gray-950' : 'border-gray-200 bg-gray-50'
+                  'border-gray-200 bg-gray-50'
                 )}
               >
                 <Text
-                  className={cx('text-sm leading-5', isDark ? 'text-gray-300' : 'text-gray-700')}
+                  className={cx('text-sm leading-5', 'text-gray-700')}
                 >
                   {reviewData.transcriptSummary}
                 </Text>
@@ -175,7 +172,7 @@ export default function ReviewScreen() {
 
           <FeedbackAccordion opportunities={reviewData.opportunities} />
 
-          <Divider backgroundColor={isDark ? '$gray800' : '$gray200'} />
+          <Divider backgroundColor='$gray200' />
 
           <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
@@ -187,11 +184,11 @@ export default function ReviewScreen() {
             <Button
               className={cx(
                 'border bg-transparent',
-                isDark ? 'border-gray-700' : 'border-gray-300'
+                'border-gray-300'
               )}
               onPress={handleNewScenario}
             >
-              <ButtonText className={cx('font-bold', isDark ? 'text-white' : 'text-black')}>
+              <ButtonText className={cx('font-bold', 'text-black')}>
                 Pick New Scenario
               </ButtonText>
             </Button>

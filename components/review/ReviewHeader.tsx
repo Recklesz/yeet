@@ -9,7 +9,6 @@ import {
   Text,
   VStack,
 } from '@gluestack-ui/themed';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 interface ReviewHeaderProps {
   title: string;
@@ -28,8 +27,6 @@ export function ReviewHeader({
   overallScore,
   sentiment,
 }: ReviewHeaderProps) {
-  const colorScheme = useColorScheme();
-
   const getSentimentColor = () => {
     switch (sentiment) {
       case 'excellent':
@@ -84,11 +81,11 @@ export function ReviewHeader({
           <Text
             fontSize={18}
             fontWeight="$bold"
-            color={colorScheme === 'dark' ? '$white' : '$black'}
+            color='$black'
           >
             {title}
           </Text>
-          <Text fontSize={14} color={colorScheme === 'dark' ? '$gray400' : '$gray600'}>
+          <Text fontSize={14} color='$gray600'>
             with {avatarName} • {formatTime(completedAt)}
           </Text>
         </VStack>
@@ -96,7 +93,7 @@ export function ReviewHeader({
 
       {/* Overall Score Card */}
       <Box
-        backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
+        backgroundColor='$gray50'
         borderRadius="$lg"
         padding={16}
         borderWidth={1}
@@ -107,7 +104,7 @@ export function ReviewHeader({
             <Text
               fontSize={16}
               fontWeight="$semibold"
-              color={colorScheme === 'dark' ? '$white' : '$black'}
+              color='$black'
             >
               Overall Performance
             </Text>

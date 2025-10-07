@@ -1,6 +1,5 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { FeedbackItem } from '@/constants/review';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 
@@ -13,18 +12,13 @@ export function FeedbackAccordion({
   opportunities,
   title = '💡 Areas to Improve',
 }: FeedbackAccordionProps) {
-  const colorScheme = useColorScheme();
   const safeOpportunities = Array.isArray(opportunities) ? opportunities : [];
 
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
     const bgColor = isWin
-      ? colorScheme === 'dark'
-        ? '$green950'
-        : '$green50'
-      : colorScheme === 'dark'
-        ? '$amber950'
-        : '$amber50';
+      ? '$green50'
+      : '$amber50';
     const borderColor = isWin ? '$green500' : '$amber500';
 
     return (
@@ -43,13 +37,13 @@ export function FeedbackAccordion({
             <Text
               className={cx(
                 'text-base font-bold',
-                colorScheme === 'dark' ? 'text-white' : 'text-black'
+                'text-black'
               )}
             >
               {item.title}
             </Text>
             <Text
-              className={cx('text-sm', colorScheme === 'dark' ? 'text-gray-300' : 'text-gray-700')}
+              className={cx('text-sm', 'text-gray-700')}
             >
               {item.description}
             </Text>
@@ -62,7 +56,7 @@ export function FeedbackAccordion({
   return (
     <VStack className="gap-3">
       <Text
-        className={cx('text-xl font-bold', colorScheme === 'dark' ? 'text-white' : 'text-black')}
+        className={cx('text-xl font-bold', 'text-black')}
       >
         {title}
       </Text>
@@ -72,13 +66,13 @@ export function FeedbackAccordion({
       ) : (
         <Box
           className="rounded-2xl border p-4"
-          backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
-          borderColor={colorScheme === 'dark' ? '$gray800' : '$gray200'}
+          backgroundColor='$gray50'
+          borderColor='$gray200'
         >
           <Text
-            className={cx('text-sm', colorScheme === 'dark' ? 'text-gray-400' : 'text-gray-600')}
+            className={cx('text-sm', 'text-gray-600')}
           >
-            No coaching notes this time. We’ll surface opportunities to grow once we have them.
+            No coaching notes this time. We'll surface opportunities to grow once we have them.
           </Text>
         </Box>
       )}

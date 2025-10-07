@@ -24,16 +24,17 @@ This app is only going to be developed for iOS - iphones.
 
 ```
 /app
+  _layout.tsx (root layout + Gluestack provider)
   /(tabs)
-    index.tsx (default Expo home screen)
-    explore.tsx (default Expo explore screen)
-  _layout.tsx (root layout with Gluestack provider)
-  modal.tsx (example modal)
+    explore.tsx (VAPI voice chat UI)
+    index.tsx (placeholder home)
+  review.tsx (scenario feedback screen)
 /components
-  /ui (Gluestack UI components)
-  themed-text.tsx, themed-view.tsx (theme-aware components)
-/hooks
-  use-color-scheme.ts (theme hooks)
+  common/ (shared UI patterns)
+  review/ (feedback widgets)
+  ui/ (Gluestack primitives)
+/constants (scenarios, review config, VAPI keys)
+/hooks (theme + animated header helpers)
 ```
 
 ## Local Dev
