@@ -1,10 +1,10 @@
-import 'react-native-get-random-values';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import 'react-native-get-random-values';
 import 'react-native-reanimated';
-import '../global.css';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import '../global.css';
 
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 
@@ -19,6 +19,7 @@ export default function RootLayout() {
         <ThemeProvider value={DefaultTheme}>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="review" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
           </Stack>
           <StatusBar style="dark" />

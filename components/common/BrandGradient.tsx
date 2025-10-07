@@ -1,5 +1,6 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import React from 'react';
+import { View } from 'react-native';
 
 const DEFAULT_COLORS = [
   'rgb(var(--gradient-brand-from) / 1)',
@@ -14,18 +15,35 @@ export type BrandGradientProps = Omit<LinearGradientProps, 'colors' | 'start' | 
   colors?: LinearGradientProps['colors'];
   start?: LinearGradientProps['start'];
   end?: LinearGradientProps['end'];
+  className?: string;
+  children?: React.ReactNode;
 };
 
 /**
- * Consistent brand gradient that reads the shared CSS variable tokens.
+ * Consistent brand gradient that supports Tailwind/NativeWind classes.
  *
- * Use Tailwind/NativeWind classes on the wrapper View to control layout and border radii.
+ * Use className for border radius, padding, and other styles.
  */
 export function BrandGradient({
   colors = DEFAULT_COLORS,
   start = DEFAULT_START,
   end = DEFAULT_END,
+  className,
+  children,
+  style,
   ...props
 }: BrandGradientProps) {
-  return <LinearGradient colors={colors} start={start} end={end} {...props} />;
+  return (
+    <View className={className} style={{ overflow: 'hidden' }}>
+      <LinearGradient
+        colors={colors}
+        start={start}
+        end={end}
+        style={[{ flex: 1 }, style]}
+        {...props}
+      >
+        {children}
+      </LinearGradient>
+    </View>
+  );
 }

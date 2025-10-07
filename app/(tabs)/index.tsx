@@ -73,13 +73,6 @@ export default function HomeScreen() {
       />
 
       <ScrollView contentContainerClassName="gap-8 px-5 pb-12" showsVerticalScrollIndicator={false}>
-        <VStack className="gap-2">
-          <Text className="text-base font-semibold text-typography-900">Continue practicing</Text>
-          <Text className="text-sm text-typography-500">
-            These scenarios match where you left off.
-          </Text>
-        </VStack>
-
         <VStack className="gap-3">
           {FEATURED_SCENARIOS.map(scenario => (
             <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/explore')}>

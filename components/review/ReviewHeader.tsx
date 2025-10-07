@@ -1,15 +1,16 @@
-import React from 'react';
 import {
   Avatar,
   AvatarImage,
   Badge,
   BadgeText,
-  Box,
   HStack,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
 import cx from 'clsx';
+import React from 'react';
+
+import { BrandGradient } from '@/components/common/BrandGradient';
 
 interface ReviewHeaderProps {
   title: string;
@@ -89,19 +90,23 @@ export function ReviewHeader({
       </HStack>
 
       {/* Overall Score Card */}
-      <Box className={cx('rounded-2xl border p-5', 'bg-gray-50', sentimentStyles.border)}>
+      <BrandGradient
+        colors={['#ec4899', '#ef4444', '#eab308']}
+        className="rounded-2xl"
+        style={{ padding: 20 }}
+      >
         <VStack className="gap-3">
-          <Text className={cx('text-base font-semibold', 'text-black')}>Overall Performance</Text>
+          <Text className={cx('text-base font-semibold', 'text-white')}>Overall Performance</Text>
           <HStack className="items-center justify-between">
             <Badge className={cx('rounded-lg', sentimentStyles.badge)}>
               <BadgeText className={cx('text-xs font-bold', 'text-white')}>
                 {getSentimentText()}
               </BadgeText>
             </Badge>
-            <Text className={cx('text-5xl font-bold', sentimentStyles.text)}>{overallScore}</Text>
+            <Text className={cx('text-5xl font-bold', 'text-white')}>{overallScore}</Text>
           </HStack>
         </VStack>
-      </Box>
+      </BrandGradient>
     </VStack>
   );
 }
