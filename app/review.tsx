@@ -9,7 +9,7 @@ import {
   useToast,
   VStack,
 } from '@gluestack-ui/themed';
-import clsx from 'clsx';
+import cx from 'clsx';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
@@ -116,7 +116,7 @@ export default function ReviewScreen() {
   const headerSubtitle = `Practice with ${reviewData.avatarName} • ${formattedCompletedAt}`;
 
   return (
-    <Box className={clsx('flex-1', isDark ? 'bg-black' : 'bg-white')}>
+    <Box className={cx('flex-1', isDark ? 'bg-black' : 'bg-white')}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
 
       <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
@@ -139,7 +139,7 @@ export default function ReviewScreen() {
         contentContainerClassName="pt-[320px] px-5 pb-12"
         showsVerticalScrollIndicator={false}
       >
-        <VStack space="lg">
+        <VStack className="gap-6">
           <ReviewHeader
             title={reviewData.title}
             avatarName={reviewData.avatarName}
@@ -154,18 +154,18 @@ export default function ReviewScreen() {
           <Divider backgroundColor={isDark ? '$gray800' : '$gray200'} />
 
           {reviewData.transcriptSummary && (
-            <VStack space="sm">
-              <Text className={clsx('text-xl font-bold', isDark ? 'text-white' : 'text-black')}>
+            <VStack className="gap-3">
+              <Text className={cx('text-xl font-bold', isDark ? 'text-white' : 'text-black')}>
                 📝 Summary
               </Text>
               <Box
-                className={clsx(
+                className={cx(
                   'rounded-2xl border p-4',
                   isDark ? 'border-gray-800 bg-gray-950' : 'border-gray-200 bg-gray-50'
                 )}
               >
                 <Text
-                  className={clsx('text-sm leading-5', isDark ? 'text-gray-300' : 'text-gray-700')}
+                  className={cx('text-sm leading-5', isDark ? 'text-gray-300' : 'text-gray-700')}
                 >
                   {reviewData.transcriptSummary}
                 </Text>
@@ -173,25 +173,25 @@ export default function ReviewScreen() {
             </VStack>
           )}
 
-          <FeedbackAccordion wins={reviewData.wins} opportunities={reviewData.opportunities} />
+          <FeedbackAccordion opportunities={reviewData.opportunities} />
 
           <Divider backgroundColor={isDark ? '$gray800' : '$gray200'} />
 
           <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
-          <VStack space="md" className="mt-4">
+          <VStack className="mt-4 gap-4">
             <Button className="bg-green-500" onPress={handleRetry}>
               <ButtonText className="font-bold text-white">Retry This Scenario</ButtonText>
             </Button>
 
             <Button
-              className={clsx(
+              className={cx(
                 'border bg-transparent',
                 isDark ? 'border-gray-700' : 'border-gray-300'
               )}
               onPress={handleNewScenario}
             >
-              <ButtonText className={clsx('font-bold', isDark ? 'text-white' : 'text-black')}>
+              <ButtonText className={cx('font-bold', isDark ? 'text-white' : 'text-black')}>
                 Pick New Scenario
               </ButtonText>
             </Button>

@@ -43,7 +43,7 @@ export function CustomHeader({
   return (
     <Box className="rounded-b-3xl" style={{ paddingTop: insets.top, backgroundColor }}>
       <Box className="px-5 pb-6 pt-10" style={{ backgroundColor }}>
-        <VStack space="sm">
+        <VStack space="2">
           <Text className="text-3xl font-bold text-white">{title}</Text>
           {subtitle ? <Text className="text-lg text-white/80">{subtitle}</Text> : null}
         </VStack>
@@ -56,7 +56,7 @@ export function CustomHeader({
         ) : null}
 
         {variant === 'search' ? (
-          <HStack space="sm" className="items-center mt-6">
+          <HStack space="2" className="items-center mt-6">
             <Input className="flex-1 bg-white/90 border-0 rounded-xl" size="lg">
               <InputSlot className="pl-3">
                 <Icon as={Feather} name="search" size="md" className="text-outline-200" />

@@ -76,14 +76,14 @@ export default function HomeScreen() {
       />
 
       <ScrollView contentContainerClassName="gap-8 px-5 pb-12" showsVerticalScrollIndicator={false}>
-        <VStack space="sm">
+        <VStack space="2">
           <Text className="text-base font-semibold text-typography-900">Continue practicing</Text>
           <Text className="text-sm text-typography-500">
             These scenarios match where you left off.
           </Text>
         </VStack>
 
-        <VStack space="md">
+        <VStack space="3">
           {FEATURED_SCENARIOS.map(scenario => (
             <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/explore')}>
               <Box
@@ -92,7 +92,7 @@ export default function HomeScreen() {
                 borderWidth={1}
                 borderColor={isDark ? '$gray800' : '$gray200'}
               >
-                <VStack space="sm">
+                <VStack space="2">
                   <HStack className="items-center justify-between">
                     <Text className="text-lg font-semibold text-typography-900">
                       {scenario.title}
@@ -126,11 +126,11 @@ export default function HomeScreen() {
           ))}
         </VStack>
 
-        <VStack space="sm">
+        <VStack space="2">
           <Text className="text-base font-semibold text-typography-900">
             Quick tips before you go out tonight
           </Text>
-          <VStack space="md">
+          <VStack space="3">
             {PRACTICE_TIPS.map((tip, index) => (
               <Box
                 key={tip}
@@ -139,7 +139,7 @@ export default function HomeScreen() {
                 borderWidth={1}
                 borderColor={isDark ? '$gray800' : '$gray200'}
               >
-                <HStack className="items-center" space="sm">
+                <HStack className="items-center" space="2">
                   <Badge
                     bg={isDark ? '$purple800' : '$purple600'}
                     borderRadius="$full"
