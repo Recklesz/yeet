@@ -28,10 +28,8 @@ export function FeedbackAccordion({
           </Box>
 
           <VStack className="flex-1 gap-1.5">
-            <Text className={cx('text-base font-bold', 'text-black')}>{item.title}</Text>
-            <Text className={cx('text-sm leading-relaxed', 'text-gray-700')}>
-              {item.description}
-            </Text>
+            <Text className="text-base font-bold text-gray-900">{item.title}</Text>
+            <Text className="text-sm leading-relaxed text-gray-700">{item.description}</Text>
           </VStack>
         </HStack>
       </Box>

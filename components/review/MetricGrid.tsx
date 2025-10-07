@@ -42,16 +42,14 @@ export function MetricGrid({ metrics }: MetricGridProps) {
                 'border-gray-200 bg-gray-50'
               )}
             >
-              <VStack className="mb-2 gap-2">
-                <Text className={cx('text-2xl font-bold', getScoreColor(metric.score))}>
+              <VStack className="mb-3 items-center gap-2">
+                <Text className={cx('text-3xl font-bold', getScoreColor(metric.score))}>
                   {metric.score}
                 </Text>
-                <HStack className="items-center gap-2">
-                  <IconSymbol name={metric.icon as any} size={16} color="#64748b" />
-                  <Text className={cx('text-sm font-semibold', 'text-black')}>
-                    {metric.label}
-                  </Text>
-                </HStack>
+                <VStack className="items-center gap-1">
+                  <IconSymbol name={metric.icon as any} size={20} color="#64748b" />
+                  <Text className={cx('text-sm font-semibold', 'text-black')}>{metric.label}</Text>
+                </VStack>
               </VStack>
 
               {/* Progress Bar */}

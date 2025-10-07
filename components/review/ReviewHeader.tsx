@@ -91,9 +91,7 @@ export function ReviewHeader({
       {/* Overall Score Card */}
       <Box className={cx('rounded-2xl border p-5', 'bg-gray-50', sentimentStyles.border)}>
         <VStack className="gap-3">
-          <Text className={cx('text-base font-semibold', 'text-black')}>
-            Overall Performance
-          </Text>
+          <Text className={cx('text-base font-semibold', 'text-black')}>Overall Performance</Text>
           <HStack className="items-center justify-between">
             <Badge className={cx('rounded-lg', sentimentStyles.badge)}>
               <BadgeText className={cx('text-xs font-bold', 'text-white')}>
