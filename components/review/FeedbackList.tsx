@@ -22,13 +22,6 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
         ? '$amber950'
         : '$amber50';
     const borderColor = isWin ? '$green500' : '$amber500';
-    const iconColor = isWin
-      ? colorScheme === 'dark'
-        ? '#10B981'
-        : '#059669'
-      : colorScheme === 'dark'
-        ? '#F59E0B'
-        : '#D97706';
 
     return (
       <Box

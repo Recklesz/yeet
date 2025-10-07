@@ -2,6 +2,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { FeedbackItem } from '@/constants/review';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Box, ChevronDownIcon, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import clsx from 'clsx';
 import React from 'react';
 
 interface FeedbackAccordionProps {
@@ -41,12 +42,9 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
     return (
       <Box
         key={item.id}
+        className="mb-2 rounded-2xl border p-4"
         backgroundColor={bgColor}
-        borderRadius="$lg"
-        padding={16}
-        borderWidth={1}
         borderColor={borderColor}
-        marginBottom={8}
       >
         <HStack gap="$md" alignItems="flex-start">
           <Box backgroundColor={borderColor} borderRadius="$full" padding={8} marginTop={2}>
@@ -55,13 +53,19 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
 
           <VStack flex={1} gap="$xs">
             <Text
-              fontSize={16}
-              fontWeight="$bold"
-              color={colorScheme === 'dark' ? '$white' : '$black'}
+              className={clsx(
+                'text-base font-bold',
+                colorScheme === 'dark' ? 'text-white' : 'text-black'
+              )}
             >
               {item.title}
             </Text>
-            <Text fontSize={14} color={colorScheme === 'dark' ? '$gray300' : '$gray700'}>
+            <Text
+              className={clsx(
+                'text-sm',
+                colorScheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+              )}
+            >
               {item.description}
             </Text>
           </VStack>
@@ -70,10 +74,14 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
     );
   };
 
-  const renderSection = (section: SectionKey, title: string, items: FeedbackItem[]) => {
-    if (items.length === 0) return null;
-
-    const isOpen = openSections.includes(section);
+  const renderSection = (
+    section: SectionKey,
+    title: string,
+    items: FeedbackItem[],
+    emptyMessage: string
+  ) => {
+    const hasItems = items.length > 0;
+    const isOpen = hasItems ? openSections.includes(section) : true;
 
     return (
       <Box
@@ -84,11 +92,13 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
         borderColor={colorScheme === 'dark' ? '$gray800' : '$gray200'}
       >
         <Pressable
-          onPress={() => toggleSection(section)}
+          disabled={!hasItems}
+          onPress={hasItems ? () => toggleSection(section) : undefined}
           accessibilityRole="button"
-          accessibilityState={{ expanded: isOpen }}
+          accessibilityState={{ expanded: hasItems ? isOpen : undefined, disabled: !hasItems }}
           paddingHorizontal={16}
           paddingVertical={16}
+          className={clsx(!hasItems && 'opacity-60')}
         >
           <HStack alignItems="center" justifyContent="space-between">
             <Text
@@ -98,16 +108,24 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
             >
               {title}
             </Text>
-            <ChevronDownIcon
-              color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
-              style={{ transform: [{ rotate: isOpen ? '180deg' : '0deg' }] }}
-            />
+            {hasItems && (
+              <ChevronDownIcon
+                color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
+                style={{ transform: [{ rotate: isOpen ? '180deg' : '0deg' }] }}
+              />
+            )}
           </HStack>
         </Pressable>
 
-        {isOpen && (
+        {(isOpen || !hasItems) && (
           <VStack gap="$sm" paddingHorizontal={16} paddingBottom={16}>
-            {items.map(renderFeedbackItem)}
+            {hasItems ? (
+              items.map(renderFeedbackItem)
+            ) : (
+              <Text fontSize={14} color={colorScheme === 'dark' ? '$gray400' : '$gray600'}>
+                {emptyMessage}
+              </Text>
+            )}
           </VStack>
         )}
       </Box>
@@ -116,11 +134,17 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
 
   return (
     <VStack gap="$md">
-      {renderSection('wins', `🎉 What Went Well (${wins.length})`, wins)}
+      {renderSection(
+        'wins',
+        `🎉 What Went Well (${wins.length})`,
+        wins,
+        'No highlights captured yet. Keep practicing and we’ll celebrate the wins here.'
+      )}
       {renderSection(
         'opportunities',
         `💡 Areas to Improve (${opportunities.length})`,
-        opportunities
+        opportunities,
+        'No coaching notes this time. We’ll surface opportunities to grow once we have them.'
       )}
     </VStack>
   );

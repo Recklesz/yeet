@@ -2,9 +2,12 @@ import Vapi from '@vapi-ai/react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
+import Animated from 'react-native-reanimated';
 
+import { AnimatedHeader } from '@/components/common/AnimatedHeader';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
+import { useAnimatedHeader } from '@/hooks/use-animated-header';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
   Avatar,
@@ -12,7 +15,6 @@ import {
   Badge,
   BadgeText,
   Box,
-  Center,
   HStack,
   Pressable,
   Spinner,
@@ -27,6 +29,14 @@ export default function VoiceChatScreen() {
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
   const vapiRef = useRef<Vapi | null>(null);
+  const {
+    height: headerHeight,
+    headerStyle,
+    handleScroll,
+  } = useAnimatedHeader({
+    maxHeight: 260,
+    minHeight: 120,
+  });
 
   useEffect(() => {
     // Initialize VAPI client
@@ -121,15 +131,70 @@ export default function VoiceChatScreen() {
     }
   };
 
+  const handleHowItWorks = () => {
+    Alert.alert(
+      'How practice works',
+      'Start a live voice session with Sarah, your AI dating coach. She guides you through real-world scenarios and gives instant feedback when the call ends.'
+    );
+  };
+
+  const statusText = getStatusText();
+  const headerSubtitle =
+    callStatus === 'connected'
+      ? 'Live coaching session in progress'
+      : callStatus === 'connecting'
+        ? 'Connecting to your AI coach...'
+        : 'Warm up with a guided conversation before heading out';
+
   return (
     <Box flex={1} backgroundColor={colorScheme === 'dark' ? '$black' : '$white'}>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <Animated.View
+        style={[
+          {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 10,
+          },
+          headerStyle,
+        ]}
+      >
+        <AnimatedHeader
+          height={headerHeight}
+          maxHeight={260}
+          minHeight={120}
+          title="Practice with Sarah"
+          subtitle={headerSubtitle}
+          rightContent={
+            <VStack style={{ alignItems: 'flex-end' }}>
+              <Text color="$white" opacity={0.7} fontSize={12}>
+                Status
+              </Text>
+              <Text color="$white" fontSize={24} fontWeight="$bold">
+                {statusText === 'Ready to Chat' ? 'Ready' : statusText.replace('...', '')}
+              </Text>
+            </VStack>
+          }
+          topRightIcon="info"
+          onTopRightIconPress={handleHowItWorks}
+        />
+      </Animated.View>
 
-      <Center flex={1} paddingHorizontal={24}>
+      <Animated.ScrollView
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        contentContainerStyle={{
+          paddingTop: 260,
+          paddingHorizontal: 24,
+          paddingBottom: 56,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
         <VStack gap="$6" alignItems="center">
-          {/* Avatar */}
           <Box position="relative">
-            <Avatar>
+            <Avatar size="xl">
               <AvatarImage
                 source={{
                   uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
@@ -138,21 +203,19 @@ export default function VoiceChatScreen() {
               />
             </Avatar>
 
-            {/* Status indicator */}
             <Badge
               position="absolute"
-              top={-4}
-              right={-4}
+              top={-6}
+              right={-6}
               backgroundColor={getStatusColor()}
               borderRadius={999}
             >
               <BadgeText color="$white" fontSize={10}>
-                {callStatus === 'connecting' ? '•' : callStatus === 'connected' ? '•' : ''}
+                {callStatus === 'connecting' || callStatus === 'connected' ? '•' : ''}
               </BadgeText>
             </Badge>
           </Box>
 
-          {/* Avatar Name & Status */}
           <VStack alignItems="center" gap="$2">
             <Text
               fontSize={24}
@@ -162,12 +225,11 @@ export default function VoiceChatScreen() {
               Sarah
             </Text>
             <Text fontSize={16} color={getStatusColor()} fontWeight="$medium">
-              {getStatusText()}
+              {statusText}
             </Text>
           </VStack>
 
-          {/* Control Buttons */}
-          <HStack gap={24} marginTop={32}>
+          <HStack gap={24} marginTop={16}>
             {callStatus === 'idle' && (
               <Pressable
                 onPress={startVoiceChat}
@@ -217,9 +279,8 @@ export default function VoiceChatScreen() {
             )}
           </HStack>
 
-          {/* Instructions */}
           {callStatus === 'idle' && (
-            <VStack alignItems="center" gap={12} marginTop={24}>
+            <VStack alignItems="center" gap={12} marginTop={16}>
               <Text
                 fontSize={18}
                 fontWeight="$semibold"
@@ -239,8 +300,32 @@ export default function VoiceChatScreen() {
               </Text>
             </VStack>
           )}
+
+          <VStack
+            width="100%"
+            padding={20}
+            backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
+            borderRadius="$lg"
+            gap="$3"
+          >
+            <Text
+              fontSize={16}
+              fontWeight="$semibold"
+              color={colorScheme === 'dark' ? '$white' : '$black'}
+            >
+              Tip of the Day
+            </Text>
+            <Text
+              fontSize={14}
+              lineHeight={20}
+              color={colorScheme === 'dark' ? '$gray300' : '$gray700'}
+            >
+              Focus on mirroring her pace and tone. When you sound relaxed, the conversation feels
+              more natural and confident.
+            </Text>
+          </VStack>
         </VStack>
-      </Center>
+      </Animated.ScrollView>
     </Box>
   );
 }
