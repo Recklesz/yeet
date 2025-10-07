@@ -13,7 +13,9 @@
       "WebFetch(domain:expo.dev)",
       "Bash(npm --version)",
       "Bash(nvm install:*)",
-      "Bash(echo $SHELL)"
+      "Bash(echo $SHELL)",
+      "Bash(git add:*)",
+      "Bash(git revert:*)"
     ],
     "deny": [],
     "ask": []
