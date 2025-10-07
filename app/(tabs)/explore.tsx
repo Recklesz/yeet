@@ -1,4 +1,5 @@
 import Vapi from '@vapi-ai/react-native';
+import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
@@ -15,6 +16,8 @@ import {
   Badge,
   BadgeText,
   Box,
+  Button,
+  ButtonText,
   HStack,
   Pressable,
   Spinner,
@@ -25,6 +28,7 @@ import {
 type CallStatus = 'idle' | 'connecting' | 'connected' | 'disconnected';
 
 export default function VoiceChatScreen() {
+  const router = useRouter();
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
   const vapiRef = useRef<Vapi | null>(null);
@@ -296,6 +300,15 @@ export default function VoiceChatScreen() {
                 more natural and confident.
               </Text>
             </VStack>
+
+            <Button
+              className="rounded-2xl bg-blue-600 py-3"
+              onPress={() => router.push('/review')}
+            >
+              <ButtonText className="text-sm font-semibold text-white">
+                View Sample Review (Dev)
+              </ButtonText>
+            </Button>
           </VStack>
         </Animated.ScrollView>
       </Box>

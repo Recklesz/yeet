@@ -169,16 +169,21 @@ export default function ReviewScreen() {
 
             <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
-            <VStack className="mt-6 gap-4">
-              <Button className="bg-[#00D9FF]" onPress={handleRetry}>
-                <ButtonText className="font-bold text-white">Retry This Scenario</ButtonText>
+            <VStack className="mt-6 gap-3">
+              <Button
+                className="rounded-2xl bg-primary-900 py-4 px-5 shadow-md justify-center"
+                onPress={handleRetry}
+              >
+                <ButtonText className="w-full text-center text-base font-semibold text-typography-white">
+                  Retry This Scenario
+                </ButtonText>
               </Button>
 
               <Button
-                className={cx('border bg-transparent', 'border-gray-300')}
+                className="rounded-2xl border-2 border-primary-400 bg-white justify-center"
                 onPress={handleNewScenario}
               >
-                <ButtonText className={cx('font-bold', 'text-[#0A1628]')}>
+                <ButtonText className="w-full text-center text-base font-semibold py-4 text-primary-400">
                   Pick New Scenario
                 </ButtonText>
               </Button>
