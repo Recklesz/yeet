@@ -15,7 +15,17 @@
       "Bash(nvm install:*)",
       "Bash(echo $SHELL)",
       "Bash(git add:*)",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gluestack-example-screens-storybook.vercel.app)",
+      "Read(//private/tmp/gluestack-example-screens/**)",
+      "Read(//tmp/gluestack-example-screens/example/storybook/src/example-screens/cards/**)",
+      "Read(//tmp/gluestack-example-screens/example/storybook/src/example-screens/dashboard/**)",
+      "WebFetch(domain:ui-pro.gluestack.io)",
+      "Read(//private/tmp/ui-examples/**)",
+      "Read(//tmp/ui-examples/**)",
+      "Read(//private/tmp/**)",
+      "Read(//tmp/gluestack-ui-starter-kits/**)"
     ],
     "deny": [],
     "ask": []
