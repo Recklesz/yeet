@@ -1,6 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { Metric } from '@/constants/review';
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
+import { Box, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 import React from 'react';
 

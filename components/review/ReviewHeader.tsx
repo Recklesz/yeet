@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  AvatarImage,
-  Badge,
-  BadgeText,
-  HStack,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
+import { Avatar, AvatarImage, Badge, BadgeText, HStack, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 import React from 'react';
 

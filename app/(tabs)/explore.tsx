@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
@@ -145,157 +146,159 @@ export default function VoiceChatScreen() {
         : 'Warm up with a guided conversation before heading out';
 
   return (
-    <Box flex={1} backgroundColor="$white">
-      <StatusBar style="dark" />
-      <Animated.View
-        style={[
-          {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 10,
-          },
-          headerStyle,
-        ]}
-      >
-        <AnimatedHeader
-          height={headerHeight}
-          maxHeight={260}
-          minHeight={120}
-          title="Practice with Sarah"
-          subtitle={headerSubtitle}
-          rightContent={
-            <VStack style={{ alignItems: 'flex-end' }}>
-              <Text color="$white" opacity={0.7} fontSize={12}>
-                Status
+    <SafeAreaScreen style={{ backgroundColor: '#ffffff' }}>
+      <Box flex={1}>
+        <StatusBar style="dark" />
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 10,
+            },
+            headerStyle,
+          ]}
+        >
+          <AnimatedHeader
+            height={headerHeight}
+            maxHeight={260}
+            minHeight={120}
+            title="Practice with Sarah"
+            subtitle={headerSubtitle}
+            rightContent={
+              <VStack style={{ alignItems: 'flex-end' }}>
+                <Text color="$white" opacity={0.7} fontSize={12}>
+                  Status
+                </Text>
+                <Text color="$white" fontSize={24} fontWeight="$bold">
+                  {statusText === 'Ready to Chat' ? 'Ready' : statusText.replace('...', '')}
+                </Text>
+              </VStack>
+            }
+            topRightIcon="info"
+            onTopRightIconPress={handleHowItWorks}
+          />
+        </Animated.View>
+
+        <Animated.ScrollView
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+          contentContainerStyle={{
+            paddingTop: 260,
+            paddingHorizontal: 24,
+            paddingBottom: 56,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <VStack gap="$6" alignItems="center">
+            <Box position="relative">
+              <Avatar className="w-24 h-24">
+                <AvatarImage
+                  source={{
+                    uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
+                  }}
+                  alt="Sarah - Dating Coach"
+                />
+              </Avatar>
+
+              <Badge
+                position="absolute"
+                top={-6}
+                right={-6}
+                backgroundColor={getStatusColor()}
+                borderRadius={999}
+              >
+                <BadgeText color="$white" fontSize={10}>
+                  {callStatus === 'connecting' || callStatus === 'connected' ? '•' : ''}
+                </BadgeText>
+              </Badge>
+            </Box>
+
+            <VStack alignItems="center" gap="$2">
+              <Text fontSize={24} fontWeight="$bold" color="$black">
+                Sarah
               </Text>
-              <Text color="$white" fontSize={24} fontWeight="$bold">
-                {statusText === 'Ready to Chat' ? 'Ready' : statusText.replace('...', '')}
+              <Text fontSize={16} color={getStatusColor()} fontWeight="$medium">
+                {statusText}
               </Text>
             </VStack>
-          }
-          topRightIcon="info"
-          onTopRightIconPress={handleHowItWorks}
-        />
-      </Animated.View>
 
-      <Animated.ScrollView
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        contentContainerStyle={{
-          paddingTop: 260,
-          paddingHorizontal: 24,
-          paddingBottom: 56,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <VStack gap="$6" alignItems="center">
-          <Box position="relative">
-            <Avatar className="w-24 h-24">
-              <AvatarImage
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
-                }}
-                alt="Sarah - Dating Coach"
-              />
-            </Avatar>
-
-            <Badge
-              position="absolute"
-              top={-6}
-              right={-6}
-              backgroundColor={getStatusColor()}
-              borderRadius={999}
-            >
-              <BadgeText color="$white" fontSize={10}>
-                {callStatus === 'connecting' || callStatus === 'connected' ? '•' : ''}
-              </BadgeText>
-            </Badge>
-          </Box>
-
-          <VStack alignItems="center" gap="$2">
-            <Text fontSize={24} fontWeight="$bold" color="$black">
-              Sarah
-            </Text>
-            <Text fontSize={16} color={getStatusColor()} fontWeight="$medium">
-              {statusText}
-            </Text>
-          </VStack>
-
-          <HStack gap={24} marginTop={16}>
-            {callStatus === 'idle' && (
-              <Pressable
-                onPress={startVoiceChat}
-                backgroundColor="$green500"
-                borderRadius="$full"
-                padding={20}
-                shadowColor="$black"
-                shadowOffset={{ width: 0, height: 2 }}
-                shadowOpacity={0.25}
-                shadowRadius={3.84}
-                elevation={5}
-              >
-                <IconSymbol name="phone.fill" size={32} color="white" />
-              </Pressable>
-            )}
-
-            {callStatus === 'connecting' && (
-              <Box backgroundColor="$amber500" borderRadius="$full" padding={20}>
-                <Spinner color="white" size="large" />
-              </Box>
-            )}
-
-            {callStatus === 'connected' && (
-              <>
+            <HStack gap={24} marginTop={16}>
+              {callStatus === 'idle' && (
                 <Pressable
-                  onPress={toggleMute}
-                  backgroundColor={isMuted ? '$red500' : '$gray500'}
-                  borderRadius="$full"
-                  padding={16}
-                >
-                  <IconSymbol
-                    name={isMuted ? 'mic.slash.fill' : 'mic.fill'}
-                    size={24}
-                    color="white"
-                  />
-                </Pressable>
-
-                <Pressable
-                  onPress={endVoiceChat}
-                  backgroundColor="$red500"
+                  onPress={startVoiceChat}
+                  backgroundColor="$green500"
                   borderRadius="$full"
                   padding={20}
+                  shadowColor="$black"
+                  shadowOffset={{ width: 0, height: 2 }}
+                  shadowOpacity={0.25}
+                  shadowRadius={3.84}
+                  elevation={5}
                 >
-                  <IconSymbol name="phone.down.fill" size={32} color="white" />
+                  <IconSymbol name="phone.fill" size={32} color="white" />
                 </Pressable>
-              </>
-            )}
-          </HStack>
+              )}
 
-          {callStatus === 'idle' && (
-            <VStack alignItems="center" gap={12} marginTop={16}>
-              <Text fontSize={18} fontWeight="$semibold" color="$black" textAlign="center">
-                Practice Your Conversation Skills
+              {callStatus === 'connecting' && (
+                <Box backgroundColor="$amber500" borderRadius="$full" padding={20}>
+                  <Spinner color="white" size="large" />
+                </Box>
+              )}
+
+              {callStatus === 'connected' && (
+                <>
+                  <Pressable
+                    onPress={toggleMute}
+                    backgroundColor={isMuted ? '$red500' : '$gray500'}
+                    borderRadius="$full"
+                    padding={16}
+                  >
+                    <IconSymbol
+                      name={isMuted ? 'mic.slash.fill' : 'mic.fill'}
+                      size={24}
+                      color="white"
+                    />
+                  </Pressable>
+
+                  <Pressable
+                    onPress={endVoiceChat}
+                    backgroundColor="$red500"
+                    borderRadius="$full"
+                    padding={20}
+                  >
+                    <IconSymbol name="phone.down.fill" size={32} color="white" />
+                  </Pressable>
+                </>
+              )}
+            </HStack>
+
+            {callStatus === 'idle' && (
+              <VStack alignItems="center" gap={12} marginTop={16}>
+                <Text fontSize={18} fontWeight="$semibold" color="$black" textAlign="center">
+                  Practice Your Conversation Skills
+                </Text>
+                <Text fontSize={14} color="$gray600" textAlign="center" paddingHorizontal={16}>
+                  Tap the call button to start a voice conversation with Sarah, your AI dating
+                  coach. She&apos;ll help you practice and improve your social skills.
+                </Text>
+              </VStack>
+            )}
+
+            <VStack width="100%" padding={20} backgroundColor="$gray50" borderRadius="$lg" gap="$3">
+              <Text fontSize={16} fontWeight="$semibold" color="$black">
+                Tip of the Day
               </Text>
-              <Text fontSize={14} color="$gray600" textAlign="center" paddingHorizontal={16}>
-                Tap the call button to start a voice conversation with Sarah, your AI dating coach.
-                She&apos;ll help you practice and improve your social skills.
+              <Text fontSize={14} lineHeight={20} color="$gray700">
+                Focus on mirroring her pace and tone. When you sound relaxed, the conversation feels
+                more natural and confident.
               </Text>
             </VStack>
-          )}
-
-          <VStack width="100%" padding={20} backgroundColor="$gray50" borderRadius="$lg" gap="$3">
-            <Text fontSize={16} fontWeight="$semibold" color="$black">
-              Tip of the Day
-            </Text>
-            <Text fontSize={14} lineHeight={20} color="$gray700">
-              Focus on mirroring her pace and tone. When you sound relaxed, the conversation feels
-              more natural and confident.
-            </Text>
           </VStack>
-        </VStack>
-      </Animated.ScrollView>
-    </Box>
+        </Animated.ScrollView>
+      </Box>
+    </SafeAreaScreen>
   );
 }

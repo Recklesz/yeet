@@ -17,6 +17,7 @@ import { Alert } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
@@ -113,76 +114,78 @@ export default function ReviewScreen() {
   const headerSubtitle = `Practice with ${reviewData.avatarName} • ${formattedCompletedAt}`;
 
   return (
-    <Box className={cx('flex-1', 'bg-white')}>
-      <StatusBar style="dark" />
+    <SafeAreaScreen style={{ backgroundColor: '#ffffff' }}>
+      <Box className="flex-1">
+        <StatusBar style="dark" />
 
-      <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
-        <AnimatedHeader
-          height={headerHeight}
-          maxHeight={320}
-          minHeight={140}
-          title={reviewData.title}
-          subtitle={headerSubtitle}
-          rightContent={`${Math.round(reviewData.overallScore)}%`}
-          topRightIcon="share-2"
-          onTopRightIconPress={handleShare}
-        />
-      </Animated.View>
-
-      <Animated.ScrollView
-        className="flex-1"
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        contentContainerClassName="pt-[320px] px-5 pb-20"
-        showsVerticalScrollIndicator={false}
-      >
-        <VStack className="gap-6">
-          <ReviewHeader
+        <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
+          <AnimatedHeader
+            height={headerHeight}
+            maxHeight={320}
+            minHeight={140}
             title={reviewData.title}
-            avatarName={reviewData.avatarName}
-            avatarImage={reviewData.avatarImage}
-            completedAt={reviewData.completedAt}
-            overallScore={reviewData.overallScore}
-            sentiment={reviewData.sentiment}
+            subtitle={headerSubtitle}
+            rightContent={`${Math.round(reviewData.overallScore)}%`}
+            topRightIcon="share-2"
+            onTopRightIconPress={handleShare}
           />
+        </Animated.View>
 
-          <MetricGrid metrics={reviewData.metrics} />
+        <Animated.ScrollView
+          className="flex-1"
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+          contentContainerClassName="pt-[320px] px-5 pb-20"
+          showsVerticalScrollIndicator={false}
+        >
+          <VStack className="gap-6">
+            <ReviewHeader
+              title={reviewData.title}
+              avatarName={reviewData.avatarName}
+              avatarImage={reviewData.avatarImage}
+              completedAt={reviewData.completedAt}
+              overallScore={reviewData.overallScore}
+              sentiment={reviewData.sentiment}
+            />
 
-          <Divider backgroundColor="$gray200" />
+            <MetricGrid metrics={reviewData.metrics} />
 
-          {reviewData.transcriptSummary && (
-            <VStack className="gap-3">
-              <Text className={cx('text-xl font-bold', 'text-black')}>📝 Summary</Text>
-              <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
-                <Text className={cx('text-sm leading-5', 'text-gray-700')}>
-                  {reviewData.transcriptSummary}
-                </Text>
-              </Box>
+            <Divider backgroundColor="$gray200" />
+
+            {reviewData.transcriptSummary && (
+              <VStack className="gap-3">
+                <Text className={cx('text-xl font-bold', 'text-black')}>📝 Summary</Text>
+                <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
+                  <Text className={cx('text-sm leading-5', 'text-gray-700')}>
+                    {reviewData.transcriptSummary}
+                  </Text>
+                </Box>
+              </VStack>
+            )}
+
+            <FeedbackAccordion opportunities={reviewData.opportunities} />
+
+            <Divider backgroundColor="$gray200" />
+
+            <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
+
+            <VStack className="mt-6 gap-4">
+              <Button className="bg-[#00D9FF]" onPress={handleRetry}>
+                <ButtonText className="font-bold text-white">Retry This Scenario</ButtonText>
+              </Button>
+
+              <Button
+                className={cx('border bg-transparent', 'border-gray-300')}
+                onPress={handleNewScenario}
+              >
+                <ButtonText className={cx('font-bold', 'text-[#0A1628]')}>
+                  Pick New Scenario
+                </ButtonText>
+              </Button>
             </VStack>
-          )}
-
-          <FeedbackAccordion opportunities={reviewData.opportunities} />
-
-          <Divider backgroundColor="$gray200" />
-
-          <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
-
-          <VStack className="mt-6 gap-4">
-            <Button className="bg-[#00D9FF]" onPress={handleRetry}>
-              <ButtonText className="font-bold text-white">Retry This Scenario</ButtonText>
-            </Button>
-
-            <Button
-              className={cx('border bg-transparent', 'border-gray-300')}
-              onPress={handleNewScenario}
-            >
-              <ButtonText className={cx('font-bold', 'text-[#0A1628]')}>
-                Pick New Scenario
-              </ButtonText>
-            </Button>
           </VStack>
-        </VStack>
-      </Animated.ScrollView>
-    </Box>
+        </Animated.ScrollView>
+      </Box>
+    </SafeAreaScreen>
   );
 }

@@ -45,7 +45,7 @@ export function FeedbackAccordion({
       ) : (
         <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
           <Text className={cx('text-sm', 'text-gray-600')}>
-            No coaching notes this time. We'll surface opportunities to grow once we have them.
+            No coaching notes this time. We&apos;ll surface opportunities to grow once we have them.
           </Text>
         </Box>
       )}
