@@ -1,29 +1,31 @@
-import React from 'react';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionTrigger,
-  AccordionTitleText,
-  AccordionIcon,
-  AccordionContent,
-  Box,
-  HStack,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { FeedbackItem } from '@/constants/review';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { ChevronDownIcon } from '@gluestack-ui/themed';
+import { Box, ChevronDownIcon, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import React from 'react';
 
 interface FeedbackAccordionProps {
   wins: FeedbackItem[];
   opportunities: FeedbackItem[];
 }
 
+type SectionKey = 'wins' | 'opportunities';
+
 export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProps) {
   const colorScheme = useColorScheme();
+
+  const [openSections, setOpenSections] = React.useState<SectionKey[]>(() => {
+    const initial: SectionKey[] = [];
+    if (wins.length) initial.push('wins');
+    if (opportunities.length) initial.push('opportunities');
+    return initial;
+  });
+
+  const toggleSection = (section: SectionKey) => {
+    setOpenSections(prev =>
+      prev.includes(section) ? prev.filter(key => key !== section) : [...prev, section]
+    );
+  };
 
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
@@ -68,78 +70,58 @@ export function FeedbackAccordion({ wins, opportunities }: FeedbackAccordionProp
     );
   };
 
-  return (
-    <Accordion type="multiple" defaultValue={['wins', 'opportunities']} width="100%">
-      {/* Wins Section */}
-      {wins.length > 0 && (
-        <AccordionItem
-          value="wins"
-          backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
-          borderRadius="$lg"
-          marginBottom={12}
-          borderWidth={1}
-          borderColor={colorScheme === 'dark' ? '$gray800' : '$gray200'}
-        >
-          <AccordionHeader>
-            <AccordionTrigger paddingVertical={16} paddingHorizontal={16}>
-              {({ isExpanded }: { isExpanded: boolean }) => (
-                <>
-                  <AccordionTitleText
-                    fontSize={20}
-                    fontWeight="$bold"
-                    color={colorScheme === 'dark' ? '$white' : '$black'}
-                  >
-                    🎉 What Went Well ({wins.length})
-                  </AccordionTitleText>
-                  <AccordionIcon
-                    as={ChevronDownIcon}
-                    color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
-                    marginLeft={12}
-                  />
-                </>
-              )}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent paddingHorizontal={16} paddingBottom={16}>
-            <VStack gap="$sm">{wins.map(renderFeedbackItem)}</VStack>
-          </AccordionContent>
-        </AccordionItem>
-      )}
+  const renderSection = (section: SectionKey, title: string, items: FeedbackItem[]) => {
+    if (items.length === 0) return null;
 
-      {/* Opportunities Section */}
-      {opportunities.length > 0 && (
-        <AccordionItem
-          value="opportunities"
-          backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
-          borderRadius="$lg"
-          borderWidth={1}
-          borderColor={colorScheme === 'dark' ? '$gray800' : '$gray200'}
+    const isOpen = openSections.includes(section);
+
+    return (
+      <Box
+        key={section}
+        backgroundColor={colorScheme === 'dark' ? '$gray900' : '$gray50'}
+        borderRadius="$lg"
+        borderWidth={1}
+        borderColor={colorScheme === 'dark' ? '$gray800' : '$gray200'}
+      >
+        <Pressable
+          onPress={() => toggleSection(section)}
+          accessibilityRole="button"
+          accessibilityState={{ expanded: isOpen }}
+          paddingHorizontal={16}
+          paddingVertical={16}
         >
-          <AccordionHeader>
-            <AccordionTrigger paddingVertical={16} paddingHorizontal={16}>
-              {({ isExpanded }: { isExpanded: boolean }) => (
-                <>
-                  <AccordionTitleText
-                    fontSize={20}
-                    fontWeight="$bold"
-                    color={colorScheme === 'dark' ? '$white' : '$black'}
-                  >
-                    💡 Areas to Improve ({opportunities.length})
-                  </AccordionTitleText>
-                  <AccordionIcon
-                    as={ChevronDownIcon}
-                    color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
-                    marginLeft={12}
-                  />
-                </>
-              )}
-            </AccordionTrigger>
-          </AccordionHeader>
-          <AccordionContent paddingHorizontal={16} paddingBottom={16}>
-            <VStack gap="$sm">{opportunities.map(renderFeedbackItem)}</VStack>
-          </AccordionContent>
-        </AccordionItem>
+          <HStack alignItems="center" justifyContent="space-between">
+            <Text
+              fontSize={20}
+              fontWeight="$bold"
+              color={colorScheme === 'dark' ? '$white' : '$black'}
+            >
+              {title}
+            </Text>
+            <ChevronDownIcon
+              color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
+              style={{ transform: [{ rotate: isOpen ? '180deg' : '0deg' }] }}
+            />
+          </HStack>
+        </Pressable>
+
+        {isOpen && (
+          <VStack gap="$sm" paddingHorizontal={16} paddingBottom={16}>
+            {items.map(renderFeedbackItem)}
+          </VStack>
+        )}
+      </Box>
+    );
+  };
+
+  return (
+    <VStack gap="$md">
+      {renderSection('wins', `🎉 What Went Well (${wins.length})`, wins)}
+      {renderSection(
+        'opportunities',
+        `💡 Areas to Improve (${opportunities.length})`,
+        opportunities
       )}
-    </Accordion>
+    </VStack>
   );
 }
