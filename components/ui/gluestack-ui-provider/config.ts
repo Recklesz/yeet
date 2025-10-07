@@ -45,6 +45,11 @@ export const config = {
     '--color-tertiary-900': '230 21 61',
     '--color-tertiary-950': '204 18 54',
 
+    /* Gradient Tokens */
+    '--gradient-brand-from': '236 72 153',
+    '--gradient-brand-via': '239 68 68',
+    '--gradient-brand-to': '234 179 8',
+
     /* Error - Red */
     '--color-error-0': '255 244 241',
     '--color-error-50': '255 230 224',
@@ -197,6 +202,11 @@ export const config = {
     '--color-tertiary-800': '255 23 68',
     '--color-tertiary-900': '230 21 61',
     '--color-tertiary-950': '204 18 54',
+
+    /* Gradient Tokens (same as light) */
+    '--gradient-brand-from': '236 72 153',
+    '--gradient-brand-via': '239 68 68',
+    '--gradient-brand-to': '234 179 8',
 
     /* Error - Red (same as light) */
     '--color-error-0': '255 244 241',

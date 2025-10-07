@@ -16,24 +16,22 @@ export function FeedbackAccordion({
 
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
-    const bgColor = isWin ? '$green50' : '$amber50';
-    const borderColor = isWin ? '$green500' : '$amber500';
+    const styles = isWin
+      ? { bg: 'bg-green-50', border: 'border-green-500', icon: 'bg-green-500' }
+      : { bg: 'bg-amber-50', border: 'border-amber-500', icon: 'bg-amber-500' };
 
     return (
-      <Box
-        key={item.id}
-        className="rounded-2xl border p-4"
-        backgroundColor={bgColor}
-        borderColor={borderColor}
-      >
-        <HStack alignItems="flex-start" className="gap-3">
-          <Box backgroundColor={borderColor} borderRadius="$full" padding={8} marginTop={2}>
+      <Box key={item.id} className={cx('rounded-2xl border p-4', styles.bg, styles.border)}>
+        <HStack className="items-start gap-3">
+          <Box className={cx('mt-0.5 rounded-full p-2', styles.icon)}>
             <IconSymbol name={item.icon as any} size={16} color="white" />
           </Box>
 
-          <VStack flex={1} className="gap-1.5">
+          <VStack className="flex-1 gap-1.5">
             <Text className={cx('text-base font-bold', 'text-black')}>{item.title}</Text>
-            <Text className={cx('text-sm', 'text-gray-700')}>{item.description}</Text>
+            <Text className={cx('text-sm leading-relaxed', 'text-gray-700')}>
+              {item.description}
+            </Text>
           </VStack>
         </HStack>
       </Box>
@@ -47,7 +45,7 @@ export function FeedbackAccordion({
       {safeOpportunities.length > 0 ? (
         <VStack className="gap-3">{safeOpportunities.map(renderFeedbackItem)}</VStack>
       ) : (
-        <Box className="rounded-2xl border p-4" backgroundColor="$gray50" borderColor="$gray200">
+        <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
           <Text className={cx('text-sm', 'text-gray-600')}>
             No coaching notes this time. We'll surface opportunities to grow once we have them.
           </Text>

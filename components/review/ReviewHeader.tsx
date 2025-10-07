@@ -9,6 +9,7 @@ import {
   Text,
   VStack,
 } from '@gluestack-ui/themed';
+import cx from 'clsx';
 
 interface ReviewHeaderProps {
   title: string;
@@ -27,18 +28,18 @@ export function ReviewHeader({
   overallScore,
   sentiment,
 }: ReviewHeaderProps) {
-  const getSentimentColor = () => {
+  const getSentimentStyles = () => {
     switch (sentiment) {
       case 'excellent':
-        return '$green600';
+        return { border: 'border-green-600', badge: 'bg-green-600', text: 'text-green-600' };
       case 'great':
-        return '$green500';
+        return { border: 'border-green-500', badge: 'bg-green-500', text: 'text-green-500' };
       case 'good':
-        return '$blue500';
+        return { border: 'border-blue-500', badge: 'bg-blue-500', text: 'text-blue-500' };
       case 'needs-work':
-        return '$amber500';
+        return { border: 'border-amber-500', badge: 'bg-amber-500', text: 'text-amber-500' };
       default:
-        return '$gray500';
+        return { border: 'border-gray-500', badge: 'bg-gray-500', text: 'text-gray-500' };
     }
   };
 
@@ -69,48 +70,39 @@ export function ReviewHeader({
     return date.toLocaleDateString();
   };
 
+  const sentimentStyles = getSentimentStyles();
+
   return (
-    <VStack gap="$md" paddingBottom={24}>
-      {/* Avatar and Score Badge */}
-      <HStack gap="$md" alignItems="center">
-        <Avatar sx={{ width: 64, height: 64 }}>
+    <VStack className="gap-4 pb-6">
+      {/* Avatar and Info */}
+      <HStack className="items-center gap-4">
+        <Avatar className="h-16 w-16">
           <AvatarImage source={{ uri: avatarImage }} alt={avatarName} />
         </Avatar>
 
-        <VStack flex={1} gap="$xs">
-          <Text fontSize={18} fontWeight="$bold" color="$black">
-            {title}
-          </Text>
-          <Text fontSize={14} color="$gray600">
+        <VStack className="flex-1 gap-1">
+          <Text className={cx('text-lg font-bold', 'text-black')}>{title}</Text>
+          <Text className={cx('text-sm', 'text-gray-600')}>
             with {avatarName} • {formatTime(completedAt)}
           </Text>
         </VStack>
       </HStack>
 
       {/* Overall Score Card */}
-      <Box
-        backgroundColor="$gray50"
-        borderRadius="$lg"
-        padding={16}
-        borderWidth={1}
-        borderColor={getSentimentColor()}
-      >
-        <HStack justifyContent="space-between" alignItems="center">
-          <VStack gap="$xs">
-            <Text fontSize={16} fontWeight="$semibold" color="$black">
-              Overall Performance
-            </Text>
-            <Badge backgroundColor={getSentimentColor()} borderRadius="$md" alignSelf="flex-start">
-              <BadgeText color="$white" fontSize={12} fontWeight="$bold">
+      <Box className={cx('rounded-2xl border p-5', 'bg-gray-50', sentimentStyles.border)}>
+        <VStack className="gap-3">
+          <Text className={cx('text-base font-semibold', 'text-black')}>
+            Overall Performance
+          </Text>
+          <HStack className="items-center justify-between">
+            <Badge className={cx('rounded-lg', sentimentStyles.badge)}>
+              <BadgeText className={cx('text-xs font-bold', 'text-white')}>
                 {getSentimentText()}
               </BadgeText>
             </Badge>
-          </VStack>
-
-          <Text fontSize={48} fontWeight="$bold" color={getSentimentColor()}>
-            {overallScore}
-          </Text>
-        </HStack>
+            <Text className={cx('text-5xl font-bold', sentimentStyles.text)}>{overallScore}</Text>
+          </HStack>
+        </VStack>
       </Box>
     </VStack>
   );

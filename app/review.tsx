@@ -133,7 +133,7 @@ export default function ReviewScreen() {
         className="flex-1"
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        contentContainerClassName="pt-[320px] px-5 pb-12"
+        contentContainerClassName="pt-[320px] px-5 pb-20"
         showsVerticalScrollIndicator={false}
       >
         <VStack className="gap-6">
@@ -167,8 +167,8 @@ export default function ReviewScreen() {
 
           <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
-          <VStack className="mt-4 gap-4">
-            <Button className="bg-green-500" onPress={handleRetry}>
+          <VStack className="mt-6 gap-4">
+            <Button className="bg-[#00D9FF]" onPress={handleRetry}>
               <ButtonText className="font-bold text-white">Retry This Scenario</ButtonText>
             </Button>
 
@@ -176,7 +176,9 @@ export default function ReviewScreen() {
               className={cx('border bg-transparent', 'border-gray-300')}
               onPress={handleNewScenario}
             >
-              <ButtonText className={cx('font-bold', 'text-black')}>Pick New Scenario</ButtonText>
+              <ButtonText className={cx('font-bold', 'text-[#0A1628]')}>
+                Pick New Scenario
+              </ButtonText>
             </Button>
           </VStack>
         </VStack>
