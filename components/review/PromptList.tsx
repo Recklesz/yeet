@@ -11,7 +11,7 @@ interface PromptListProps {
 export function PromptList({ prompts, onPromptPress }: PromptListProps) {
   return (
     <VStack gap="$md">
-      <Text fontSize={20} fontWeight="$bold" color='$black'>
+      <Text fontSize={20} fontWeight="$bold" color="$black">
         🎯 Suggested Next Steps
       </Text>
 
@@ -19,31 +19,23 @@ export function PromptList({ prompts, onPromptPress }: PromptListProps) {
         {prompts.map(prompt => (
           <Pressable key={prompt.id} onPress={() => onPromptPress?.(prompt.scenarioId)}>
             <Box
-              backgroundColor='$gray50'
+              backgroundColor="$gray50"
               borderRadius="$lg"
               padding={16}
               borderWidth={1}
-              borderColor='$gray200'
+              borderColor="$gray200"
             >
               <HStack justifyContent="space-between" alignItems="center">
                 <VStack flex={1} gap="$xs">
-                  <Text
-                    fontSize={16}
-                    fontWeight="$semibold"
-                    color='$black'
-                  >
+                  <Text fontSize={16} fontWeight="$semibold" color="$black">
                     {prompt.title}
                   </Text>
-                  <Text fontSize={13} color='$gray600'>
+                  <Text fontSize={13} color="$gray600">
                     {prompt.description}
                   </Text>
                 </VStack>
 
-                <IconSymbol
-                  name="chevron.right"
-                  size={20}
-                  color='#6B7280'
-                />
+                <IconSymbol name="chevron.right" size={20} color="#6B7280" />
               </HStack>
             </Box>
           </Pressable>

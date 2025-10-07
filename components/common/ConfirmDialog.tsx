@@ -41,19 +41,15 @@ export function ConfirmDialog({
   return (
     <AlertDialog isOpen={isOpen} onClose={onClose}>
       <AlertDialogBackdrop />
-      <AlertDialogContent backgroundColor='$white'>
+      <AlertDialogContent backgroundColor="$white">
         <AlertDialogHeader borderBottomWidth={1} borderColor="$gray700">
-          <Heading
-            fontSize={18}
-            fontWeight="$bold"
-            color='$black'
-          >
+          <Heading fontSize={18} fontWeight="$bold" color="$black">
             {title}
           </Heading>
         </AlertDialogHeader>
 
         <AlertDialogBody paddingVertical={20}>
-          <Text fontSize={14} color='$gray600'>
+          <Text fontSize={14} color="$gray600">
             {message}
           </Text>
         </AlertDialogBody>
@@ -66,9 +62,7 @@ export function ConfirmDialog({
             onPress={onClose}
             sx={{ marginRight: 8 }}
           >
-            <ButtonText color='$black'>
-              {cancelText}
-            </ButtonText>
+            <ButtonText color="$black">{cancelText}</ButtonText>
           </Button>
 
           <Button backgroundColor={confirmButtonColor} onPress={handleConfirm}>

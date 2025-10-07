@@ -19,7 +19,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
 
   return (
     <VStack gap="$md">
-      <Text fontSize={20} fontWeight="$bold" color='$black'>
+      <Text fontSize={20} fontWeight="$bold" color="$black">
         Key Metrics
       </Text>
 
@@ -30,24 +30,16 @@ export function MetricGrid({ metrics }: MetricGridProps) {
           return (
             <Box
               key={metric.id}
-              backgroundColor='$gray50'
+              backgroundColor="$gray50"
               borderRadius="$lg"
               padding={16}
               borderWidth={1}
-              borderColor='$gray200'
+              borderColor="$gray200"
             >
               <HStack justifyContent="space-between" alignItems="center" marginBottom={8}>
                 <HStack gap="$sm" alignItems="center" flex={1}>
-                  <IconSymbol
-                    name={metric.icon as any}
-                    size={20}
-                    color='#6B7280'
-                  />
-                  <Text
-                    fontSize={16}
-                    fontWeight="$semibold"
-                    color='$black'
-                  >
+                  <IconSymbol name={metric.icon as any} size={20} color="#6B7280" />
+                  <Text fontSize={16} fontWeight="$semibold" color="$black">
                     {metric.label}
                   </Text>
                 </HStack>
@@ -59,7 +51,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
 
               {/* Progress Bar */}
               <Box
-                backgroundColor='$gray200'
+                backgroundColor="$gray200"
                 height={8}
                 borderRadius="$full"
                 overflow="hidden"
@@ -73,7 +65,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
                 />
               </Box>
 
-              <Text fontSize={13} color='$gray600'>
+              <Text fontSize={13} color="$gray600">
                 {metric.description}
               </Text>
             </Box>

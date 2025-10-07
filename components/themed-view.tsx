@@ -1,13 +1,10 @@
 import { View, type ViewProps } from 'react-native';
 
-import { useThemeColor } from '@/hooks/use-theme-color';
+// Default background color from Tailwind (white)
+const DEFAULT_BACKGROUND_COLOR = '#fff';
 
-export type ThemedViewProps = ViewProps & {
-  lightColor?: string;
-};
+export type ThemedViewProps = ViewProps;
 
-export function ThemedView({ style, lightColor, ...otherProps }: ThemedViewProps) {
-  const backgroundColor = useThemeColor({ light: lightColor }, 'background');
-
-  return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+export function ThemedView({ style, ...otherProps }: ThemedViewProps) {
+  return <View style={[{ backgroundColor: DEFAULT_BACKGROUND_COLOR }, style]} {...otherProps} />;
 }

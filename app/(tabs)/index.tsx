@@ -124,9 +124,7 @@ export default function HomeScreen() {
               <Box key={tip} className="rounded-2xl p-4 border bg-gray-50 border-gray-200">
                 <HStack className="items-center gap-2">
                   <Badge className="rounded-full px-2.5 py-0.5 bg-purple-600">
-                    <BadgeText className="text-white font-bold">
-                      {index + 1}
-                    </BadgeText>
+                    <BadgeText className="text-white font-bold">{index + 1}</BadgeText>
                   </Badge>
                   <Text className="flex-1 text-sm text-typography-600">{tip}</Text>
                 </HStack>

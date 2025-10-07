@@ -11,9 +11,7 @@ interface FeedbackListProps {
 export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
-    const bgColor = isWin
-      ? '$green50'
-      : '$amber50';
+    const bgColor = isWin ? '$green50' : '$amber50';
     const borderColor = isWin ? '$green500' : '$amber500';
 
     return (
@@ -31,14 +29,10 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
           </Box>
 
           <VStack flex={1} gap="$xs">
-            <Text
-              fontSize={16}
-              fontWeight="$bold"
-              color='$black'
-            >
+            <Text fontSize={16} fontWeight="$bold" color="$black">
               {item.title}
             </Text>
-            <Text fontSize={14} color='$gray700'>
+            <Text fontSize={14} color="$gray700">
               {item.description}
             </Text>
           </VStack>
@@ -52,11 +46,7 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
       {/* Wins Section */}
       {wins.length > 0 && (
         <VStack gap="$sm">
-          <Text
-            fontSize={20}
-            fontWeight="$bold"
-            color='$black'
-          >
+          <Text fontSize={20} fontWeight="$bold" color="$black">
             🎉 What Went Well
           </Text>
           <VStack gap="$sm">{wins.map(renderFeedbackItem)}</VStack>
@@ -66,11 +56,7 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
       {/* Opportunities Section */}
       {opportunities.length > 0 && (
         <VStack gap="$sm">
-          <Text
-            fontSize={20}
-            fontWeight="$bold"
-            color='$black'
-          >
+          <Text fontSize={20} fontWeight="$bold" color="$black">
             💡 Areas to Improve
           </Text>
           <VStack gap="$sm">{opportunities.map(renderFeedbackItem)}</VStack>

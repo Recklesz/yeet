@@ -78,14 +78,10 @@ export function ReviewHeader({
         </Avatar>
 
         <VStack flex={1} gap="$xs">
-          <Text
-            fontSize={18}
-            fontWeight="$bold"
-            color='$black'
-          >
+          <Text fontSize={18} fontWeight="$bold" color="$black">
             {title}
           </Text>
-          <Text fontSize={14} color='$gray600'>
+          <Text fontSize={14} color="$gray600">
             with {avatarName} • {formatTime(completedAt)}
           </Text>
         </VStack>
@@ -93,7 +89,7 @@ export function ReviewHeader({
 
       {/* Overall Score Card */}
       <Box
-        backgroundColor='$gray50'
+        backgroundColor="$gray50"
         borderRadius="$lg"
         padding={16}
         borderWidth={1}
@@ -101,11 +97,7 @@ export function ReviewHeader({
       >
         <HStack justifyContent="space-between" alignItems="center">
           <VStack gap="$xs">
-            <Text
-              fontSize={16}
-              fontWeight="$semibold"
-              color='$black'
-            >
+            <Text fontSize={16} fontWeight="$semibold" color="$black">
               Overall Performance
             </Text>
             <Badge backgroundColor={getSentimentColor()} borderRadius="$md" alignSelf="flex-start">

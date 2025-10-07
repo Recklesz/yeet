@@ -1,24 +1,17 @@
 import { StyleSheet, Text, type TextProps } from 'react-native';
 
-import { useThemeColor } from '@/hooks/use-theme-color';
+// Default text color from Tailwind (matches text-gray-900)
+const DEFAULT_TEXT_COLOR = '#11181C';
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
 };
 
-export function ThemedText({
-  style,
-  lightColor,
-  type = 'default',
-  ...rest
-}: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor }, 'text');
-
+export function ThemedText({ style, type = 'default', ...rest }: ThemedTextProps) {
   return (
     <Text
       style={[
-        { color },
+        { color: DEFAULT_TEXT_COLOR },
         type === 'default' ? styles.default : undefined,
         type === 'title' ? styles.title : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,

@@ -114,7 +114,7 @@ export default function ReviewScreen() {
 
   return (
     <Box className={cx('flex-1', 'bg-white')}>
-      <StatusBar style='dark' />
+      <StatusBar style="dark" />
 
       <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
         <AnimatedHeader
@@ -148,22 +148,13 @@ export default function ReviewScreen() {
 
           <MetricGrid metrics={reviewData.metrics} />
 
-          <Divider backgroundColor='$gray200' />
+          <Divider backgroundColor="$gray200" />
 
           {reviewData.transcriptSummary && (
             <VStack className="gap-3">
-              <Text className={cx('text-xl font-bold', 'text-black')}>
-                📝 Summary
-              </Text>
-              <Box
-                className={cx(
-                  'rounded-2xl border p-4',
-                  'border-gray-200 bg-gray-50'
-                )}
-              >
-                <Text
-                  className={cx('text-sm leading-5', 'text-gray-700')}
-                >
+              <Text className={cx('text-xl font-bold', 'text-black')}>📝 Summary</Text>
+              <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
+                <Text className={cx('text-sm leading-5', 'text-gray-700')}>
                   {reviewData.transcriptSummary}
                 </Text>
               </Box>
@@ -172,7 +163,7 @@ export default function ReviewScreen() {
 
           <FeedbackAccordion opportunities={reviewData.opportunities} />
 
-          <Divider backgroundColor='$gray200' />
+          <Divider backgroundColor="$gray200" />
 
           <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
@@ -182,15 +173,10 @@ export default function ReviewScreen() {
             </Button>
 
             <Button
-              className={cx(
-                'border bg-transparent',
-                'border-gray-300'
-              )}
+              className={cx('border bg-transparent', 'border-gray-300')}
               onPress={handleNewScenario}
             >
-              <ButtonText className={cx('font-bold', 'text-black')}>
-                Pick New Scenario
-              </ButtonText>
+              <ButtonText className={cx('font-bold', 'text-black')}>Pick New Scenario</ButtonText>
             </Button>
           </VStack>
         </VStack>

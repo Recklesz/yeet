@@ -16,9 +16,7 @@ export function FeedbackAccordion({
 
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
-    const bgColor = isWin
-      ? '$green50'
-      : '$amber50';
+    const bgColor = isWin ? '$green50' : '$amber50';
     const borderColor = isWin ? '$green500' : '$amber500';
 
     return (
@@ -34,19 +32,8 @@ export function FeedbackAccordion({
           </Box>
 
           <VStack flex={1} className="gap-1.5">
-            <Text
-              className={cx(
-                'text-base font-bold',
-                'text-black'
-              )}
-            >
-              {item.title}
-            </Text>
-            <Text
-              className={cx('text-sm', 'text-gray-700')}
-            >
-              {item.description}
-            </Text>
+            <Text className={cx('text-base font-bold', 'text-black')}>{item.title}</Text>
+            <Text className={cx('text-sm', 'text-gray-700')}>{item.description}</Text>
           </VStack>
         </HStack>
       </Box>
@@ -55,23 +42,13 @@ export function FeedbackAccordion({
 
   return (
     <VStack className="gap-3">
-      <Text
-        className={cx('text-xl font-bold', 'text-black')}
-      >
-        {title}
-      </Text>
+      <Text className={cx('text-xl font-bold', 'text-black')}>{title}</Text>
 
       {safeOpportunities.length > 0 ? (
         <VStack className="gap-3">{safeOpportunities.map(renderFeedbackItem)}</VStack>
       ) : (
-        <Box
-          className="rounded-2xl border p-4"
-          backgroundColor='$gray50'
-          borderColor='$gray200'
-        >
-          <Text
-            className={cx('text-sm', 'text-gray-600')}
-          >
+        <Box className="rounded-2xl border p-4" backgroundColor="$gray50" borderColor="$gray200">
+          <Text className={cx('text-sm', 'text-gray-600')}>
             No coaching notes this time. We'll surface opportunities to grow once we have them.
           </Text>
         </Box>
