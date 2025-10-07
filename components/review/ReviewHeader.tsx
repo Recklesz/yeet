@@ -1,5 +1,14 @@
 import React from 'react';
-import { Avatar, AvatarImage, Badge, BadgeText, Box, HStack, Text, VStack } from '@gluestack-ui/themed';
+import {
+  Avatar,
+  AvatarImage,
+  Badge,
+  BadgeText,
+  Box,
+  HStack,
+  Text,
+  VStack,
+} from '@gluestack-ui/themed';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 interface ReviewHeaderProps {
@@ -23,21 +32,31 @@ export function ReviewHeader({
 
   const getSentimentColor = () => {
     switch (sentiment) {
-      case 'excellent': return '$green600';
-      case 'great': return '$green500';
-      case 'good': return '$blue500';
-      case 'needs-work': return '$amber500';
-      default: return '$gray500';
+      case 'excellent':
+        return '$green600';
+      case 'great':
+        return '$green500';
+      case 'good':
+        return '$blue500';
+      case 'needs-work':
+        return '$amber500';
+      default:
+        return '$gray500';
     }
   };
 
   const getSentimentText = () => {
     switch (sentiment) {
-      case 'excellent': return 'Excellent!';
-      case 'great': return 'Great Effort!';
-      case 'good': return 'Good Work';
-      case 'needs-work': return 'Keep Practicing';
-      default: return 'Complete';
+      case 'excellent':
+        return 'Excellent!';
+      case 'great':
+        return 'Great Effort!';
+      case 'good':
+        return 'Good Work';
+      case 'needs-work':
+        return 'Keep Practicing';
+      default:
+        return 'Complete';
     }
   };
 
@@ -45,7 +64,7 @@ export function ReviewHeader({
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    
+
     if (diffMins < 1) return 'Just now';
     if (diffMins < 60) return `${diffMins}m ago`;
     const diffHours = Math.floor(diffMins / 60);
@@ -60,7 +79,7 @@ export function ReviewHeader({
         <Avatar sx={{ width: 64, height: 64 }}>
           <AvatarImage source={{ uri: avatarImage }} alt={avatarName} />
         </Avatar>
-        
+
         <VStack flex={1} gap="$xs">
           <Text
             fontSize={18}
@@ -69,10 +88,7 @@ export function ReviewHeader({
           >
             {title}
           </Text>
-          <Text
-            fontSize={14}
-            color={colorScheme === 'dark' ? '$gray400' : '$gray600'}
-          >
+          <Text fontSize={14} color={colorScheme === 'dark' ? '$gray400' : '$gray600'}>
             with {avatarName} • {formatTime(completedAt)}
           </Text>
         </VStack>
@@ -95,22 +111,14 @@ export function ReviewHeader({
             >
               Overall Performance
             </Text>
-            <Badge
-              backgroundColor={getSentimentColor()}
-              borderRadius="$md"
-              alignSelf="flex-start"
-            >
+            <Badge backgroundColor={getSentimentColor()} borderRadius="$md" alignSelf="flex-start">
               <BadgeText color="$white" fontSize={12} fontWeight="$bold">
                 {getSentimentText()}
               </BadgeText>
             </Badge>
           </VStack>
-          
-          <Text
-            fontSize={48}
-            fontWeight="$bold"
-            color={getSentimentColor()}
-          >
+
+          <Text fontSize={48} fontWeight="$bold" color={getSentimentColor()}>
             {overallScore}
           </Text>
         </HStack>

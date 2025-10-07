@@ -63,7 +63,10 @@ export default function VoiceChatScreen() {
 
   const startVoiceChat = async () => {
     if (!vapiRef.current) {
-      Alert.alert('Configuration Error', 'VAPI is not properly configured. Please add your API key to constants/vapi.ts');
+      Alert.alert(
+        'Configuration Error',
+        'VAPI is not properly configured. Please add your API key to constants/vapi.ts'
+      );
       return;
     }
 
@@ -94,19 +97,27 @@ export default function VoiceChatScreen() {
 
   const getStatusColor = () => {
     switch (callStatus) {
-      case 'connecting': return '$amber500';
-      case 'connected': return '$green500';
-      case 'disconnected': return '$red500';
-      default: return '$gray500';
+      case 'connecting':
+        return '$amber500';
+      case 'connected':
+        return '$green500';
+      case 'disconnected':
+        return '$red500';
+      default:
+        return '$gray500';
     }
   };
 
   const getStatusText = () => {
     switch (callStatus) {
-      case 'connecting': return 'Connecting...';
-      case 'connected': return 'Connected';
-      case 'disconnected': return 'Call Ended';
-      default: return 'Ready to Chat';
+      case 'connecting':
+        return 'Connecting...';
+      case 'connected':
+        return 'Connected';
+      case 'disconnected':
+        return 'Call Ended';
+      default:
+        return 'Ready to Chat';
     }
   };
 
@@ -121,7 +132,7 @@ export default function VoiceChatScreen() {
             <Avatar>
               <AvatarImage
                 source={{
-                  uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face'
+                  uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
                 }}
                 alt="Sarah - Dating Coach"
               />
@@ -150,11 +161,7 @@ export default function VoiceChatScreen() {
             >
               Sarah
             </Text>
-            <Text
-              fontSize={16}
-              color={getStatusColor()}
-              fontWeight="$medium"
-            >
+            <Text fontSize={16} color={getStatusColor()} fontWeight="$medium">
               {getStatusText()}
             </Text>
           </VStack>
@@ -178,11 +185,7 @@ export default function VoiceChatScreen() {
             )}
 
             {callStatus === 'connecting' && (
-              <Box
-                backgroundColor="$amber500"
-                borderRadius="$full"
-                padding={20}
-              >
+              <Box backgroundColor="$amber500" borderRadius="$full" padding={20}>
                 <Spinner color="white" size="large" />
               </Box>
             )}
@@ -231,7 +234,8 @@ export default function VoiceChatScreen() {
                 textAlign="center"
                 paddingHorizontal={16}
               >
-                Tap the call button to start a voice conversation with Sarah, your AI dating coach. She&apos;ll help you practice and improve your social skills.
+                Tap the call button to start a voice conversation with Sarah, your AI dating coach.
+                She&apos;ll help you practice and improve your social skills.
               </Text>
             </VStack>
           )}
