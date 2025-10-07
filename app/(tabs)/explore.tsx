@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   Avatar,
   AvatarImage,
@@ -23,6 +24,7 @@ import {
 type CallStatus = 'idle' | 'connecting' | 'connected' | 'disconnected';
 
 export default function VoiceChatScreen() {
+  const { user } = useAuth();
   const colorScheme = useColorScheme();
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
@@ -223,7 +225,7 @@ export default function VoiceChatScreen() {
                 color={colorScheme === 'dark' ? '$white' : '$black'}
                 textAlign="center"
               >
-                Practice Your Conversation Skills
+                Ready to practice, {user?.displayName?.split(' ')[0] || 'there'}?
               </Text>
               <Text
                 fontSize={14}
