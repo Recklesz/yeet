@@ -85,18 +85,18 @@ export function ReviewHeader({
       <BrandGradient
         colors={['#ec4899', '#ef4444', '#eab308']}
         className="rounded-2xl"
-        style={{ padding: 20 }}
+        style={{ padding: 24 }}
       >
-        <VStack className="gap-3">
+        <VStack className="gap-4 items-center">
           <Text className={cx('text-base font-semibold', 'text-white')}>Overall Performance</Text>
-          <HStack className="items-center justify-between">
+          <VStack className="items-center gap-3">
             <Badge className={cx('rounded-lg', sentimentStyles.badge)}>
               <BadgeText className={cx('text-xs font-bold', 'text-white')}>
                 {getSentimentText()}
               </BadgeText>
             </Badge>
-            <Text className={cx('text-5xl font-bold', 'text-white')}>{overallScore}</Text>
-          </HStack>
+            <Text className={cx('text-6xl font-bold', 'text-white')}>{overallScore}</Text>
+          </VStack>
         </VStack>
       </BrandGradient>
     </VStack>
