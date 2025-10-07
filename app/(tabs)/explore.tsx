@@ -194,7 +194,7 @@ export default function VoiceChatScreen() {
       >
         <VStack gap="$6" alignItems="center">
           <Box position="relative">
-            <Avatar size="xl">
+            <Avatar className="w-24 h-24">
               <AvatarImage
                 source={{
                   uri: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',

@@ -25,7 +25,8 @@
       "Read(//private/tmp/ui-examples/**)",
       "Read(//tmp/ui-examples/**)",
       "Read(//private/tmp/**)",
-      "Read(//tmp/gluestack-ui-starter-kits/**)"
+      "Read(//tmp/gluestack-ui-starter-kits/**)",
+      "Bash(npm run typecheck:*)"
     ],
     "deny": [],
     "ask": []

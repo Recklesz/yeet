@@ -2,7 +2,6 @@ import { Feather } from '@expo/vector-icons';
 import {
   Box,
   HStack,
-  Icon,
   Input,
   InputField,
   InputSlot,
@@ -43,7 +42,7 @@ export function CustomHeader({
   return (
     <Box className="rounded-b-3xl" style={{ paddingTop: insets.top, backgroundColor }}>
       <Box className="px-5 pb-6 pt-10" style={{ backgroundColor }}>
-        <VStack space="2">
+        <VStack className="gap-2">
           <Text className="text-3xl font-bold text-white">{title}</Text>
           {subtitle ? <Text className="text-lg text-white/80">{subtitle}</Text> : null}
         </VStack>
@@ -56,10 +55,10 @@ export function CustomHeader({
         ) : null}
 
         {variant === 'search' ? (
-          <HStack space="2" className="items-center mt-6">
-            <Input className="flex-1 bg-white/90 border-0 rounded-xl" size="lg">
+          <HStack className="items-center gap-2 mt-6">
+            <Input className="flex-1 bg-white/90 border-0 rounded-xl h-12">
               <InputSlot className="pl-3">
-                <Icon as={Feather} name="search" size="md" className="text-outline-200" />
+                <Feather name="search" size={20} color="#9CA3AF" />
               </InputSlot>
               <InputField
                 placeholder={searchPlaceholder}
@@ -69,7 +68,7 @@ export function CustomHeader({
 
             {onMicPress ? (
               <Pressable className="bg-white/90 rounded-xl p-3" onPress={onMicPress}>
-                <Icon as={Feather} name="mic" size="lg" className="text-outline-200" />
+                <Feather name="mic" size={24} color="#9CA3AF" />
               </Pressable>
             ) : null}
           </HStack>

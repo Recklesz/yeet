@@ -1,5 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { Box, HStack, Icon, Pressable, VStack } from '@gluestack-ui/themed';
+import { Box, HStack, Pressable, VStack } from '@gluestack-ui/themed';
 import React, { ReactNode } from 'react';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -153,7 +153,7 @@ export function AnimatedHeader({
           {topRightIcon ? (
             <Animated.View style={topRightIconStyle}>
               <Pressable onPress={onTopRightIconPress}>
-                <Icon as={Feather} name={topRightIcon} size="xl" color="white" />
+                <Feather name={topRightIcon} size={28} color="white" />
               </Pressable>
             </Animated.View>
           ) : null}

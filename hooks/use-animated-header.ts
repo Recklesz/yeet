@@ -5,6 +5,7 @@ import {
   interpolate,
   runOnJS,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
 
@@ -99,9 +100,7 @@ export function useAnimatedHeader(options: UseAnimatedHeaderOptions = {}) {
   /**
    * Check if header is currently collapsed
    */
-  const isCollapsed = useAnimatedStyle(() => ({
-    value: animatedHeight.value <= minHeight + 10,
-  }));
+  const isCollapsed = useDerivedValue(() => animatedHeight.value <= minHeight + 10);
 
   return {
     /**

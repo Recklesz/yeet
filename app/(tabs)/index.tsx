@@ -76,40 +76,34 @@ export default function HomeScreen() {
       />
 
       <ScrollView contentContainerClassName="gap-8 px-5 pb-12" showsVerticalScrollIndicator={false}>
-        <VStack space="2">
+        <VStack className="gap-2">
           <Text className="text-base font-semibold text-typography-900">Continue practicing</Text>
           <Text className="text-sm text-typography-500">
             These scenarios match where you left off.
           </Text>
         </VStack>
 
-        <VStack space="3">
+        <VStack className="gap-3">
           {FEATURED_SCENARIOS.map(scenario => (
             <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/explore')}>
               <Box
-                className="rounded-2xl p-4"
-                bg={isDark ? '$gray900' : '$gray50'}
-                borderWidth={1}
-                borderColor={isDark ? '$gray800' : '$gray200'}
+                className={`rounded-2xl p-4 border ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}
               >
-                <VStack space="2">
+                <VStack className="gap-2">
                   <HStack className="items-center justify-between">
                     <Text className="text-lg font-semibold text-typography-900">
                       {scenario.title}
                     </Text>
                     <Badge
-                      bg={
+                      className={`rounded-md px-2 py-0.5 ${
                         scenario.difficulty === 'Easy'
-                          ? '$green500'
+                          ? 'bg-green-500'
                           : scenario.difficulty === 'Medium'
-                            ? '$amber500'
-                            : '$red500'
-                      }
-                      borderRadius="$md"
-                      px={8}
-                      py={2}
+                            ? 'bg-amber-500'
+                            : 'bg-red-500'
+                      }`}
                     >
-                      <BadgeText color="$white" fontSize={12} fontWeight="$semibold">
+                      <BadgeText className="text-white text-xs font-semibold">
                         {scenario.difficulty}
                       </BadgeText>
                     </Badge>
@@ -126,27 +120,21 @@ export default function HomeScreen() {
           ))}
         </VStack>
 
-        <VStack space="2">
+        <VStack className="gap-2">
           <Text className="text-base font-semibold text-typography-900">
             Quick tips before you go out tonight
           </Text>
-          <VStack space="3">
+          <VStack className="gap-3">
             {PRACTICE_TIPS.map((tip, index) => (
               <Box
                 key={tip}
-                className="rounded-2xl p-4"
-                bg={isDark ? '$gray900' : '$gray50'}
-                borderWidth={1}
-                borderColor={isDark ? '$gray800' : '$gray200'}
+                className={`rounded-2xl p-4 border ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}
               >
-                <HStack className="items-center" space="2">
+                <HStack className="items-center gap-2">
                   <Badge
-                    bg={isDark ? '$purple800' : '$purple600'}
-                    borderRadius="$full"
-                    px={10}
-                    py={2}
+                    className={`rounded-full px-2.5 py-0.5 ${isDark ? 'bg-purple-800' : 'bg-purple-600'}`}
                   >
-                    <BadgeText color="$white" fontWeight="$bold">
+                    <BadgeText className="text-white font-bold">
                       {index + 1}
                     </BadgeText>
                   </Badge>
