@@ -34,7 +34,7 @@ export function CustomHeader({
   onMicPress,
 }: CustomHeaderProps) {
   const insets = useSafeAreaInsets();
-  const backgroundColor = '#7C5CFF';
+  const backgroundColor = '#1a1f36';
 
   return (
     <Box className="rounded-b-3xl" style={{ paddingTop: insets.top, backgroundColor }}>

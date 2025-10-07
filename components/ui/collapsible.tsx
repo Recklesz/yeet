@@ -5,8 +5,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 
-// Gray icon color matching Tailwind text-gray-500
-const ICON_COLOR = '#687076';
+// Medium gray icon color
+const ICON_COLOR = '#64748b';
 
 export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
   const [isOpen, setIsOpen] = useState(false);

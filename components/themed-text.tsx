@@ -1,7 +1,7 @@
 import { StyleSheet, Text, type TextProps } from 'react-native';
 
-// Default text color from Tailwind (matches text-gray-900)
-const DEFAULT_TEXT_COLOR = '#11181C';
+// Default text color - Soft White (matches new color scheme)
+const DEFAULT_TEXT_COLOR = '#f8fafc';
 
 export type ThemedTextProps = TextProps & {
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
   link: {
     lineHeight: 30,
     fontSize: 16,
-    color: '#0a7ea4',
+    color: '#0ea5e9',
   },
 });

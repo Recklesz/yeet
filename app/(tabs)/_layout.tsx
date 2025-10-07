@@ -4,8 +4,8 @@ import React from 'react';
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 
-// Use Tailwind primary-500 for tab tint color
-const TAB_ACTIVE_TINT = '#0a7ea4';
+// Electric Blue - Primary Action Color
+const TAB_ACTIVE_TINT = '#0ea5e9';
 
 export default function TabLayout() {
   return (

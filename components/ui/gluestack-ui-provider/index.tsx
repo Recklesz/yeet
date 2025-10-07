@@ -32,22 +32,24 @@ const gluestackConfig = createConfig({
   },
   tokens: {
     colors: {
-      // Basic colors for token support
+      // Updated color palette
       white: '#ffffff',
       black: '#000000',
-      gray50: '#f9fafb',
-      gray100: '#f3f4f6',
-      gray200: '#e5e7eb',
-      gray300: '#d1d5db',
-      gray400: '#9ca3af',
-      gray500: '#6b7280',
-      gray600: '#4b5563',
-      gray700: '#374151',
-      gray800: '#1f2937',
-      gray900: '#111827',
+      // Deep Navy backgrounds
+      gray50: '#f8fafc',
+      gray100: '#e2e8f0',
+      gray200: '#cbd5e1',
+      gray300: '#94a3b8',
+      gray400: '#64748b',
+      gray500: '#1a1f36',
+      gray600: '#334155',
+      gray700: '#1e2a39',
+      gray800: '#1a1f36',
+      gray900: '#0e1225',
+      // Status colors
       green500: '#10b981',
-      red500: '#ef4444',
-      amber500: '#f59e0b',
+      red500: '#ff1744',
+      amber500: '#fbbf24',
     },
     space: {
       px: '1px',

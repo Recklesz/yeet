@@ -10,7 +10,7 @@ import Animated, {
 import { ThemedView } from '@/components/themed-view';
 
 const HEADER_HEIGHT = 250;
-const DEFAULT_BACKGROUND_COLOR = '#fff';
+const DEFAULT_BACKGROUND_COLOR = '#0A0E27';
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;

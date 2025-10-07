@@ -1,7 +1,7 @@
 import { View, type ViewProps } from 'react-native';
 
-// Default background color from Tailwind (white)
-const DEFAULT_BACKGROUND_COLOR = '#fff';
+// Default background color - Deep Navy
+const DEFAULT_BACKGROUND_COLOR = '#0A0E27';
 
 export type ThemedViewProps = ViewProps;
 

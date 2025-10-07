@@ -38,7 +38,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
             >
               <HStack justifyContent="space-between" alignItems="center" marginBottom={8}>
                 <HStack gap="$sm" alignItems="center" flex={1}>
-                  <IconSymbol name={metric.icon as any} size={20} color="#6B7280" />
+                  <IconSymbol name={metric.icon as any} size={20} color="#64748b" />
                   <Text fontSize={16} fontWeight="$semibold" color="$black">
                     {metric.label}
                   </Text>

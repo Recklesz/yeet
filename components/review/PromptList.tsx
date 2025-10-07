@@ -35,7 +35,7 @@ export function PromptList({ prompts, onPromptPress }: PromptListProps) {
                   </Text>
                 </VStack>
 
-                <IconSymbol name="chevron.right" size={20} color="#6B7280" />
+                <IconSymbol name="chevron.right" size={20} color="#64748b" />
               </HStack>
             </Box>
           </Pressable>

@@ -67,7 +67,7 @@ export function AnimatedHeader({
   backgroundColor,
 }: AnimatedHeaderProps) {
   const insets = useSafeAreaInsets();
-  const defaultBg = '#7C5CFF';
+  const defaultBg = '#1a1f36';
 
   // Title font size animation
   const titleStyle = useAnimatedStyle(() => ({
