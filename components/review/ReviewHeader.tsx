@@ -1,104 +1,134 @@
-import { Avatar, AvatarImage, Badge, BadgeText, HStack, Text, VStack } from '@gluestack-ui/themed';
-import cx from 'clsx';
-import React from 'react';
+import React, { ReactNode } from 'react';
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BrandGradient } from '@/components/common/BrandGradient';
+import { COLORS, HEADER_HEIGHTS } from '@/constants/ui-tokens';
 
-interface ReviewHeaderProps {
+export type ReviewHeaderProps = {
+  /**
+   * Animated height value
+   * Should animate from maxHeight to minHeight
+   */
+  height: number;
+
+  /**
+   * Maximum height when fully expanded
+   * @default HEADER_HEIGHTS.max (216)
+   */
+  maxHeight?: number;
+
+  /**
+   * Minimum height when fully collapsed
+   * @default HEADER_HEIGHTS.min (180)
+   */
+  minHeight?: number;
+
+  /**
+   * Main title text
+   */
   title: string;
-  avatarName: string;
-  avatarImage: string;
-  completedAt: Date;
-  overallScore: number;
-  sentiment: 'excellent' | 'great' | 'good' | 'needs-work';
-}
 
+  /**
+   * Subtitle text (fades out on collapse)
+   */
+  subtitle?: string;
+
+  /**
+   * Metric content (e.g., CircularScoreGauge)
+   * Positioned below title/subtitle
+   */
+  metricContent?: ReactNode;
+};
+
+/**
+ * Animated header purpose-built for the review screen
+ * Features brand gradient background and scroll-driven collapse
+ */
 export function ReviewHeader({
+  height,
+  maxHeight = HEADER_HEIGHTS.max,
+  minHeight = HEADER_HEIGHTS.min,
   title,
-  avatarName,
-  avatarImage,
-  completedAt,
-  overallScore,
-  sentiment,
+  subtitle,
+  metricContent,
 }: ReviewHeaderProps) {
-  const getSentimentStyles = () => {
-    switch (sentiment) {
-      case 'excellent':
-        return { border: 'border-green-600', badge: 'bg-green-600', text: 'text-green-600' };
-      case 'great':
-        return { border: 'border-green-500', badge: 'bg-green-500', text: 'text-green-500' };
-      case 'good':
-        return { border: 'border-blue-500', badge: 'bg-blue-500', text: 'text-blue-500' };
-      case 'needs-work':
-        return { border: 'border-amber-500', badge: 'bg-amber-500', text: 'text-amber-500' };
-      default:
-        return { border: 'border-gray-500', badge: 'bg-gray-500', text: 'text-gray-500' };
-    }
-  };
+  const insets = useSafeAreaInsets();
 
-  const getSentimentText = () => {
-    switch (sentiment) {
-      case 'excellent':
-        return 'Excellent!';
-      case 'great':
-        return 'Great Effort!';
-      case 'good':
-        return 'Good Work';
-      case 'needs-work':
-        return 'Keep Practicing';
-      default:
-        return 'Complete';
-    }
-  };
+  // Softer text colors for gradient background
+  const textColor = COLORS.typography[700];
+  const subtitleColor = COLORS.typography[600];
 
-  const formatTime = (date: Date) => {
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
+  // Centralized animation: compute title fontSize and opacity
+  const titleStyle = useAnimatedStyle(() => ({
+    fontSize: interpolate(height, [maxHeight, minHeight], [28, 20]),
+  }));
 
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours}h ago`;
-    return date.toLocaleDateString();
-  };
+  // Centralized animation: compute subtitle fontSize and opacity
+  const subtitleStyle = useAnimatedStyle(() => ({
+    fontSize: interpolate(height, [maxHeight, minHeight], [16, 12]),
+    opacity: interpolate(height, [maxHeight, minHeight], [1, 0], 'clamp'),
+  }));
 
-  const sentimentStyles = getSentimentStyles();
+  // Metric content scale and opacity
+  const metricStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        scale: interpolate(height, [maxHeight, minHeight], [1, 0.8]),
+      },
+    ],
+    opacity: interpolate(height, [maxHeight, minHeight + 20], [1, 0.6], 'clamp'),
+  }));
+
+  // Content container with safe area inset
+  const contentContainerStyle = useAnimatedStyle(() => ({
+    marginTop: insets.top,
+  }));
 
   return (
-    <VStack className="gap-4 pb-6">
-      {/* Avatar and Info */}
-      <HStack className="items-center gap-4">
-        <Avatar className="h-16 w-16">
-          <AvatarImage source={{ uri: avatarImage }} alt={avatarName} />
-        </Avatar>
+    <BrandGradient className="rounded-b-3xl" style={{ height }}>
+      <Animated.View style={contentContainerStyle} className="flex-1 px-5 pb-2">
+        {/* Title and Subtitle */}
+        {(title || subtitle) && (
+          <Animated.View className="gap-0">
+            {title ? (
+              <Animated.Text
+                className="font-bold"
+                style={[
+                  {
+                    color: textColor,
+                  },
+                  titleStyle,
+                ]}
+              >
+                {title}
+              </Animated.Text>
+            ) : null}
 
-        <VStack className="flex-1 gap-1">
-          <Text className={cx('text-lg font-bold', 'text-black')}>{title}</Text>
-          <Text className={cx('text-sm', 'text-gray-600')}>
-            with {avatarName} • {formatTime(completedAt)}
-          </Text>
-        </VStack>
-      </HStack>
+            {subtitle ? (
+              <Animated.Text
+                style={[
+                  {
+                    color: subtitleColor,
+                  },
+                  subtitleStyle,
+                ]}
+              >
+                {subtitle}
+              </Animated.Text>
+            ) : null}
+          </Animated.View>
+        )}
 
-      {/* Overall Score Card */}
-      <BrandGradient
-        colors={['#ec4899', '#ef4444', '#eab308']}
-        className="rounded-2xl"
-        style={{ padding: 24 }}
-      >
-        <VStack className="gap-4 items-center">
-          <Text className={cx('text-base font-semibold', 'text-white')}>Overall Performance</Text>
-          <VStack className="items-center gap-3">
-            <Badge className={cx('rounded-lg', sentimentStyles.badge)}>
-              <BadgeText className={cx('text-xs font-bold', 'text-white')}>
-                {getSentimentText()}
-              </BadgeText>
-            </Badge>
-            <Text className={cx('text-6xl font-bold', 'text-white')}>{overallScore}</Text>
-          </VStack>
-        </VStack>
-      </BrandGradient>
-    </VStack>
+        {/* Metric Content (e.g., CircularScoreGauge) */}
+        {metricContent ? (
+          <Animated.View style={metricStyle} className="flex-1 items-center justify-center">
+            {metricContent}
+          </Animated.View>
+        ) : null}
+      </Animated.View>
+    </BrandGradient>
   );
 }
+
+export default ReviewHeader;

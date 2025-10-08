@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+import { ReviewHeader } from '@/components/review/ReviewHeader';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { YeetButton } from '@/components/common/YeetButton';
 import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
@@ -15,7 +15,7 @@ import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
 import { ScenarioOverviewCard } from '@/components/review/ScenarioOverviewCard';
 import { mockReviewData } from '@/constants/review';
-import { HEADER_HEIGHTS, SPACING } from '@/constants/ui-tokens';
+import { HEADER_HEIGHTS } from '@/constants/ui-tokens';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
 
 export default function ReviewScreen() {
@@ -94,30 +94,18 @@ export default function ReviewScreen() {
     router.replace('/(tabs)/practice');
   };
 
-  const formattedCompletedAt = reviewData.completedAt.toLocaleString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-  });
-
-  const headerSubtitle = `Practice with ${reviewData.avatarName} • ${formattedCompletedAt}`;
-
   return (
     <SafeAreaScreen className="bg-white">
       <Box className="flex-1">
         <StatusBar style="dark" />
 
         <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
-          <AnimatedHeader
+          <ReviewHeader
             height={headerHeight}
             maxHeight={HEADER_HEIGHTS.max}
             minHeight={HEADER_HEIGHTS.min}
-            title={reviewData.title}
-            subtitle={headerSubtitle}
-            centerContent={true}
-            backgroundVariant="gradient"
-            rightContent={
+            title=""
+            metricContent={
               <CircularScoreGauge
                 score={reviewData.overallScore}
                 sentiment={reviewData.sentiment}
