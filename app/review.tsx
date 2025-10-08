@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
 import { YeetButton } from '@/components/common/YeetButton';
@@ -20,6 +21,7 @@ export default function ReviewScreen() {
   const router = useRouter();
   const toast = useToast();
   const hasShownToast = useRef(false);
+  const insets = useSafeAreaInsets();
   const {
     height: headerHeight,
     headerStyle,
@@ -28,6 +30,9 @@ export default function ReviewScreen() {
     maxHeight: HEADER_HEIGHTS.max,
     minHeight: HEADER_HEIGHTS.min,
   });
+
+  // Calculate content padding to account for header + safe area + extra spacing
+  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + 16; // 16px extra spacing
 
   // TODO: Replace with actual review data from navigation params or global state
   const reviewData = mockReviewData;
@@ -124,7 +129,8 @@ export default function ReviewScreen() {
           className="flex-1"
           onScroll={handleScroll}
           scrollEventThrottle={16}
-          contentContainerClassName="pt-60 px-5 pb-20"
+          contentContainerStyle={{ paddingTop: contentPaddingTop }}
+          contentContainerClassName="px-5 pb-20"
           showsVerticalScrollIndicator={false}
         >
           <VStack className="gap-6">

@@ -116,7 +116,7 @@ export function AnimatedHeader({
         backgroundColor: backgroundColor || defaultBg,
       }}
     >
-      <Animated.View className="flex-1 px-5 pb-5" style={[contentContainerStyle]}>
+      <Animated.View className="flex-1 px-5 pb-4" style={[contentContainerStyle]}>
         {/* Top Row: Title/Subtitle + Optional Icon */}
         <HStack className="justify-between items-start">
           <VStack style={{ flex: 1, gap: 4 }}>

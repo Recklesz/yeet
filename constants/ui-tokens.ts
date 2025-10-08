@@ -20,7 +20,7 @@ export const GAUGE_SIZES = {
 // Header heights (in pixels)
 export const HEADER_HEIGHTS = {
   max: 240,
-  min: 140,
+  min: 180, // Increased to accommodate 160px gauge + sentiment text + padding
 } as const;
 
 // Spacing values (in pixels, aligned with Tailwind scale)
