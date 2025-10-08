@@ -6,13 +6,13 @@ import React, { useEffect, useRef } from 'react';
 import Animated, { interpolate, useDerivedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ReviewHeader } from '@/components/review/ReviewHeader';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { YeetButton } from '@/components/common/YeetButton';
 import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
+import { ReviewHeader } from '@/components/review/ReviewHeader';
 import { ScenarioOverviewCard } from '@/components/review/ScenarioOverviewCard';
 import { mockReviewData } from '@/constants/review';
 import { HEADER_HEIGHTS } from '@/constants/ui-tokens';

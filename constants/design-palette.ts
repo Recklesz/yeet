@@ -5,7 +5,7 @@
  * Provides runtime helpers for converting RGB space format to hex/rgba.
  */
 
-const paletteModule = require('./design-palette.js');
+import paletteJson from './design-palette.json';
 
 /**
  * Type definitions for color ramps
@@ -83,9 +83,9 @@ export interface DesignPalette {
 }
 
 /**
- * Shared design palette (re-exported from JS for type safety)
+ * Shared design palette (re-exported from JSON for type safety)
  */
-export const designPalette = paletteModule as DesignPalette;
+export const designPalette = paletteJson as unknown as DesignPalette;
 
 /**
  * Helper: Convert RGB space format to hex

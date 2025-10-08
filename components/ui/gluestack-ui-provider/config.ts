@@ -1,7 +1,7 @@
 'use client';
 import { vars } from 'nativewind';
 
-const palette = require('../../../constants/design-palette.js');
+import { designPalette } from '../../../constants/design-palette';
 
 /**
  * Helper: Build CSS variable object from color ramp
@@ -20,33 +20,33 @@ function buildColorVars(prefix: string, ramp: Record<string, string>) {
 function buildThemeVars() {
   return {
     // Color ramps
-    ...buildColorVars('primary', palette.primary),
-    ...buildColorVars('secondary', palette.secondary),
-    ...buildColorVars('tertiary', palette.tertiary),
-    ...buildColorVars('error', palette.error),
-    ...buildColorVars('success', palette.success),
-    ...buildColorVars('warning', palette.warning),
-    ...buildColorVars('info', palette.info),
-    ...buildColorVars('typography', palette.typography),
-    ...buildColorVars('outline', palette.outline),
-    ...buildColorVars('background', palette.background),
+    ...buildColorVars('primary', designPalette.primary),
+    ...buildColorVars('secondary', designPalette.secondary),
+    ...buildColorVars('tertiary', designPalette.tertiary),
+    ...buildColorVars('error', designPalette.error),
+    ...buildColorVars('success', designPalette.success),
+    ...buildColorVars('warning', designPalette.warning),
+    ...buildColorVars('info', designPalette.info),
+    ...buildColorVars('typography', designPalette.typography),
+    ...buildColorVars('outline', designPalette.outline),
+    ...buildColorVars('background', designPalette.background),
 
     // Background special
-    '--color-background-error': palette.backgroundSpecial.error,
-    '--color-background-warning': palette.backgroundSpecial.warning,
-    '--color-background-success': palette.backgroundSpecial.success,
-    '--color-background-muted': palette.backgroundSpecial.muted,
-    '--color-background-info': palette.backgroundSpecial.info,
+    '--color-background-error': designPalette.backgroundSpecial.error,
+    '--color-background-warning': designPalette.backgroundSpecial.warning,
+    '--color-background-success': designPalette.backgroundSpecial.success,
+    '--color-background-muted': designPalette.backgroundSpecial.muted,
+    '--color-background-info': designPalette.backgroundSpecial.info,
 
     // Indicators
-    '--color-indicator-primary': palette.indicator.primary,
-    '--color-indicator-info': palette.indicator.info,
-    '--color-indicator-error': palette.indicator.error,
+    '--color-indicator-primary': designPalette.indicator.primary,
+    '--color-indicator-info': designPalette.indicator.info,
+    '--color-indicator-error': designPalette.indicator.error,
 
     // Gradients
-    '--gradient-brand-from': palette.gradient.brandFrom,
-    '--gradient-brand-via': palette.gradient.brandVia,
-    '--gradient-brand-to': palette.gradient.brandTo,
+    '--gradient-brand-from': designPalette.gradient.brandFrom,
+    '--gradient-brand-via': designPalette.gradient.brandVia,
+    '--gradient-brand-to': designPalette.gradient.brandTo,
   };
 }
 

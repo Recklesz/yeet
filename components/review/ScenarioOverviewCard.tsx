@@ -48,7 +48,7 @@ export const ScenarioOverviewCard = React.memo(function ScenarioOverviewCard({
   completedAt,
 }: ScenarioOverviewCardProps) {
   return (
-    <Box className={cx('rounded-3xl border bg-white p-6', 'border-gray-100')}>
+    <Box className={cx('rounded-3xl border bg-white px-6 py-4', 'border-gray-100')}>
       <VStack className="gap-4">
         {/* Header: Left content + Right avatar */}
         <Box className="flex-row items-start justify-between gap-4">

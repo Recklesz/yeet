@@ -3,10 +3,8 @@ import { OverlayProvider } from '@gluestack-ui/core/overlay/creator';
 import { ToastProvider } from '@gluestack-ui/core/toast/creator';
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { getTokenColor } from '../../../constants/design-palette';
+import { designPalette, getTokenColor } from '../../../constants/design-palette';
 import { config } from './config';
-
-const palette = require('../../../constants/design-palette.js');
 
 export type ModeType = 'light';
 
@@ -55,9 +53,9 @@ const gluestackConfig = createConfig({
       amber500: getTokenColor('warning', 500),
     },
     // Shared spacing scale
-    space: palette.spacing,
+    space: designPalette.spacing,
     // Shared radii scale
-    radii: palette.radii,
+    radii: designPalette.radii,
   },
 });
 

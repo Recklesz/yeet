@@ -2,10 +2,10 @@
 
 ## Architecture
 
-Single source of truth: `constants/design-palette.js` → Consumed by all systems
+Single source of truth: `constants/design-palette.json` → Consumed by all systems
 
 ```
-design-palette.js (RGB space format)
+design-palette.json (RGB space format)
 ├→ config.ts (NativeWind CSS variables)
 │  └→ tailwind.config.js (references CSS vars)
 ├→ gluestack-ui-provider/index.tsx (Gluestack tokens)
@@ -14,9 +14,9 @@ design-palette.js (RGB space format)
 
 ## Files
 
-### `constants/design-palette.js`
+### `constants/design-palette.json`
 **Purpose:** Single source of truth for all design tokens
-**Format:** CommonJS module exporting RGB space format colors (`'14 165 233'`)
+**Format:** Plain JSON storing RGB space format colors (`"14 165 233"`)
 
 **Exports:**
 - `primary`, `secondary`, `tertiary` — Brand colors
@@ -55,14 +55,14 @@ const color = getTokenColor('success', 500); // '#10b981'
 ### `components/ui/gluestack-ui-provider/config.ts`
 **Purpose:** Builds NativeWind CSS variables from shared palette
 **How it works:**
-1. Imports `design-palette.js`
+1. Imports `design-palette` TypeScript wrapper
 2. Generates CSS variables (`--color-primary-500`, etc.)
 3. Exports `config.light` and `config.dark` for NativeWind
 
 ### `tailwind.config.js`
 **Purpose:** Tailwind configuration
 **How it works:**
-1. Imports `design-palette.js`
+1. Requires `design-palette.json`
 2. References CSS variables for color ramps (`rgb(var(--color-primary-500)/<alpha-value>)`)
 3. Converts palette values to hex for static colors (`typography.white`)
 4. Extends spacing and borderRadius with shared scales
@@ -89,28 +89,27 @@ import { COLORS, SPACING, GRADIENTS } from '@/constants/ui-tokens';
 ### `components/ui/gluestack-ui-provider/index.tsx`
 **Purpose:** Gluestack UI configuration
 **How it works:**
-1. Imports `design-palette.js` and helper functions
+1. Imports `design-palette.ts` helper functions and typed palette
 2. Creates Gluestack tokens from palette (colors, spacing, radii)
 3. Provides styled component system
 
 ## Adding New Tokens
 
 ### Add a color
-1. Add to `constants/design-palette.js` in RGB space format
+1. Add to `constants/design-palette.json` in RGB space format
 2. Done. It propagates automatically.
 
 **Example:**
-```js
-// design-palette.js
-const accent = {
-  500: '255 107 53',
-  // ...
-};
-module.exports = { /* ... */, accent };
+```json
+{
+  "accent": {
+    "500": "255 107 53"
+  }
+}
 ```
 
 ### Add a spacing value
-1. Add to `spacing` object in `constants/design-palette.js`
+1. Add to `spacing` object in `constants/design-palette.json`
 2. Done. Available in Tailwind and Gluestack.
 
 **Example:**
@@ -145,10 +144,10 @@ const color = getTokenColor('primary', 500);
 
 ## Rules
 
-1. **Never hardcode design values** — All colors, spacing, radii must come from `design-palette.js`
+1. **Never hardcode design values** — All colors, spacing, radii must come from `design-palette.json`
 2. **Prefer classNames** — Use Tailwind utilities over inline styles when possible
 3. **Use runtime helpers** — For SVG/animations, use `getTokenColor()` or `COLORS` from `ui-tokens.ts`
-4. **Single edit point** — Design changes happen only in `design-palette.js`
+4. **Single edit point** — Design changes happen only in `design-palette.json`
 
 ## Common Patterns
 

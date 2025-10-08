@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const palette = require('./constants/design-palette.js');
+const palette = require('./constants/design-palette.json');
 
 /**
  * Helper: Convert RGB space format to hex
