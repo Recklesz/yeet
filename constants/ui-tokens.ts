@@ -3,6 +3,19 @@
  * Centralized sizing, spacing, and color constants for consistent theming
  */
 
+import { designPalette, getTokenColor, rgbToHex, rgbToRgba } from './design-palette';
+
+/**
+ * Shared numeric spacing scale (from design palette)
+ * Use this for direct numeric values in calculations
+ */
+export const SPACING_SCALE = designPalette.spacing;
+
+/**
+ * Shared radii scale (from design palette)
+ */
+export const RADII = designPalette.radii;
+
 // Icon sizes (in pixels, mapped to design scale)
 export const ICON_SIZES = {
   sm: 16,
@@ -23,56 +36,58 @@ export const HEADER_HEIGHTS = {
   min: 180, // Increased to accommodate 160px gauge + sentiment text + padding
 } as const;
 
-// Spacing values (in pixels, aligned with Tailwind scale)
+// Spacing values (semantic mapping to shared scale)
 export const SPACING = {
-  xs: 4,
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 20,
-  '2xl': 24,
+  xs: SPACING_SCALE[1], // 4px
+  sm: SPACING_SCALE[2], // 8px
+  md: SPACING_SCALE[3], // 12px
+  lg: SPACING_SCALE[4], // 16px
+  xl: SPACING_SCALE[5], // 20px
+  '2xl': SPACING_SCALE[6], // 24px
 } as const;
 
-// Brand color tokens (matching Tailwind palette)
+// Brand color tokens (derived from shared design palette)
 export const COLORS = {
   // Success/positive
   success: {
-    50: '#f0fdf4',
-    500: '#22c55e',
-    600: '#16a34a',
+    0: getTokenColor('success', 0),
+    50: getTokenColor('success', 50),
+    500: getTokenColor('success', 500),
+    600: getTokenColor('success', 600),
   },
-  // Info/neutral
-  blue: {
-    500: '#3b82f6',
-    600: '#2563eb',
+  // Primary (Electric Blue)
+  primary: {
+    500: getTokenColor('primary', 500),
+    600: getTokenColor('primary', 600),
   },
   // Warning
-  amber: {
-    50: '#fffbeb',
-    500: '#f59e0b',
+  warning: {
+    0: getTokenColor('warning', 0),
+    50: getTokenColor('warning', 50),
+    500: getTokenColor('warning', 500),
   },
   // Error
-  red: {
-    500: '#ef4444',
+  error: {
+    500: getTokenColor('error', 500),
   },
   // Background
   background: {
-    950: '#1a1f36',
+    950: getTokenColor('background', 950),
   },
-  // Gray scale
-  gray: {
-    50: '#f9fafb',
-    200: '#e5e7eb',
-    500: '#6b7280',
-    600: '#4b5563',
-    700: '#374151',
-    900: '#111827',
+  // Typography (gray scale)
+  typography: {
+    50: getTokenColor('typography', 50),
+    200: getTokenColor('typography', 200),
+    500: getTokenColor('typography', 500),
+    600: getTokenColor('typography', 600),
+    700: getTokenColor('typography', 700),
+    900: getTokenColor('typography', 900),
   },
   // Whites with opacity
   white: {
-    solid: '#ffffff',
-    80: 'rgba(255, 255, 255, 0.8)',
-    20: 'rgba(255, 255, 255, 0.2)',
+    solid: rgbToHex(designPalette.typography[0]!),
+    80: rgbToRgba(designPalette.typography[0]!, 0.8),
+    20: rgbToRgba(designPalette.typography[0]!, 0.2),
   },
 } as const;
 
@@ -80,6 +95,6 @@ export const COLORS = {
 export const SENTIMENT_COLORS = {
   excellent: COLORS.success[600],
   great: COLORS.success[500],
-  good: COLORS.blue[500],
-  'needs-work': COLORS.amber[500],
+  good: COLORS.primary[500],
+  'needs-work': COLORS.warning[500],
 } as const;

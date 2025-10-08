@@ -1,321 +1,61 @@
 'use client';
 import { vars } from 'nativewind';
 
+const palette = require('../../../constants/design-palette.js');
+
+/**
+ * Helper: Build CSS variable object from color ramp
+ */
+function buildColorVars(prefix: string, ramp: Record<string, string>) {
+  const result: Record<string, string> = {};
+  Object.entries(ramp).forEach(([shade, value]) => {
+    result[`--color-${prefix}-${shade}`] = value;
+  });
+  return result;
+}
+
+/**
+ * Build theme configuration from shared design palette
+ */
+function buildThemeVars() {
+  return {
+    // Color ramps
+    ...buildColorVars('primary', palette.primary),
+    ...buildColorVars('secondary', palette.secondary),
+    ...buildColorVars('tertiary', palette.tertiary),
+    ...buildColorVars('error', palette.error),
+    ...buildColorVars('success', palette.success),
+    ...buildColorVars('warning', palette.warning),
+    ...buildColorVars('info', palette.info),
+    ...buildColorVars('typography', palette.typography),
+    ...buildColorVars('outline', palette.outline),
+    ...buildColorVars('background', palette.background),
+
+    // Background special
+    '--color-background-error': palette.backgroundSpecial.error,
+    '--color-background-warning': palette.backgroundSpecial.warning,
+    '--color-background-success': palette.backgroundSpecial.success,
+    '--color-background-muted': palette.backgroundSpecial.muted,
+    '--color-background-info': palette.backgroundSpecial.info,
+
+    // Indicators
+    '--color-indicator-primary': palette.indicator.primary,
+    '--color-indicator-info': palette.indicator.info,
+    '--color-indicator-error': palette.indicator.error,
+
+    // Gradients
+    '--gradient-brand-from': palette.gradient.brandFrom,
+    '--gradient-brand-via': palette.gradient.brandVia,
+    '--gradient-brand-to': palette.gradient.brandTo,
+  };
+}
+
+// Build theme vars once from shared palette
+const themeVars = buildThemeVars();
+
 export const config = {
-  light: vars({
-    /* Electric Blue - Primary Action Color */
-    '--color-primary-0': '224 248 255',
-    '--color-primary-50': '186 230 253',
-    '--color-primary-100': '125 211 252',
-    '--color-primary-200': '56 189 248',
-    '--color-primary-300': '14 165 233',
-    '--color-primary-400': '14 165 233',
-    '--color-primary-500': '14 165 233',
-    '--color-primary-600': '2 132 199',
-    '--color-primary-700': '3 105 161',
-    '--color-primary-800': '7 89 133',
-    '--color-primary-900': '12 74 110',
-    '--color-primary-950': '8 47 73',
-
-    /* Deep Navy - Dark Backgrounds */
-    '--color-secondary-0': '240 241 245',
-    '--color-secondary-50': '226 228 235',
-    '--color-secondary-100': '199 202 214',
-    '--color-secondary-200': '147 153 176',
-    '--color-secondary-300': '95 104 138',
-    '--color-secondary-400': '43 55 100',
-    '--color-secondary-500': '26 31 54',
-    '--color-secondary-600': '26 31 54',
-    '--color-secondary-700': '22 26 45',
-    '--color-secondary-800': '18 22 37',
-    '--color-secondary-900': '14 17 31',
-    '--color-secondary-950': '10 14 39',
-
-    /* Brand Gradient (Orange to Red) */
-    '--color-tertiary-0': '255 244 241',
-    '--color-tertiary-50': '255 230 224',
-    '--color-tertiary-100': '255 207 196',
-    '--color-tertiary-200': '255 170 155',
-    '--color-tertiary-300': '255 133 114',
-    '--color-tertiary-400': '255 107 53',
-    '--color-tertiary-500': '255 107 53',
-    '--color-tertiary-600': '255 68 42',
-    '--color-tertiary-700': '255 38 26',
-    '--color-tertiary-800': '255 23 68',
-    '--color-tertiary-900': '230 21 61',
-    '--color-tertiary-950': '204 18 54',
-
-    /* Gradient Tokens */
-    '--gradient-brand-from': '236 72 153',
-    '--gradient-brand-via': '239 68 68',
-    '--gradient-brand-to': '234 179 8',
-
-    /* Error - Red */
-    '--color-error-0': '255 244 241',
-    '--color-error-50': '255 230 224',
-    '--color-error-100': '255 207 196',
-    '--color-error-200': '255 170 155',
-    '--color-error-300': '255 133 114',
-    '--color-error-400': '255 68 68',
-    '--color-error-500': '255 23 68',
-    '--color-error-600': '230 21 61',
-    '--color-error-700': '204 18 54',
-    '--color-error-800': '179 16 47',
-    '--color-error-900': '153 14 40',
-    '--color-error-950': '128 11 34',
-
-    /* Success - Green */
-    '--color-success-0': '236 253 245',
-    '--color-success-50': '209 250 229',
-    '--color-success-100': '167 243 208',
-    '--color-success-200': '110 231 183',
-    '--color-success-300': '52 211 153',
-    '--color-success-400': '16 185 129',
-    '--color-success-500': '16 185 129',
-    '--color-success-600': '5 150 105',
-    '--color-success-700': '4 120 87',
-    '--color-success-800': '6 95 70',
-    '--color-success-900': '6 78 59',
-    '--color-success-950': '2 44 34',
-
-    /* Warning - Yellow */
-    '--color-warning-0': '254 252 232',
-    '--color-warning-50': '254 249 195',
-    '--color-warning-100': '254 240 138',
-    '--color-warning-200': '253 224 71',
-    '--color-warning-300': '250 204 21',
-    '--color-warning-400': '251 191 36',
-    '--color-warning-500': '251 191 36',
-    '--color-warning-600': '245 158 11',
-    '--color-warning-700': '217 119 6',
-    '--color-warning-800': '161 98 7',
-    '--color-warning-900': '133 77 14',
-    '--color-warning-950': '113 63 18',
-
-    /* Info - Electric Blue */
-    '--color-info-0': '224 248 255',
-    '--color-info-50': '186 230 253',
-    '--color-info-100': '125 211 252',
-    '--color-info-200': '56 189 248',
-    '--color-info-300': '14 165 233',
-    '--color-info-400': '14 165 233',
-    '--color-info-500': '14 165 233',
-    '--color-info-600': '2 132 199',
-    '--color-info-700': '3 105 161',
-    '--color-info-800': '7 89 133',
-    '--color-info-900': '12 74 110',
-    '--color-info-950': '8 47 73',
-
-    /* Typography - Soft White to Medium Gray */
-    '--color-typography-0': '255 255 255',
-    '--color-typography-50': '248 250 252',
-    '--color-typography-100': '241 245 249',
-    '--color-typography-200': '226 232 240',
-    '--color-typography-300': '203 213 225',
-    '--color-typography-400': '148 163 184',
-    '--color-typography-500': '100 116 139',
-    '--color-typography-600': '71 85 105',
-    '--color-typography-700': '51 65 85',
-    '--color-typography-800': '30 41 59',
-    '--color-typography-900': '15 23 42',
-    '--color-typography-950': '2 6 23',
-
-    /* Outline - Light Gray */
-    '--color-outline-0': '255 255 255',
-    '--color-outline-50': '248 250 252',
-    '--color-outline-100': '241 245 249',
-    '--color-outline-200': '226 232 240',
-    '--color-outline-300': '203 213 225',
-    '--color-outline-400': '148 163 184',
-    '--color-outline-500': '100 116 139',
-    '--color-outline-600': '71 85 105',
-    '--color-outline-700': '51 65 85',
-    '--color-outline-800': '30 41 59',
-    '--color-outline-900': '15 23 42',
-    '--color-outline-950': '10 14 39',
-
-    /* Background - Deep Navy Base */
-    '--color-background-0': '248 250 252',
-    '--color-background-50': '226 232 240',
-    '--color-background-100': '203 213 225',
-    '--color-background-200': '148 163 184',
-    '--color-background-300': '100 116 139',
-    '--color-background-400': '71 85 105',
-    '--color-background-500': '51 65 85',
-    '--color-background-600': '45 49 66',
-    '--color-background-700': '38 42 57',
-    '--color-background-800': '26 31 54',
-    '--color-background-900': '18 22 37',
-    '--color-background-950': '10 14 39',
-
-    /* Background Special */
-    '--color-background-error': '255 244 241',
-    '--color-background-warning': '254 252 232',
-    '--color-background-success': '236 253 245',
-    '--color-background-muted': '26 31 54',
-    '--color-background-info': '224 248 255',
-
-    /* Focus Ring Indicator  */
-    '--color-indicator-primary': '14 165 233',
-    '--color-indicator-info': '14 165 233',
-    '--color-indicator-error': '255 23 68',
-  }),
-  dark: vars({
-    /* Electric Blue - Primary Action Color (same as light) */
-    '--color-primary-0': '224 248 255',
-    '--color-primary-50': '186 230 253',
-    '--color-primary-100': '125 211 252',
-    '--color-primary-200': '56 189 248',
-    '--color-primary-300': '14 165 233',
-    '--color-primary-400': '14 165 233',
-    '--color-primary-500': '14 165 233',
-    '--color-primary-600': '2 132 199',
-    '--color-primary-700': '3 105 161',
-    '--color-primary-800': '7 89 133',
-    '--color-primary-900': '12 74 110',
-    '--color-primary-950': '8 47 73',
-
-    /* Deep Navy - Dark Backgrounds (same as light) */
-    '--color-secondary-0': '240 241 245',
-    '--color-secondary-50': '226 228 235',
-    '--color-secondary-100': '199 202 214',
-    '--color-secondary-200': '147 153 176',
-    '--color-secondary-300': '95 104 138',
-    '--color-secondary-400': '43 55 100',
-    '--color-secondary-500': '26 31 54',
-    '--color-secondary-600': '26 31 54',
-    '--color-secondary-700': '22 26 45',
-    '--color-secondary-800': '18 22 37',
-    '--color-secondary-900': '14 17 31',
-    '--color-secondary-950': '10 14 39',
-
-    /* Brand Gradient (Orange to Red - same as light) */
-    '--color-tertiary-0': '255 244 241',
-    '--color-tertiary-50': '255 230 224',
-    '--color-tertiary-100': '255 207 196',
-    '--color-tertiary-200': '255 170 155',
-    '--color-tertiary-300': '255 133 114',
-    '--color-tertiary-400': '255 107 53',
-    '--color-tertiary-500': '255 107 53',
-    '--color-tertiary-600': '255 68 42',
-    '--color-tertiary-700': '255 38 26',
-    '--color-tertiary-800': '255 23 68',
-    '--color-tertiary-900': '230 21 61',
-    '--color-tertiary-950': '204 18 54',
-
-    /* Gradient Tokens (same as light) */
-    '--gradient-brand-from': '236 72 153',
-    '--gradient-brand-via': '239 68 68',
-    '--gradient-brand-to': '234 179 8',
-
-    /* Error - Red (same as light) */
-    '--color-error-0': '255 244 241',
-    '--color-error-50': '255 230 224',
-    '--color-error-100': '255 207 196',
-    '--color-error-200': '255 170 155',
-    '--color-error-300': '255 133 114',
-    '--color-error-400': '255 68 68',
-    '--color-error-500': '255 23 68',
-    '--color-error-600': '230 21 61',
-    '--color-error-700': '204 18 54',
-    '--color-error-800': '179 16 47',
-    '--color-error-900': '153 14 40',
-    '--color-error-950': '128 11 34',
-
-    /* Success - Green (same as light) */
-    '--color-success-0': '236 253 245',
-    '--color-success-50': '209 250 229',
-    '--color-success-100': '167 243 208',
-    '--color-success-200': '110 231 183',
-    '--color-success-300': '52 211 153',
-    '--color-success-400': '16 185 129',
-    '--color-success-500': '16 185 129',
-    '--color-success-600': '5 150 105',
-    '--color-success-700': '4 120 87',
-    '--color-success-800': '6 95 70',
-    '--color-success-900': '6 78 59',
-    '--color-success-950': '2 44 34',
-
-    /* Warning - Yellow (same as light) */
-    '--color-warning-0': '254 252 232',
-    '--color-warning-50': '254 249 195',
-    '--color-warning-100': '254 240 138',
-    '--color-warning-200': '253 224 71',
-    '--color-warning-300': '250 204 21',
-    '--color-warning-400': '251 191 36',
-    '--color-warning-500': '251 191 36',
-    '--color-warning-600': '245 158 11',
-    '--color-warning-700': '217 119 6',
-    '--color-warning-800': '161 98 7',
-    '--color-warning-900': '133 77 14',
-    '--color-warning-950': '113 63 18',
-
-    /* Info - Electric Blue (same as light) */
-    '--color-info-0': '224 248 255',
-    '--color-info-50': '186 230 253',
-    '--color-info-100': '125 211 252',
-    '--color-info-200': '56 189 248',
-    '--color-info-300': '14 165 233',
-    '--color-info-400': '14 165 233',
-    '--color-info-500': '14 165 233',
-    '--color-info-600': '2 132 199',
-    '--color-info-700': '3 105 161',
-    '--color-info-800': '7 89 133',
-    '--color-info-900': '12 74 110',
-    '--color-info-950': '8 47 73',
-
-    /* Typography - Soft White to Medium Gray (same as light) */
-    '--color-typography-0': '255 255 255',
-    '--color-typography-50': '248 250 252',
-    '--color-typography-100': '241 245 249',
-    '--color-typography-200': '226 232 240',
-    '--color-typography-300': '203 213 225',
-    '--color-typography-400': '148 163 184',
-    '--color-typography-500': '100 116 139',
-    '--color-typography-600': '71 85 105',
-    '--color-typography-700': '51 65 85',
-    '--color-typography-800': '30 41 59',
-    '--color-typography-900': '15 23 42',
-    '--color-typography-950': '2 6 23',
-
-    /* Outline - Light Gray (same as light) */
-    '--color-outline-0': '255 255 255',
-    '--color-outline-50': '248 250 252',
-    '--color-outline-100': '241 245 249',
-    '--color-outline-200': '226 232 240',
-    '--color-outline-300': '203 213 225',
-    '--color-outline-400': '148 163 184',
-    '--color-outline-500': '100 116 139',
-    '--color-outline-600': '71 85 105',
-    '--color-outline-700': '51 65 85',
-    '--color-outline-800': '30 41 59',
-    '--color-outline-900': '15 23 42',
-    '--color-outline-950': '10 14 39',
-
-    /* Background - Deep Navy Base (same as light) */
-    '--color-background-0': '248 250 252',
-    '--color-background-50': '226 232 240',
-    '--color-background-100': '203 213 225',
-    '--color-background-200': '148 163 184',
-    '--color-background-300': '100 116 139',
-    '--color-background-400': '71 85 105',
-    '--color-background-500': '51 65 85',
-    '--color-background-600': '45 49 66',
-    '--color-background-700': '38 42 57',
-    '--color-background-800': '26 31 54',
-    '--color-background-900': '18 22 37',
-    '--color-background-950': '10 14 39',
-
-    /* Background Special (same as light) */
-    '--color-background-error': '255 244 241',
-    '--color-background-warning': '254 252 232',
-    '--color-background-success': '236 253 245',
-    '--color-background-muted': '26 31 54',
-    '--color-background-info': '224 248 255',
-
-    /* Focus Ring Indicator (same as light) */
-    '--color-indicator-primary': '14 165 233',
-    '--color-indicator-info': '14 165 233',
-    '--color-indicator-error': '255 23 68',
-  }),
+  // Light and dark modes currently use the same values
+  // Future mode-specific overrides can be added here
+  light: vars(themeVars),
+  dark: vars(themeVars),
 };

@@ -1,9 +1,12 @@
-import React from 'react';
-import { config } from './config';
-import { View, ViewProps } from 'react-native';
+import { StyledProvider, createConfig } from '@gluestack-style/react';
 import { OverlayProvider } from '@gluestack-ui/core/overlay/creator';
 import { ToastProvider } from '@gluestack-ui/core/toast/creator';
-import { StyledProvider, createConfig } from '@gluestack-style/react';
+import React from 'react';
+import { View, ViewProps } from 'react-native';
+import { getTokenColor } from '../../../constants/design-palette';
+import { config } from './config';
+
+const palette = require('../../../constants/design-palette.js');
 
 export type ModeType = 'light';
 
@@ -32,53 +35,29 @@ const gluestackConfig = createConfig({
   },
   tokens: {
     colors: {
-      // Updated color palette
-      white: '#ffffff',
+      // Base colors
+      white: getTokenColor('typography', 0),
       black: '#000000',
-      // Deep Navy backgrounds
-      gray50: '#f8fafc',
-      gray100: '#e2e8f0',
-      gray200: '#cbd5e1',
-      gray300: '#94a3b8',
-      gray400: '#64748b',
-      gray500: '#1a1f36',
-      gray600: '#334155',
-      gray700: '#1e2a39',
-      gray800: '#1a1f36',
-      gray900: '#0e1225',
-      // Status colors
-      green500: '#10b981',
-      red500: '#ff1744',
-      amber500: '#fbbf24',
+      // Typography grays (derived from shared palette)
+      gray50: getTokenColor('typography', 50),
+      gray100: getTokenColor('typography', 100),
+      gray200: getTokenColor('typography', 200),
+      gray300: getTokenColor('typography', 300),
+      gray400: getTokenColor('typography', 400),
+      gray500: getTokenColor('typography', 500),
+      gray600: getTokenColor('typography', 600),
+      gray700: getTokenColor('typography', 700),
+      gray800: getTokenColor('typography', 800),
+      gray900: getTokenColor('typography', 900),
+      // Status colors (derived from shared palette)
+      green500: getTokenColor('success', 500),
+      red500: getTokenColor('error', 500),
+      amber500: getTokenColor('warning', 500),
     },
-    space: {
-      px: '1px',
-      '0': 0,
-      '1': 4,
-      '2': 8,
-      '3': 12,
-      '4': 16,
-      '5': 20,
-      '6': 24,
-      '8': 32,
-      '10': 40,
-      '12': 48,
-      '16': 64,
-      '20': 80,
-      '24': 96,
-      '32': 128,
-    },
-    radii: {
-      none: 0,
-      xs: 2,
-      sm: 4,
-      md: 6,
-      lg: 8,
-      xl: 12,
-      '2xl': 16,
-      '3xl': 24,
-      full: 9999,
-    },
+    // Shared spacing scale
+    space: palette.spacing,
+    // Shared radii scale
+    radii: palette.radii,
   },
 });
 

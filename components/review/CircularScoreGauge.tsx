@@ -53,7 +53,7 @@ export function CircularScoreGauge({
   });
 
   const getSentimentColor = () => {
-    return SENTIMENT_COLORS[sentiment] || COLORS.gray[500];
+    return SENTIMENT_COLORS[sentiment] || COLORS.typography[500];
   };
 
   const getSentimentText = () => {
