@@ -1,12 +1,13 @@
+import { designPalette, rgbToHex } from '@/constants/design-palette';
+import cx from 'clsx';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import React from 'react';
 import { View } from 'react-native';
-import cx from 'clsx';
 
 const DEFAULT_COLORS = [
-  'rgb(var(--gradient-brand-from) / 1)',
-  'rgb(var(--gradient-brand-via) / 1)',
-  'rgb(var(--gradient-brand-to) / 1)',
+  rgbToHex(designPalette.gradient.brandFrom),
+  rgbToHex(designPalette.gradient.brandVia),
+  rgbToHex(designPalette.gradient.brandTo),
 ] as const;
 
 const DEFAULT_START: LinearGradientProps['start'] = { x: 0, y: 0.5 };

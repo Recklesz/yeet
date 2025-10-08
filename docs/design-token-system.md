@@ -73,6 +73,7 @@ const color = getTokenColor('success', 500); // '#10b981'
 **Purpose:** Runtime constants for SVG, animations, calculations
 **Exports:**
 - `COLORS` — Hex colors derived from palette
+- `GRADIENTS` — Brand gradient stops (hex format for LinearGradient)
 - `SPACING` — Semantic spacing (`xs`, `sm`, `md`, etc.)
 - `SPACING_SCALE` — Direct access to numeric scale
 - `RADII` — Border radius scale
@@ -80,8 +81,9 @@ const color = getTokenColor('success', 500); // '#10b981'
 
 **Usage:**
 ```ts
-import { COLORS, SPACING } from '@/constants/ui-tokens';
+import { COLORS, SPACING, GRADIENTS } from '@/constants/ui-tokens';
 <Svg stroke={COLORS.success[500]} strokeWidth={SPACING.sm} />
+<LinearGradient colors={GRADIENTS.brand} />
 ```
 
 ### `components/ui/gluestack-ui-provider/index.tsx`
@@ -171,3 +173,32 @@ const headerHeight = SPACING_SCALE[16] + SPACING_SCALE[8]; // 64 + 32
 import { SENTIMENT_COLORS } from '@/constants/ui-tokens';
 const color = SENTIMENT_COLORS[sentiment]; // 'excellent' | 'great' | 'good' | 'needs-work'
 ```
+
+### Using gradients
+```tsx
+// Using BrandGradient component (recommended)
+import { BrandGradient } from '@/components/common/BrandGradient';
+<BrandGradient className="rounded-lg">
+  <View>Content</View>
+</BrandGradient>
+
+// Using LinearGradient directly with GRADIENTS token
+import { LinearGradient } from 'expo-linear-gradient';
+import { GRADIENTS } from '@/constants/ui-tokens';
+<LinearGradient colors={GRADIENTS.brand} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }}>
+  <View>Content</View>
+</LinearGradient>
+
+// AnimatedHeader with gradient background
+import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+<AnimatedHeader
+  height={headerHeight}
+  title="Title"
+  backgroundVariant="gradient"  // Use 'solid' for single color (default)
+/>
+```
+
+**When to use gradients:**
+- Use the brand gradient for high-impact header areas (review screens, achievements)
+- Use solid colors for most UI elements to maintain hierarchy
+- The gradient creates visual emphasis, so use sparingly

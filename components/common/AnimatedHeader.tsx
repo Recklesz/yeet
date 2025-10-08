@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BrandGradient } from '@/components/common/BrandGradient';
 import { COLORS, ICON_SIZES } from '@/constants/ui-tokens';
 
 type AnimatedHeaderProps = {
@@ -57,7 +58,14 @@ type AnimatedHeaderProps = {
   onTopRightIconPress?: () => void;
 
   /**
-   * Background gradient colors
+   * Background variant - 'solid' for single color, 'gradient' for brand gradient
+   * @default 'solid'
+   */
+  backgroundVariant?: 'solid' | 'gradient';
+
+  /**
+   * Background color (only used when backgroundVariant is 'solid')
+   * @default COLORS.background[950]
    */
   backgroundColor?: string;
 };
@@ -72,6 +80,7 @@ export function AnimatedHeader({
   centerContent = false,
   topRightIcon,
   onTopRightIconPress,
+  backgroundVariant = 'solid',
   backgroundColor,
 }: AnimatedHeaderProps) {
   const insets = useSafeAreaInsets();
@@ -108,7 +117,104 @@ export function AnimatedHeader({
     marginTop: interpolate(height, [maxHeight, minHeight], [insets.top, insets.top]),
   }));
 
-  return (
+  const headerContent = (
+    <Animated.View className="flex-1 px-5 pb-4" style={[contentContainerStyle]}>
+      {/* Top Row: Title/Subtitle + Optional Icon */}
+      <HStack className="justify-between items-start">
+        <VStack style={{ flex: 1, gap: 4 }}>
+          <Animated.Text
+            style={[
+              {
+                color: COLORS.white.solid,
+                fontWeight: '700',
+              },
+              titleStyle,
+            ]}
+          >
+            {title}
+          </Animated.Text>
+
+          {subtitle ? (
+            <Animated.Text
+              style={[
+                {
+                  color: COLORS.white[80],
+                },
+                subtitleStyle,
+              ]}
+            >
+              {subtitle}
+            </Animated.Text>
+          ) : null}
+        </VStack>
+
+        {topRightIcon ? (
+          <Animated.View style={topRightIconStyle}>
+            <Pressable onPress={onTopRightIconPress}>
+              <Feather name={topRightIcon} size={ICON_SIZES.xl} color="white" />
+            </Pressable>
+          </Animated.View>
+        ) : null}
+      </HStack>
+
+      {/* Content Area (e.g., score, metric) */}
+      {rightContent ? (
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              ...(centerContent
+                ? {
+                    left: 0,
+                    right: 0,
+                    bottom: 20,
+                    alignItems: 'center',
+                  }
+                : {
+                    right: 20,
+                    bottom: 20,
+                  }),
+            },
+            rightContentContainerStyle,
+          ]}
+        >
+          {typeof rightContent === 'string' ? (
+            <VStack className={centerContent ? 'items-center' : 'items-end'}>
+              <Animated.Text
+                style={[
+                  {
+                    color: COLORS.white[80],
+                    fontSize: 14,
+                  },
+                ]}
+              >
+                Score
+              </Animated.Text>
+              <Animated.Text
+                style={[
+                  {
+                    color: COLORS.white.solid,
+                    fontSize: interpolate(height, [maxHeight, minHeight], [48, 28]),
+                    fontWeight: '700',
+                  },
+                ]}
+              >
+                {rightContent}
+              </Animated.Text>
+            </VStack>
+          ) : (
+            rightContent
+          )}
+        </Animated.View>
+      ) : null}
+    </Animated.View>
+  );
+
+  return backgroundVariant === 'gradient' ? (
+    <BrandGradient className="rounded-b-3xl" style={{ height }}>
+      {headerContent}
+    </BrandGradient>
+  ) : (
     <Box
       className="rounded-b-3xl overflow-hidden"
       style={{
@@ -116,96 +222,7 @@ export function AnimatedHeader({
         backgroundColor: backgroundColor || defaultBg,
       }}
     >
-      <Animated.View className="flex-1 px-5 pb-4" style={[contentContainerStyle]}>
-        {/* Top Row: Title/Subtitle + Optional Icon */}
-        <HStack className="justify-between items-start">
-          <VStack style={{ flex: 1, gap: 4 }}>
-            <Animated.Text
-              style={[
-                {
-                  color: COLORS.white.solid,
-                  fontWeight: '700',
-                },
-                titleStyle,
-              ]}
-            >
-              {title}
-            </Animated.Text>
-
-            {subtitle ? (
-              <Animated.Text
-                style={[
-                  {
-                    color: COLORS.white[80],
-                  },
-                  subtitleStyle,
-                ]}
-              >
-                {subtitle}
-              </Animated.Text>
-            ) : null}
-          </VStack>
-
-          {topRightIcon ? (
-            <Animated.View style={topRightIconStyle}>
-              <Pressable onPress={onTopRightIconPress}>
-                <Feather name={topRightIcon} size={ICON_SIZES.xl} color="white" />
-              </Pressable>
-            </Animated.View>
-          ) : null}
-        </HStack>
-
-        {/* Content Area (e.g., score, metric) */}
-        {rightContent ? (
-          <Animated.View
-            style={[
-              {
-                position: 'absolute',
-                ...(centerContent
-                  ? {
-                      left: 0,
-                      right: 0,
-                      bottom: 20,
-                      alignItems: 'center',
-                    }
-                  : {
-                      right: 20,
-                      bottom: 20,
-                    }),
-              },
-              rightContentContainerStyle,
-            ]}
-          >
-            {typeof rightContent === 'string' ? (
-              <VStack className={centerContent ? 'items-center' : 'items-end'}>
-                <Animated.Text
-                  style={[
-                    {
-                      color: COLORS.white[80],
-                      fontSize: 14,
-                    },
-                  ]}
-                >
-                  Score
-                </Animated.Text>
-                <Animated.Text
-                  style={[
-                    {
-                      color: COLORS.white.solid,
-                      fontSize: interpolate(height, [maxHeight, minHeight], [48, 28]),
-                      fontWeight: '700',
-                    },
-                  ]}
-                >
-                  {rightContent}
-                </Animated.Text>
-              </VStack>
-            ) : (
-              rightContent
-            )}
-          </Animated.View>
-        ) : null}
-      </Animated.View>
+      {headerContent}
     </Box>
   );
 }

@@ -18,11 +18,11 @@ export function FeedbackAccordion({
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
     const styles = isWin
-      ? { bg: 'bg-green-50', border: 'border-green-500', icon: 'bg-green-500' }
-      : { bg: 'bg-amber-50', border: 'border-amber-500', icon: 'bg-amber-500' };
+      ? { bg: 'bg-green-50', icon: 'bg-green-500' }
+      : { bg: 'bg-amber-50', icon: 'bg-amber-500' };
 
     return (
-      <Box key={item.id} className={cx('rounded-2xl border p-4', styles.bg, styles.border)}>
+      <Box key={item.id} className={cx('rounded-2xl p-4', styles.bg)}>
         <HStack className="items-start gap-3">
           <Box className={cx('mt-0.5 rounded-full p-2', styles.icon)}>
             <IconSymbol name={item.icon as any} size={ICON_SIZES.sm} color="white" />
@@ -44,7 +44,7 @@ export function FeedbackAccordion({
       {safeOpportunities.length > 0 ? (
         <VStack className="gap-3">{safeOpportunities.map(renderFeedbackItem)}</VStack>
       ) : (
-        <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
+        <Box className={cx('rounded-2xl p-4', 'bg-gray-50')}>
           <Text className={cx('text-sm', 'text-gray-600')}>
             No coaching notes this time. We&apos;ll surface opportunities to grow once we have them.
           </Text>

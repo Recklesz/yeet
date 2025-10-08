@@ -98,3 +98,12 @@ export const SENTIMENT_COLORS = {
   good: COLORS.primary[500],
   'needs-work': COLORS.warning[500],
 } as const;
+
+// Brand gradient stops (in hex format for LinearGradient)
+export const GRADIENTS = {
+  brand: [
+    rgbToHex(designPalette.gradient.brandFrom), // Pink #ec4899
+    rgbToHex(designPalette.gradient.brandVia), // Red #ef4444
+    rgbToHex(designPalette.gradient.brandTo), // Yellow #eab308
+  ],
+} as const;

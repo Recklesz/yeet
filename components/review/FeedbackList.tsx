@@ -12,19 +12,12 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
   const renderFeedbackItem = (item: FeedbackItem) => {
     const isWin = item.type === 'win';
     const bgColor = isWin ? '$green50' : '$amber50';
-    const borderColor = isWin ? '$green500' : '$amber500';
+    const accentColor = isWin ? '$green500' : '$amber500';
 
     return (
-      <Box
-        key={item.id}
-        backgroundColor={bgColor}
-        borderRadius="$lg"
-        padding={16}
-        borderWidth={1}
-        borderColor={borderColor}
-      >
+      <Box key={item.id} backgroundColor={bgColor} borderRadius="$lg" padding={16}>
         <HStack gap="$md" alignItems="flex-start">
-          <Box backgroundColor={borderColor} borderRadius="$full" padding={8} marginTop={2}>
+          <Box backgroundColor={accentColor} borderRadius="$full" padding={8} marginTop={2}>
             <IconSymbol name={item.icon as any} size={16} color="white" />
           </Box>
 

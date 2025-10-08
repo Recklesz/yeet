@@ -34,13 +34,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
           const progressValue = clampToPercentage(metric.score);
 
           return (
-            <Box
-              key={metric.id}
-              className={cx(
-                'flex-1 min-w-[45%] rounded-2xl border p-4',
-                'border-gray-200 bg-gray-50'
-              )}
-            >
+            <Box key={metric.id} className={cx('flex-1 min-w-[45%] rounded-2xl p-4', 'bg-gray-50')}>
               <VStack className="mb-3 items-center gap-2">
                 <Text className={cx('text-3xl font-bold', getScoreColor(metric.score))}>
                   {metric.score}

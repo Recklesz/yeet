@@ -7,8 +7,8 @@ import Animated from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
-import { YeetButton } from '@/components/common/YeetButton';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
+import { YeetButton } from '@/components/common/YeetButton';
 import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
@@ -116,6 +116,7 @@ export default function ReviewScreen() {
             title={reviewData.title}
             subtitle={headerSubtitle}
             centerContent={true}
+            backgroundVariant="gradient"
             rightContent={
               <CircularScoreGauge
                 score={reviewData.overallScore}
@@ -151,7 +152,7 @@ export default function ReviewScreen() {
             {reviewData.transcriptSummary && (
               <VStack className="gap-3">
                 <Text className={cx('text-xl font-bold', 'text-black')}>📝 Summary</Text>
-                <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
+                <Box className={cx('rounded-2xl p-4', 'bg-gray-50')}>
                   <Text className={cx('text-sm leading-5', 'text-gray-700')}>
                     {reviewData.transcriptSummary}
                   </Text>

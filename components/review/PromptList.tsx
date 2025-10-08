@@ -18,7 +18,7 @@ export function PromptList({ prompts, onPromptPress }: PromptListProps) {
       <VStack className="gap-3">
         {prompts.map(prompt => (
           <Pressable key={prompt.id} onPress={() => onPromptPress?.(prompt.scenarioId)}>
-            <Box className={cx('rounded-2xl border p-4', 'border-gray-200 bg-gray-50')}>
+            <Box className={cx('rounded-2xl p-4', 'bg-gray-50')}>
               <HStack className="items-center justify-between">
                 <VStack className="flex-1 gap-1">
                   <Text className={cx('text-base font-semibold', 'text-black')}>
