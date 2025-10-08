@@ -12,13 +12,24 @@ This app is only going to be developed for iOS - iphones.
 
 🚧 **Early Development** — Foundation complete. Basic voice chat via VAPI is integrated on the Explore tab; more features pending.
 
-## Tech Stack (Current Implementation)
+## Tech Stack
 
 - **App:** React Native (TypeScript) via **Expo** managed workflow (v54)
-- **UI:** **Gluestack UI** + NativeWind/Tailwind ✅ _configured_
-- **Navigation:** React Navigation + Expo Router ✅ _configured_
-- **Animation:** React Native Reanimated ✅ _installed_
+- **UI:** **Gluestack UI** + NativeWind/Tailwind 
+- **Navigation:** React Navigation + Expo Router 
+- **Animation:** React Native Reanimated 
 - **Dev environment:** Windsurf/VS Code, Node LTS, Xcode for iOS Simulator
+
+## UI Conventions
+
+- Prefer `className` utilities everywhere possible (NativeWind/Tailwind) and rely on Gluestack props only for tokens that lack utility coverage.
+
+## Development Practices
+
+- Ship small, focused components; have AI draft scaffolds but normalize to our patterns before committing.
+- Keep prompts contextual: mention target screen, `className` preference, Gluestack token usage, and accessibility expectations.
+- Validate AI output with unit/story snapshots where practical and exercise it in `npx expo start` before handoff.
+- Document reusable patterns in `planned-changes/` so future AI requests stay aligned with our design language.
 
 ## Current Project Structure
 
@@ -48,26 +59,7 @@ npx expo start
 # press: i (iOS simulator)
 ```
 
-## Next Steps (Not Yet Implemented)
-
-- **Voice Interface:** Implement speech-to-text and text-to-speech functionality
-- **Audio UI:** Build voice chat interface with recording/playback controls
-- **Backend:** Set up serverless API endpoints for voice processing and LLM integration
-- **Scenarios:** Create scenario system and voice prompts
-- **Screens:** Replace default Expo screens with yeet-specific UI
-- **AI Integration:** Connect to LLM service for avatar voice responses
-- **Scoring:** Implement voice conversation feedback system
-
-## What agents can help with
-
-- Replace default screens with yeet-specific UI using Gluestack patterns
-- Set up voice chat interface and conversation flow
-- Implement speech-to-text and text-to-speech integration
-- Create scenario system and voice-optimized AI prompt engineering
-- Build backend API endpoints for voice processing and LLM integration
-- Implement voice conversation scoring/feedback algorithms
-
-## VAPI Voice Chat Integration (Concise)
+## VAPI Voice Chat Integration 
 
 - **What it is**
   - Real-time voice conversations powered by `@vapi-ai/react-native` with sub-second latency. The `Explore` tab hosts the first voice chat UI.
