@@ -2,13 +2,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Alert, ImageBackground, Pressable, View } from 'react-native';
+import { Alert, Image, ImageBackground, Pressable, View } from 'react-native';
 
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
+import { BrandGradient } from '@/components/common/BrandGradient';
 import { PracticeControls } from '@/components/practice/PracticeControls';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { COFFEE_SHOP_SCENARIO, PRACTICE_COPY } from '@/constants/practice';
 import { usePracticeSession } from '@/hooks/usePracticeSession';
+import { COLORS } from '@/constants/ui-tokens';
 import { HStack, Text, VStack } from '@gluestack-ui/themed';
 
 export default function PracticeSessionScreen() {
@@ -68,106 +70,87 @@ export default function PracticeSessionScreen() {
   // Idle State Layout
   if (status === 'idle') {
     return (
-      <SafeAreaScreen className="bg-gray-200 flex-1">
+      <SafeAreaScreen className="bg-background-0 flex-1">
         <StatusBar style="dark" />
         <View className="flex-1 justify-center items-center px-6">
           {/* Back and Close controls */}
           <View className="absolute top-12 left-6 right-6 flex-row justify-between z-10">
             <Pressable
               onPress={handleBack}
-              className="w-10 h-10 rounded-full bg-white/80 items-center justify-center"
-              style={{
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-              }}
+              className="w-10 h-10 rounded-full bg-typography-0/80 items-center justify-center shadow-sm"
             >
-              <IconSymbol name="chevron.left" size={20} color="#000" />
+              <IconSymbol name="chevron.left" size={20} color={COLORS.typography[900]} />
             </Pressable>
             <Pressable
               onPress={handleClose}
-              className="w-10 h-10 rounded-full bg-white/80 items-center justify-center"
-              style={{
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-              }}
+              className="w-10 h-10 rounded-full bg-typography-0/80 items-center justify-center shadow-sm"
             >
-              <IconSymbol name="xmark" size={20} color="#000" />
+              <IconSymbol name="xmark" size={20} color={COLORS.typography[900]} />
             </Pressable>
           </View>
 
-          {/* Main centered card */}
-          <View
-            className="bg-gradient-to-br from-purple-600 to-pink-500 rounded-3xl px-6 py-8 w-full max-w-sm"
-            style={{
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.2,
-              shadowRadius: 8,
-              backgroundColor: '#9333ea',
-            }}
-          >
-            {/* Circular illustration placeholder */}
-            <View className="items-center mb-6">
-              <View
-                className="w-32 h-32 rounded-full bg-white/20 items-center justify-center"
-                style={{
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.15,
-                  shadowRadius: 6,
-                }}
-              >
-                <IconSymbol name="person.2.fill" size={64} color="white" />
+          {/* Main centered card with brand gradient */}
+          <BrandGradient className="rounded-3xl w-full max-w-sm shadow-lg">
+            <View className="px-6 py-8">
+              {/* Avatar image */}
+              <View className="items-center mb-6">
+                <View className="w-32 h-32 rounded-full overflow-hidden shadow-md">
+                  <Image
+                    source={scenario.avatarImage}
+                    className="w-full h-full"
+                    resizeMode="cover"
+                  />
+                </View>
               </View>
+
+              {/* Title and subtitle */}
+              <VStack gap={8} alignItems="center" marginBottom={16}>
+                <Text
+                  fontSize={24}
+                  fontWeight="$bold"
+                  className="text-typography-900"
+                  textAlign="center"
+                >
+                  {scenario.title}
+                </Text>
+                <Text fontSize={16} className="text-typography-700" textAlign="center">
+                  {scenario.subtitle}
+                </Text>
+              </VStack>
+
+              {/* Goal card */}
+              <View className="bg-white/90 rounded-2xl p-4 mb-6">
+                <HStack gap={12} alignItems="flex-start">
+                  <View className="w-10 h-10 rounded-full bg-primary-100 items-center justify-center">
+                    <IconSymbol name="target" size={20} color={COLORS.primary[500]} />
+                  </View>
+                  <View className="flex-1">
+                    <Text
+                      fontSize={12}
+                      fontWeight="$semibold"
+                      className="text-typography-600"
+                      marginBottom={4}
+                    >
+                      YOUR GOAL
+                    </Text>
+                    <Text fontSize={16} className="text-typography-900" fontWeight="$medium">
+                      {scenario.goal.description}
+                    </Text>
+                  </View>
+                </HStack>
+              </View>
+
+              {/* Begin Practice button */}
+              <Pressable
+                onPress={handleStart}
+                className="bg-typography-0 rounded-full py-4 px-8 items-center shadow-soft-1"
+              >
+                <Text fontSize={16} fontWeight="$semibold" className="text-primary-500">
+                  Begin Practice
+                </Text>
+              </Pressable>
             </View>
-
-            {/* Title and subtitle */}
-            <VStack gap={8} alignItems="center" marginBottom={16}>
-              <Text fontSize={24} fontWeight="$bold" color="$white" textAlign="center">
-                {scenario.title}
-              </Text>
-              <Text fontSize={16} color="$white" opacity={0.9} textAlign="center">
-                {scenario.subtitle}
-              </Text>
-            </VStack>
-
-            {/* Goal card */}
-            <View className="bg-white/20 rounded-2xl p-4 mb-6">
-              <HStack gap={12} alignItems="flex-start">
-                <View className="w-10 h-10 rounded-full bg-white/30 items-center justify-center">
-                  <IconSymbol name="target" size={20} color="white" />
-                </View>
-                <View className="flex-1">
-                  <Text fontSize={12} color="$white" opacity={0.8} marginBottom={4}>
-                    YOUR GOAL
-                  </Text>
-                  <Text fontSize={14} color="$white" fontWeight="$medium">
-                    {scenario.goal.description}
-                  </Text>
-                </View>
-              </HStack>
-            </View>
-
-            {/* Begin Practice button */}
-            <Pressable
-              onPress={handleStart}
-              className="bg-white rounded-full py-4 px-8 items-center"
-              style={{
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-              }}
-            >
-              <Text fontSize={16} fontWeight="$semibold" color="#9333ea">
-                Begin Practice
-              </Text>
-            </Pressable>
-          </View>
+          </BrandGradient>
         </View>
       </SafeAreaScreen>
     );
@@ -185,13 +168,18 @@ export default function PracticeSessionScreen() {
         {/* Progress bar and hint section */}
         <View className="px-6 pb-24">
           {/* Progress bar */}
-          <View className="h-1 bg-gray-300/30 rounded-full overflow-hidden mb-3">
-            <View className="h-full bg-blue-400" style={{ width: `${progress}%` }} />
+          <View className="h-1 bg-typography-0/30 rounded-full overflow-hidden mb-3">
+            <View className="h-full bg-primary-400" style={{ width: `${progress}%` }} />
           </View>
 
           {/* Hint text */}
           {status === 'connected' && (
-            <Text fontSize={12} color="$gray300" textAlign="center" marginBottom={16}>
+            <Text
+              fontSize={12}
+              className="text-typography-300"
+              textAlign="center"
+              marginBottom={16}
+            >
               {scenario.hints[currentHintIndex]}
             </Text>
           )}
