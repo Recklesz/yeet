@@ -186,9 +186,10 @@ const indicator = {
 
 // Gradient Tokens
 const gradient = {
-  brandFrom: '236 72 153',
-  brandVia: '239 68 68',
-  brandTo: '234 179 8',
+  // Subtle gradient: white → light blue → light green
+  brandFrom: '255 255 255', // Pure white
+  brandVia: '224 248 255', // Very light blue (primary[0])
+  brandTo: '236 253 245', // Very light green (success[0])
 };
 
 // Spacing scale (in pixels, aligned with Tailwind/Gluestack)

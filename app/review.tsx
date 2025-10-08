@@ -33,7 +33,7 @@ export default function ReviewScreen() {
   });
 
   // Calculate content padding to account for header + safe area + extra spacing
-  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + 16; // 16px extra spacing
+  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + 8; // 8px extra spacing
 
   // TODO: Replace with actual review data from navigation params or global state
   const reviewData = mockReviewData;
@@ -122,6 +122,7 @@ export default function ReviewScreen() {
                 score={reviewData.overallScore}
                 sentiment={reviewData.sentiment}
                 showSentimentText={true}
+                variant="light"
               />
             }
           />

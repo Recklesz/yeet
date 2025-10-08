@@ -1,11 +1,11 @@
 import { Text, VStack } from '@gluestack-ui/themed';
-import cx from 'clsx';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedProps, useSharedValue, withSpring } from 'react-native-reanimated';
 import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 
-import { COLORS, GAUGE_SIZES, SENTIMENT_COLORS } from '@/constants/ui-tokens';
+import { designPalette, rgbToRgba } from '@/constants/design-palette';
+import { COLORS, GAUGE_SIZES, SENTIMENT_COLORS, SENTIMENT_COLORS_SOFT } from '@/constants/ui-tokens';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -16,6 +16,7 @@ interface CircularScoreGaugeProps {
   sentiment: 'excellent' | 'great' | 'good' | 'needs-work';
   animate?: boolean;
   showSentimentText?: boolean;
+  variant?: 'light' | 'dark'; // 'light' for light backgrounds, 'dark' for dark backgrounds
 }
 
 export function CircularScoreGauge({
@@ -25,6 +26,7 @@ export function CircularScoreGauge({
   sentiment,
   animate = true,
   showSentimentText = false,
+  variant = 'dark',
 }: CircularScoreGaugeProps) {
   const size = GAUGE_SIZES.default;
   const strokeWidth = GAUGE_SIZES.strokeWidth;
@@ -53,7 +55,8 @@ export function CircularScoreGauge({
   });
 
   const getSentimentColor = () => {
-    return SENTIMENT_COLORS[sentiment] || COLORS.typography[500];
+    const colorMap = variant === 'light' ? SENTIMENT_COLORS_SOFT : SENTIMENT_COLORS;
+    return colorMap[sentiment] || COLORS.typography[500];
   };
 
   const getSentimentText = () => {
@@ -73,6 +76,13 @@ export function CircularScoreGauge({
 
   const ringColor = getSentimentColor();
 
+  // Determine colors based on variant
+  const bgCircleColor = variant === 'light' ? COLORS.typography[200] : COLORS.white[20];
+  const textColor = variant === 'light' ? COLORS.typography[700] : COLORS.white.solid;
+  const labelColor =
+    variant === 'light' ? COLORS.typography[600] : rgbToRgba(designPalette.typography[0]!, 0.8);
+  const sentimentTextColor = variant === 'light' ? COLORS.typography[700] : COLORS.white.solid;
+
   return (
     <VStack className="items-center gap-2">
       <View className="relative" style={{ width: size, height: size }}>
@@ -89,7 +99,7 @@ export function CircularScoreGauge({
             cx={center}
             cy={center}
             r={radius}
-            stroke={COLORS.white[20]}
+            stroke={bgCircleColor}
             strokeWidth={strokeWidth}
             fill="none"
           />
@@ -112,13 +122,19 @@ export function CircularScoreGauge({
 
         {/* Centered text */}
         <VStack className="absolute inset-0 items-center justify-center gap-0">
-          <Text className={cx('text-5xl font-bold', 'text-white')}>{score}</Text>
-          <Text className={cx('text-sm font-medium', 'text-white/80')}>{label}</Text>
+          <Text className="text-5xl font-bold" style={{ color: textColor }}>
+            {score}
+          </Text>
+          <Text className="text-sm font-medium" style={{ color: labelColor }}>
+            {label}
+          </Text>
         </VStack>
       </View>
 
       {showSentimentText && (
-        <Text className={cx('text-lg font-semibold', 'text-white')}>{getSentimentText()}</Text>
+        <Text className="text-lg font-semibold" style={{ color: sentimentTextColor }}>
+          {getSentimentText()}
+        </Text>
       )}
     </VStack>
   );

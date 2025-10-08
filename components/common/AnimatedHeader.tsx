@@ -86,6 +86,11 @@ export function AnimatedHeader({
   const insets = useSafeAreaInsets();
   const defaultBg = COLORS.background[950];
 
+  // Use softer text colors for gradient, white text for solid dark background
+  const textColor = backgroundVariant === 'gradient' ? COLORS.typography[700] : COLORS.white.solid;
+  const subtitleColor = backgroundVariant === 'gradient' ? COLORS.typography[600] : COLORS.white[80];
+  const iconColor = backgroundVariant === 'gradient' ? COLORS.typography[700] : 'white';
+
   // Title font size animation
   const titleStyle = useAnimatedStyle(() => ({
     fontSize: interpolate(height, [maxHeight, minHeight], [28, 20]),
@@ -125,7 +130,7 @@ export function AnimatedHeader({
           <Animated.Text
             style={[
               {
-                color: COLORS.white.solid,
+                color: textColor,
                 fontWeight: '700',
               },
               titleStyle,
@@ -138,7 +143,7 @@ export function AnimatedHeader({
             <Animated.Text
               style={[
                 {
-                  color: COLORS.white[80],
+                  color: subtitleColor,
                 },
                 subtitleStyle,
               ]}
@@ -151,7 +156,7 @@ export function AnimatedHeader({
         {topRightIcon ? (
           <Animated.View style={topRightIconStyle}>
             <Pressable onPress={onTopRightIconPress}>
-              <Feather name={topRightIcon} size={ICON_SIZES.xl} color="white" />
+              <Feather name={topRightIcon} size={ICON_SIZES.xl} color={iconColor} />
             </Pressable>
           </Animated.View>
         ) : null}
@@ -183,7 +188,7 @@ export function AnimatedHeader({
               <Animated.Text
                 style={[
                   {
-                    color: COLORS.white[80],
+                    color: subtitleColor,
                     fontSize: 14,
                   },
                 ]}
@@ -193,7 +198,7 @@ export function AnimatedHeader({
               <Animated.Text
                 style={[
                   {
-                    color: COLORS.white.solid,
+                    color: textColor,
                     fontSize: interpolate(height, [maxHeight, minHeight], [48, 28]),
                     fontWeight: '700',
                   },

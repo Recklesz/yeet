@@ -99,6 +99,14 @@ export const SENTIMENT_COLORS = {
   'needs-work': COLORS.warning[500],
 } as const;
 
+// Softer sentiment colors for light backgrounds
+export const SENTIMENT_COLORS_SOFT = {
+  excellent: getTokenColor('success', 400), // Softer green
+  great: getTokenColor('success', 300), // Light green
+  good: getTokenColor('primary', 300), // Softer blue
+  'needs-work': getTokenColor('warning', 400), // Softer yellow/orange
+} as const;
+
 // Brand gradient stops (in hex format for LinearGradient)
 export const GRADIENTS = {
   brand: [
