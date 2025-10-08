@@ -40,6 +40,11 @@ type AnimatedHeaderProps = {
   rightContent?: ReactNode;
 
   /**
+   * Center the content below the title
+   */
+  centerContent?: boolean;
+
+  /**
    * Icon to show on top-right (fades out on collapse)
    */
   topRightIcon?: keyof typeof Feather.glyphMap;
@@ -62,6 +67,7 @@ export function AnimatedHeader({
   title,
   subtitle,
   rightContent,
+  centerContent = false,
   topRightIcon,
   onTopRightIconPress,
   backgroundColor,
@@ -156,20 +162,29 @@ export function AnimatedHeader({
           ) : null}
         </HStack>
 
-        {/* Right Content Area (e.g., score, metric) */}
+        {/* Content Area (e.g., score, metric) */}
         {rightContent ? (
           <Animated.View
             style={[
               {
                 position: 'absolute',
-                right: 20,
-                bottom: 20,
+                ...(centerContent
+                  ? {
+                      left: 0,
+                      right: 0,
+                      bottom: 20,
+                      alignItems: 'center',
+                    }
+                  : {
+                      right: 20,
+                      bottom: 20,
+                    }),
               },
               rightContentContainerStyle,
             ]}
           >
             {typeof rightContent === 'string' ? (
-              <VStack className="items-end">
+              <VStack className={centerContent ? 'items-center' : 'items-end'}>
                 <Animated.Text
                   style={[
                     {

@@ -13,11 +13,11 @@ import cx from 'clsx';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
-import { Alert } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
+import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
@@ -97,13 +97,6 @@ export default function ReviewScreen() {
     router.replace('/(tabs)/explore');
   };
 
-  const handleShare = () => {
-    Alert.alert(
-      'Share coming soon',
-      'You will soon be able to export highlights from this review.'
-    );
-  };
-
   const formattedCompletedAt = reviewData.completedAt.toLocaleString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -125,9 +118,14 @@ export default function ReviewScreen() {
             minHeight={140}
             title={reviewData.title}
             subtitle={headerSubtitle}
-            rightContent={`${Math.round(reviewData.overallScore)}%`}
-            topRightIcon="share-2"
-            onTopRightIconPress={handleShare}
+            centerContent={true}
+            rightContent={
+              <CircularScoreGauge
+                score={reviewData.overallScore}
+                sentiment={reviewData.sentiment}
+                showSentimentText={true}
+              />
+            }
           />
         </Animated.View>
 

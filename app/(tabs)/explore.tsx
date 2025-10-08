@@ -301,10 +301,7 @@ export default function VoiceChatScreen() {
               </Text>
             </VStack>
 
-            <Button
-              className="rounded-2xl bg-blue-600 py-3"
-              onPress={() => router.push('/review')}
-            >
+            <Button className="rounded-2xl bg-blue-600 py-3" onPress={() => router.push('/review')}>
               <ButtonText className="text-sm font-semibold text-white">
                 View Sample Review (Dev)
               </ButtonText>
