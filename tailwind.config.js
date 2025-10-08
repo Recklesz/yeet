@@ -1,4 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const palette = require('./constants/design-palette.js');
+
+/**
+ * Helper: Convert RGB space format to hex
+ */
+function rgbToHex(rgb) {
+  const [r, g, b] = rgb.split(' ').map(Number);
+  return `#${[r, g, b].map(x => x.toString(16).padStart(2, '0')).join('')}`;
+}
+
 module.exports = {
   darkMode: process.env.DARK_MODE ? process.env.DARK_MODE : 'class',
   content: [
@@ -130,9 +140,9 @@ module.exports = {
           800: 'rgb(var(--color-typography-800)/<alpha-value>)',
           900: 'rgb(var(--color-typography-900)/<alpha-value>)',
           950: 'rgb(var(--color-typography-950)/<alpha-value>)',
-          white: '#FFFFFF',
-          gray: '#D4D4D4',
-          black: '#181718',
+          white: rgbToHex(palette.typography[0]),
+          gray: rgbToHex(palette.typography[300]),
+          black: rgbToHex(palette.typography[950]),
         },
         outline: {
           0: 'rgb(var(--color-outline-0)/<alpha-value>)',
@@ -166,8 +176,8 @@ module.exports = {
           muted: 'rgb(var(--color-background-muted)/<alpha-value>)',
           success: 'rgb(var(--color-background-success)/<alpha-value>)',
           info: 'rgb(var(--color-background-info)/<alpha-value>)',
-          light: '#FBFBFB',
-          dark: '#181719',
+          light: rgbToHex(palette.background[0]),
+          dark: rgbToHex(palette.background[950]),
         },
         indicator: {
           primary: 'rgb(var(--color-indicator-primary)/<alpha-value>)',
@@ -175,6 +185,8 @@ module.exports = {
           error: 'rgb(var(--color-indicator-error)/<alpha-value>)',
         },
       },
+      spacing: palette.spacing,
+      borderRadius: palette.radii,
       fontFamily: {
         heading: undefined,
         body: undefined,
