@@ -2,15 +2,12 @@ import Vapi from '@vapi-ai/react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert } from 'react-native';
-import Animated from 'react-native-reanimated';
+import { Alert, ScrollView } from 'react-native';
 
-import { AnimatedHeader } from '@/components/common/AnimatedHeader';
 import { YeetButton } from '@/components/common/YeetButton';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
-import { useAnimatedHeader } from '@/hooks/use-animated-header';
 import {
   Avatar,
   AvatarImage,
@@ -31,14 +28,6 @@ export default function PracticeSessionScreen() {
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
   const vapiRef = useRef<Vapi | null>(null);
-  const {
-    height: headerHeight,
-    headerStyle,
-    handleScroll,
-  } = useAnimatedHeader({
-    maxHeight: 260,
-    minHeight: 120,
-  });
 
   useEffect(() => {
     // Initialize VAPI client
@@ -141,61 +130,38 @@ export default function PracticeSessionScreen() {
   };
 
   const statusText = getStatusText();
-  const headerSubtitle =
-    callStatus === 'connected'
-      ? 'Live coaching session in progress'
-      : callStatus === 'connecting'
-        ? 'Connecting to your AI coach...'
-        : 'Warm up with a guided conversation before heading out';
 
   return (
     <SafeAreaScreen style={{ backgroundColor: '#ffffff' }}>
       <Box flex={1}>
         <StatusBar style="dark" />
-        <Animated.View
-          style={[
-            {
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              zIndex: 10,
-            },
-            headerStyle,
-          ]}
-        >
-          <AnimatedHeader
-            height={headerHeight}
-            maxHeight={260}
-            minHeight={120}
-            title="Practice with Sarah"
-            subtitle={headerSubtitle}
-            rightContent={
-              <VStack style={{ alignItems: 'flex-end' }}>
-                <Text color="$white" opacity={0.7} fontSize={12}>
-                  Status
-                </Text>
-                <Text color="$white" fontSize={24} fontWeight="$bold">
-                  {statusText === 'Ready to Chat' ? 'Ready' : statusText.replace('...', '')}
-                </Text>
-              </VStack>
-            }
-            topRightIcon="info"
-            onTopRightIconPress={handleHowItWorks}
-          />
-        </Animated.View>
 
-        <Animated.ScrollView
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
+        <ScrollView
           contentContainerStyle={{
-            paddingTop: 260,
+            paddingTop: 24,
             paddingHorizontal: 24,
             paddingBottom: 56,
           }}
           showsVerticalScrollIndicator={false}
         >
           <VStack gap="$6" alignItems="center">
+            {/* Header Title */}
+            <VStack alignItems="center" gap="$2" marginTop={16}>
+              <Text fontSize={28} fontWeight="$bold" color="$black">
+                Practice with Sarah
+              </Text>
+              <Text fontSize={14} color="$gray600" textAlign="center">
+                Warm up with a guided conversation before heading out
+              </Text>
+              <Pressable onPress={handleHowItWorks} marginTop={4}>
+                <HStack gap="$1" alignItems="center">
+                  <Text fontSize={13} color="$blue600" fontWeight="$medium">
+                    How it works
+                  </Text>
+                  <IconSymbol name="info.circle" size={14} color="#2563eb" />
+                </HStack>
+              </Pressable>
+            </VStack>
             <Box position="relative">
               <Avatar className="w-24 h-24">
                 <AvatarImage
@@ -309,7 +275,7 @@ export default function PracticeSessionScreen() {
               View Sample Review (Dev)
             </YeetButton>
           </VStack>
-        </Animated.ScrollView>
+        </ScrollView>
       </Box>
     </SafeAreaScreen>
   );
