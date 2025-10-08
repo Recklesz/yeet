@@ -57,7 +57,7 @@ export function FeedbackList({ wins, opportunities }: FeedbackListProps) {
       {opportunities.length > 0 && (
         <VStack gap="$sm">
           <Text fontSize={20} fontWeight="$bold" color="$black">
-            💡 Areas to Improve
+            Areas to Improve
           </Text>
           <VStack gap="$sm">{opportunities.map(renderFeedbackItem)}</VStack>
         </VStack>

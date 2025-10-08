@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+import { YeetButton } from '@/components/common/YeetButton';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { VAPI_CONFIG } from '@/constants/vapi';
@@ -16,8 +17,6 @@ import {
   Badge,
   BadgeText,
   Box,
-  Button,
-  ButtonText,
   HStack,
   Pressable,
   Spinner,
@@ -301,11 +300,14 @@ export default function VoiceChatScreen() {
               </Text>
             </VStack>
 
-            <Button className="rounded-2xl bg-blue-600 py-3" onPress={() => router.push('/review')}>
-              <ButtonText className="text-sm font-semibold text-white">
-                View Sample Review (Dev)
-              </ButtonText>
-            </Button>
+            <YeetButton
+              variant="primary"
+              size="md"
+              onPress={() => router.push('/review')}
+              className="bg-blue-600"
+            >
+              View Sample Review (Dev)
+            </YeetButton>
           </VStack>
         </Animated.ScrollView>
       </Box>

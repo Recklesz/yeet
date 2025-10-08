@@ -4,6 +4,8 @@ import React, { ReactNode } from 'react';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { COLORS, ICON_SIZES } from '@/constants/ui-tokens';
+
 type AnimatedHeaderProps = {
   /**
    * Animated height value (SharedValue from Reanimated)
@@ -73,7 +75,7 @@ export function AnimatedHeader({
   backgroundColor,
 }: AnimatedHeaderProps) {
   const insets = useSafeAreaInsets();
-  const defaultBg = '#1a1f36';
+  const defaultBg = COLORS.background[950];
 
   // Title font size animation
   const titleStyle = useAnimatedStyle(() => ({
@@ -114,23 +116,14 @@ export function AnimatedHeader({
         backgroundColor: backgroundColor || defaultBg,
       }}
     >
-      <Animated.View
-        style={[
-          {
-            flex: 1,
-            paddingHorizontal: 20,
-            paddingBottom: 20,
-          },
-          contentContainerStyle,
-        ]}
-      >
+      <Animated.View className="flex-1 px-5 pb-5" style={[contentContainerStyle]}>
         {/* Top Row: Title/Subtitle + Optional Icon */}
         <HStack className="justify-between items-start">
           <VStack style={{ flex: 1, gap: 4 }}>
             <Animated.Text
               style={[
                 {
-                  color: '#FFFFFF',
+                  color: COLORS.white.solid,
                   fontWeight: '700',
                 },
                 titleStyle,
@@ -143,7 +136,7 @@ export function AnimatedHeader({
               <Animated.Text
                 style={[
                   {
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: COLORS.white[80],
                   },
                   subtitleStyle,
                 ]}
@@ -156,7 +149,7 @@ export function AnimatedHeader({
           {topRightIcon ? (
             <Animated.View style={topRightIconStyle}>
               <Pressable onPress={onTopRightIconPress}>
-                <Feather name={topRightIcon} size={28} color="white" />
+                <Feather name={topRightIcon} size={ICON_SIZES.xl} color="white" />
               </Pressable>
             </Animated.View>
           ) : null}
@@ -188,7 +181,7 @@ export function AnimatedHeader({
                 <Animated.Text
                   style={[
                     {
-                      color: 'rgba(255, 255, 255, 0.8)',
+                      color: COLORS.white[80],
                       fontSize: 14,
                     },
                   ]}
@@ -198,7 +191,7 @@ export function AnimatedHeader({
                 <Animated.Text
                   style={[
                     {
-                      color: '#FFFFFF',
+                      color: COLORS.white.solid,
                       fontSize: interpolate(height, [maxHeight, minHeight], [48, 28]),
                       fontWeight: '700',
                     },

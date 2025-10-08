@@ -5,6 +5,8 @@ import { View } from 'react-native';
 import Animated, { useAnimatedProps, useSharedValue, withSpring } from 'react-native-reanimated';
 import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 
+import { COLORS, GAUGE_SIZES, SENTIMENT_COLORS } from '@/constants/ui-tokens';
+
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface CircularScoreGaugeProps {
@@ -24,8 +26,8 @@ export function CircularScoreGauge({
   animate = true,
   showSentimentText = false,
 }: CircularScoreGaugeProps) {
-  const size = 160;
-  const strokeWidth = 12;
+  const size = GAUGE_SIZES.default;
+  const strokeWidth = GAUGE_SIZES.strokeWidth;
   const center = size / 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -51,18 +53,7 @@ export function CircularScoreGauge({
   });
 
   const getSentimentColor = () => {
-    switch (sentiment) {
-      case 'excellent':
-        return '#16a34a'; // green-600
-      case 'great':
-        return '#22c55e'; // green-500
-      case 'good':
-        return '#3b82f6'; // blue-500
-      case 'needs-work':
-        return '#f59e0b'; // amber-500
-      default:
-        return '#6b7280'; // gray-500
-    }
+    return SENTIMENT_COLORS[sentiment] || COLORS.gray[500];
   };
 
   const getSentimentText = () => {
@@ -98,7 +89,7 @@ export function CircularScoreGauge({
             cx={center}
             cy={center}
             r={radius}
-            stroke="rgba(255, 255, 255, 0.2)"
+            stroke={COLORS.white[20]}
             strokeWidth={strokeWidth}
             fill="none"
           />

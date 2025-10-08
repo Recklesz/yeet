@@ -6,11 +6,11 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  Button,
-  ButtonText,
   Heading,
   Text,
 } from '@gluestack-ui/themed';
+import { View } from 'react-native';
+import { YeetButton } from './YeetButton';
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -20,7 +20,7 @@ interface ConfirmDialogProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
-  confirmButtonColor?: string;
+  confirmVariant?: 'primary' | 'secondary';
 }
 
 export function ConfirmDialog({
@@ -31,7 +31,7 @@ export function ConfirmDialog({
   message,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
-  confirmButtonColor = '$red500',
+  confirmVariant = 'primary',
 }: ConfirmDialogProps) {
   const handleConfirm = () => {
     onConfirm();
@@ -55,21 +55,27 @@ export function ConfirmDialog({
         </AlertDialogBody>
 
         <AlertDialogFooter borderTopWidth={1} borderColor="$gray700">
-          <Button
-            backgroundColor="transparent"
-            borderWidth={1}
-            borderColor="$gray600"
-            onPress={onClose}
-            sx={{ marginRight: 8 }}
-          >
-            <ButtonText color="$black">{cancelText}</ButtonText>
-          </Button>
+          <View className="flex-row gap-2 w-full">
+            <YeetButton
+              variant="secondary"
+              size="md"
+              onPress={onClose}
+              fullWidth={false}
+              className="flex-1"
+            >
+              {cancelText}
+            </YeetButton>
 
-          <Button backgroundColor={confirmButtonColor} onPress={handleConfirm}>
-            <ButtonText color="$white" fontWeight="$bold">
+            <YeetButton
+              variant={confirmVariant}
+              size="md"
+              onPress={handleConfirm}
+              fullWidth={false}
+              className="flex-1"
+            >
               {confirmText}
-            </ButtonText>
-          </Button>
+            </YeetButton>
+          </View>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -1,5 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { SuggestedPrompt } from '@/constants/review';
+import { ICON_SIZES } from '@/constants/ui-tokens';
 import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 import React from 'react';
@@ -26,7 +27,7 @@ export function PromptList({ prompts, onPromptPress }: PromptListProps) {
                   <Text className={cx('text-sm', 'text-gray-600')}>{prompt.description}</Text>
                 </VStack>
 
-                <IconSymbol name="chevron.right" size={20} color="#64748b" />
+                <IconSymbol name="chevron.right" size={ICON_SIZES.md} color="#64748b" />
               </HStack>
             </Box>
           </Pressable>

@@ -1,5 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { Metric } from '@/constants/review';
+import { ICON_SIZES } from '@/constants/ui-tokens';
 import { Box, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 import React from 'react';
@@ -47,7 +48,7 @@ export function MetricGrid({ metrics }: MetricGridProps) {
                   {metric.score}
                 </Text>
                 <VStack className="items-center gap-1">
-                  <IconSymbol name={metric.icon as any} size={20} color="#64748b" />
+                  <IconSymbol name={metric.icon as any} size={ICON_SIZES.md} color="#64748b" />
                   <Text className={cx('text-sm font-semibold', 'text-black')}>{metric.label}</Text>
                 </VStack>
               </VStack>

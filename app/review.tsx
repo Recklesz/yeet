@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  ButtonText,
-  Divider,
-  Text,
-  Toast,
-  ToastTitle,
-  useToast,
-  VStack,
-} from '@gluestack-ui/themed';
+import { Box, Divider, Text, Toast, ToastTitle, useToast, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -16,12 +6,14 @@ import React, { useEffect, useRef } from 'react';
 import Animated from 'react-native-reanimated';
 
 import { AnimatedHeader } from '@/components/common/AnimatedHeader';
+import { YeetButton } from '@/components/common/YeetButton';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
 import { mockReviewData } from '@/constants/review';
+import { HEADER_HEIGHTS } from '@/constants/ui-tokens';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
 
 export default function ReviewScreen() {
@@ -33,8 +25,8 @@ export default function ReviewScreen() {
     headerStyle,
     handleScroll,
   } = useAnimatedHeader({
-    maxHeight: 240,
-    minHeight: 140,
+    maxHeight: HEADER_HEIGHTS.max,
+    minHeight: HEADER_HEIGHTS.min,
   });
 
   // TODO: Replace with actual review data from navigation params or global state
@@ -106,15 +98,15 @@ export default function ReviewScreen() {
   const headerSubtitle = `Practice with ${reviewData.avatarName} • ${formattedCompletedAt}`;
 
   return (
-    <SafeAreaScreen style={{ backgroundColor: '#ffffff' }}>
+    <SafeAreaScreen className="bg-white">
       <Box className="flex-1">
         <StatusBar style="dark" />
 
         <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
           <AnimatedHeader
             height={headerHeight}
-            maxHeight={240}
-            minHeight={140}
+            maxHeight={HEADER_HEIGHTS.max}
+            minHeight={HEADER_HEIGHTS.min}
             title={reviewData.title}
             subtitle={headerSubtitle}
             centerContent={true}
@@ -132,7 +124,7 @@ export default function ReviewScreen() {
           className="flex-1"
           onScroll={handleScroll}
           scrollEventThrottle={16}
-          contentContainerClassName="pt-[240px] px-5 pb-20"
+          contentContainerClassName="pt-60 px-5 pb-20"
           showsVerticalScrollIndicator={false}
         >
           <VStack className="gap-6">
@@ -158,23 +150,13 @@ export default function ReviewScreen() {
             <PromptList prompts={reviewData.suggestedPrompts} onPromptPress={handlePromptPress} />
 
             <VStack className="mt-6 gap-3">
-              <Button
-                className="rounded-2xl bg-primary-900 py-4 px-5 shadow-md justify-center"
-                onPress={handleRetry}
-              >
-                <ButtonText className="w-full text-center text-base font-semibold text-typography-white">
-                  Retry This Scenario
-                </ButtonText>
-              </Button>
+              <YeetButton variant="primary" size="lg" onPress={handleRetry}>
+                Retry This Scenario
+              </YeetButton>
 
-              <Button
-                className="rounded-2xl border-2 border-primary-400 bg-white justify-center"
-                onPress={handleNewScenario}
-              >
-                <ButtonText className="w-full text-center text-base font-semibold py-4 text-primary-400">
-                  Pick New Scenario
-                </ButtonText>
-              </Button>
+              <YeetButton variant="secondary" size="lg" onPress={handleNewScenario}>
+                Pick New Scenario
+              </YeetButton>
             </VStack>
           </VStack>
         </Animated.ScrollView>

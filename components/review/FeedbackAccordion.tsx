@@ -1,5 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { FeedbackItem } from '@/constants/review';
+import { ICON_SIZES } from '@/constants/ui-tokens';
 import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import cx from 'clsx';
 
@@ -24,7 +25,7 @@ export function FeedbackAccordion({
       <Box key={item.id} className={cx('rounded-2xl border p-4', styles.bg, styles.border)}>
         <HStack className="items-start gap-3">
           <Box className={cx('mt-0.5 rounded-full p-2', styles.icon)}>
-            <IconSymbol name={item.icon as any} size={16} color="white" />
+            <IconSymbol name={item.icon as any} size={ICON_SIZES.sm} color="white" />
           </Box>
 
           <VStack className="flex-1 gap-1.5">
