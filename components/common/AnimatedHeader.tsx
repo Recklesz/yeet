@@ -103,7 +103,7 @@ export function AnimatedHeader({
 
   // Content margin adjustment
   const contentContainerStyle = useAnimatedStyle(() => ({
-    marginTop: interpolate(height, [maxHeight, minHeight], [insets.top + 40, insets.top + 20]),
+    marginTop: interpolate(height, [maxHeight, minHeight], [insets.top, insets.top]),
   }));
 
   return (

@@ -21,7 +21,6 @@ import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
-import { ReviewHeader } from '@/components/review/ReviewHeader';
 import { mockReviewData } from '@/constants/review';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
 
@@ -34,7 +33,7 @@ export default function ReviewScreen() {
     headerStyle,
     handleScroll,
   } = useAnimatedHeader({
-    maxHeight: 320,
+    maxHeight: 240,
     minHeight: 140,
   });
 
@@ -114,7 +113,7 @@ export default function ReviewScreen() {
         <Animated.View className="absolute left-0 right-0 top-0 z-10" style={[headerStyle]}>
           <AnimatedHeader
             height={headerHeight}
-            maxHeight={320}
+            maxHeight={240}
             minHeight={140}
             title={reviewData.title}
             subtitle={headerSubtitle}
@@ -133,19 +132,10 @@ export default function ReviewScreen() {
           className="flex-1"
           onScroll={handleScroll}
           scrollEventThrottle={16}
-          contentContainerClassName="pt-[320px] px-5 pb-20"
+          contentContainerClassName="pt-[240px] px-5 pb-20"
           showsVerticalScrollIndicator={false}
         >
           <VStack className="gap-6">
-            <ReviewHeader
-              title={reviewData.title}
-              avatarName={reviewData.avatarName}
-              avatarImage={reviewData.avatarImage}
-              completedAt={reviewData.completedAt}
-              overallScore={reviewData.overallScore}
-              sentiment={reviewData.sentiment}
-            />
-
             <MetricGrid metrics={reviewData.metrics} />
 
             <Divider backgroundColor="$gray200" />
