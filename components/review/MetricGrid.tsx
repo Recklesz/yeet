@@ -28,8 +28,6 @@ export function MetricGrid({ metrics }: MetricGridProps) {
 
   return (
     <VStack className="gap-4">
-      <Text className={cx('text-xl font-bold', 'text-black')}>Key Metrics</Text>
-
       {/* 2-column responsive grid */}
       <Box className="flex-row flex-wrap gap-3">
         {metrics.map(metric => {
