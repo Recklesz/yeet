@@ -71,7 +71,7 @@ export default function HomeScreen() {
           highlightLabel="Last session score"
           highlightValue={latestScore}
           searchPlaceholder="Search scenarios or skills"
-          onMicPress={() => router.push('/(tabs)/explore')}
+          onMicPress={() => router.push('/(tabs)/practice')}
         />
 
         <ScrollView
@@ -80,7 +80,7 @@ export default function HomeScreen() {
         >
           <VStack className="gap-3">
             {FEATURED_SCENARIOS.map(scenario => (
-              <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/explore')}>
+              <Pressable key={scenario.id} onPress={() => router.push('/(tabs)/practice')}>
                 <Box className="rounded-2xl p-4 border bg-gray-50 border-gray-200">
                   <VStack className="gap-2">
                     <HStack className="items-center justify-between">

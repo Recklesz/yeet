@@ -26,7 +26,7 @@ import {
 
 type CallStatus = 'idle' | 'connecting' | 'connected' | 'disconnected';
 
-export default function VoiceChatScreen() {
+export default function PracticeSessionScreen() {
   const router = useRouter();
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
@@ -62,7 +62,7 @@ export default function VoiceChatScreen() {
 
     vapi?.on('error', (error: any) => {
       console.error('VAPI Error:', error);
-      Alert.alert('Voice Chat Error', 'Unable to connect. Please try again.');
+      Alert.alert('Practice Session Error', 'Unable to connect. Please try again.');
       setCallStatus('idle');
     });
 
@@ -73,7 +73,7 @@ export default function VoiceChatScreen() {
     };
   }, []);
 
-  const startVoiceChat = async () => {
+  const startPracticeSession = async () => {
     if (!vapiRef.current) {
       Alert.alert(
         'Configuration Error',
@@ -87,13 +87,13 @@ export default function VoiceChatScreen() {
     try {
       await vapiRef.current.start(VAPI_CONFIG.DATING_COACH_ASSISTANT_ID);
     } catch (error) {
-      console.error('Failed to start voice chat:', error);
+      console.error('Failed to start practice session:', error);
       Alert.alert('Connection Failed', 'Please check your internet connection and try again.');
       setCallStatus('idle');
     }
   };
 
-  const endVoiceChat = () => {
+  const endPracticeSession = () => {
     if (vapiRef.current) {
       vapiRef.current.stop();
     }
@@ -231,7 +231,7 @@ export default function VoiceChatScreen() {
             <HStack gap={24} marginTop={16}>
               {callStatus === 'idle' && (
                 <Pressable
-                  onPress={startVoiceChat}
+                  onPress={startPracticeSession}
                   backgroundColor="$green500"
                   borderRadius="$full"
                   padding={20}
@@ -267,7 +267,7 @@ export default function VoiceChatScreen() {
                   </Pressable>
 
                   <Pressable
-                    onPress={endVoiceChat}
+                    onPress={endPracticeSession}
                     backgroundColor="$red500"
                     borderRadius="$full"
                     padding={20}

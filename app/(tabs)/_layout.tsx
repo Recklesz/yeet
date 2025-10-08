@@ -24,10 +24,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="practice"
         options={{
-          title: 'Voice Chat',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="mic.fill" color={color} />,
+          title: 'Practice',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="figure.wave" color={color} />,
         }}
       />
       <Tabs.Screen

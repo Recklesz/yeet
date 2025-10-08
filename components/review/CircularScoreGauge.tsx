@@ -5,7 +5,12 @@ import Animated, { useAnimatedProps, useSharedValue, withSpring } from 'react-na
 import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 
 import { designPalette, rgbToRgba } from '@/constants/design-palette';
-import { COLORS, GAUGE_SIZES, SENTIMENT_COLORS, SENTIMENT_COLORS_SOFT } from '@/constants/ui-tokens';
+import {
+  COLORS,
+  GAUGE_SIZES,
+  SENTIMENT_COLORS,
+  SENTIMENT_COLORS_SOFT,
+} from '@/constants/ui-tokens';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 

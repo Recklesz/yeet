@@ -88,7 +88,8 @@ export function AnimatedHeader({
 
   // Use softer text colors for gradient, white text for solid dark background
   const textColor = backgroundVariant === 'gradient' ? COLORS.typography[700] : COLORS.white.solid;
-  const subtitleColor = backgroundVariant === 'gradient' ? COLORS.typography[600] : COLORS.white[80];
+  const subtitleColor =
+    backgroundVariant === 'gradient' ? COLORS.typography[600] : COLORS.white[80];
   const iconColor = backgroundVariant === 'gradient' ? COLORS.typography[700] : 'white';
 
   // Title font size animation
@@ -123,7 +124,7 @@ export function AnimatedHeader({
   }));
 
   const headerContent = (
-    <Animated.View className="flex-1 px-5 pb-4" style={[contentContainerStyle]}>
+    <Animated.View className="flex-1 px-5 pb-0" style={[contentContainerStyle]}>
       {/* Top Row: Title/Subtitle + Optional Icon */}
       <HStack className="justify-between items-start">
         <VStack style={{ flex: 1, gap: 4 }}>

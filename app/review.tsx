@@ -15,7 +15,7 @@ import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
 import { ScenarioOverviewCard } from '@/components/review/ScenarioOverviewCard';
 import { mockReviewData } from '@/constants/review';
-import { HEADER_HEIGHTS } from '@/constants/ui-tokens';
+import { HEADER_HEIGHTS, SPACING } from '@/constants/ui-tokens';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
 
 export default function ReviewScreen() {
@@ -33,7 +33,7 @@ export default function ReviewScreen() {
   });
 
   // Calculate content padding to account for header + safe area + extra spacing
-  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + 8; // 8px extra spacing
+  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + SPACING.xs; // 4px extra spacing
 
   // TODO: Replace with actual review data from navigation params or global state
   const reviewData = mockReviewData;
@@ -81,17 +81,17 @@ export default function ReviewScreen() {
         );
       },
     });
-    setTimeout(() => router.replace('/(tabs)/explore'), 500);
+    setTimeout(() => router.replace('/(tabs)/practice'), 500);
   };
 
   const handleNewScenario = () => {
-    router.replace('/(tabs)/explore');
+    router.replace('/(tabs)/practice');
   };
 
   const handlePromptPress = (scenarioId: string) => {
     // TODO: Navigate to explore with selected scenario
     console.log('Selected scenario:', scenarioId);
-    router.replace('/(tabs)/explore');
+    router.replace('/(tabs)/practice');
   };
 
   const formattedCompletedAt = reviewData.completedAt.toLocaleString('en-US', {
