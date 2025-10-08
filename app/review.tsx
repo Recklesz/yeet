@@ -32,8 +32,8 @@ export default function ReviewScreen() {
     minHeight: HEADER_HEIGHTS.min,
   });
 
-  // Calculate content padding to account for header + safe area + extra spacing
-  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top + SPACING.xs; // 4px extra spacing
+  // Calculate content padding to account for header + safe area
+  const contentPaddingTop = HEADER_HEIGHTS.max + insets.top;
 
   // TODO: Replace with actual review data from navigation params or global state
   const reviewData = mockReviewData;

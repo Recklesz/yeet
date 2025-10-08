@@ -32,7 +32,7 @@ export const GAUGE_SIZES = {
 
 // Header heights (in pixels)
 export const HEADER_HEIGHTS = {
-  max: 240,
+  max: 216, // Reduced for tighter spacing with scenario card
   min: 180, // Increased to accommodate 160px gauge + sentiment text + padding
 } as const;
 

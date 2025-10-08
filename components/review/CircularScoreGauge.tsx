@@ -89,7 +89,7 @@ export function CircularScoreGauge({
   const sentimentTextColor = variant === 'light' ? COLORS.typography[700] : COLORS.white.solid;
 
   return (
-    <VStack className="items-center gap-2">
+    <VStack className="items-center gap-4">
       <View className="relative" style={{ width: size, height: size }}>
         <Svg width={size} height={size}>
           <Defs>

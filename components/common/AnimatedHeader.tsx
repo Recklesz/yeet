@@ -124,7 +124,7 @@ export function AnimatedHeader({
   }));
 
   const headerContent = (
-    <Animated.View className="flex-1 px-5 pb-0" style={[contentContainerStyle]}>
+    <Animated.View className="flex-1 px-5 pt-10" style={[contentContainerStyle]}>
       {/* Top Row: Title/Subtitle + Optional Icon */}
       <HStack className="justify-between items-start">
         <VStack style={{ flex: 1, gap: 4 }}>
@@ -173,12 +173,13 @@ export function AnimatedHeader({
                 ? {
                     left: 0,
                     right: 0,
-                    bottom: 8,
+
+                    bottom: 12,
                     alignItems: 'center',
                   }
                 : {
                     right: 20,
-                    bottom: 8,
+                    bottom: 12,
                   }),
             },
             rightContentContainerStyle,
