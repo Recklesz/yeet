@@ -1,8 +1,9 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { CallStatus } from '@/constants/practice';
-import { Box, HStack, Pressable, Spinner } from '@gluestack-ui/themed';
+import { Pressable, Spinner } from '@gluestack-ui/themed';
 
 export interface PracticeControlsProps {
   /** Current call status */
@@ -21,60 +22,81 @@ export interface PracticeControlsProps {
  * Control buttons for the Practice screen.
  *
  * Displays different controls based on call status:
- * - `idle`: Start call button (green phone icon)
- * - `connecting`: Spinner (amber)
- * - `connected`: Mute toggle + End call button
+ * - `idle`: Hidden (controlled by Begin Practice button in main screen)
+ * - `connecting`: Centered spinner
+ * - `connected`: Three-button cluster (mute | stop | speaker)
  */
-export function PracticeControls({
-  status,
-  isMuted,
-  onStart,
-  onEnd,
-  onToggleMute,
-}: PracticeControlsProps) {
-  return (
-    <HStack gap={24} marginTop={16}>
-      {/* Idle state: Start call button */}
-      {status === 'idle' && (
-        <Pressable
-          onPress={onStart}
-          backgroundColor="$green500"
-          borderRadius="$full"
-          padding={20}
-          shadowColor="$black"
-          shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.25}
-          shadowRadius={3.84}
-          elevation={5}
-        >
-          <IconSymbol name="phone.fill" size={32} color="white" />
-        </Pressable>
-      )}
+export function PracticeControls({ status, isMuted, onEnd, onToggleMute }: PracticeControlsProps) {
+  // Idle state: no controls shown (handled by main screen)
+  if (status === 'idle') {
+    return null;
+  }
 
-      {/* Connecting state: Spinner */}
-      {status === 'connecting' && (
-        <Box backgroundColor="$amber500" borderRadius="$full" padding={20}>
+  // Connecting state: centered spinner
+  if (status === 'connecting') {
+    return (
+      <View className="items-center">
+        <View className="w-16 h-16 rounded-full bg-amber-500 items-center justify-center shadow-lg">
           <Spinner color="white" size="large" />
-        </Box>
-      )}
+        </View>
+      </View>
+    );
+  }
 
-      {/* Connected state: Mute toggle + End call button */}
-      {status === 'connected' && (
-        <>
-          <Pressable
-            onPress={onToggleMute}
-            backgroundColor={isMuted ? '$red500' : '$gray500'}
-            borderRadius="$full"
-            padding={16}
-          >
-            <IconSymbol name={isMuted ? 'mic.slash.fill' : 'mic.fill'} size={24} color="white" />
-          </Pressable>
+  // Connected state: three-button cluster
+  if (status === 'connected') {
+    return (
+      <View className="flex-row items-center justify-center gap-4">
+        {/* Left: Mute/Unmute button */}
+        <Pressable
+          onPress={onToggleMute}
+          className="w-14 h-14 rounded-full items-center justify-center shadow-lg"
+          style={{
+            backgroundColor: 'white',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+          }}
+        >
+          <IconSymbol
+            name={isMuted ? 'mic.slash.fill' : 'mic.fill'}
+            size={24}
+            color={isMuted ? '#ef4444' : '#000'}
+          />
+        </Pressable>
 
-          <Pressable onPress={onEnd} backgroundColor="$red500" borderRadius="$full" padding={20}>
-            <IconSymbol name="phone.down.fill" size={32} color="white" />
-          </Pressable>
-        </>
-      )}
-    </HStack>
-  );
+        {/* Center: Stop button (larger, red) */}
+        <Pressable
+          onPress={onEnd}
+          className="w-16 h-16 rounded-full items-center justify-center shadow-lg"
+          style={{
+            backgroundColor: '#ef4444',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+          }}
+        >
+          <IconSymbol name="phone.down.fill" size={32} color="white" />
+        </Pressable>
+
+        {/* Right: Speaker button (placeholder for output control) */}
+        <Pressable
+          className="w-14 h-14 rounded-full items-center justify-center shadow-lg"
+          style={{
+            backgroundColor: 'white',
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+          }}
+        >
+          <IconSymbol name="speaker.wave.2.fill" size={24} color="#000" />
+        </Pressable>
+      </View>
+    );
+  }
+
+  return null;
 }

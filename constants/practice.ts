@@ -2,6 +2,17 @@
 
 export type CallStatus = 'idle' | 'connecting' | 'connected' | 'disconnected';
 
+export interface ScenarioMetadata {
+  id: string;
+  title: string;
+  subtitle: string;
+  goal: {
+    description: string;
+  };
+  avatarImage: any;
+  hints: string[];
+}
+
 export interface CoachMetadata {
   name: string;
   title: string;
@@ -98,10 +109,8 @@ export const getRandomTip = (): PracticeTip => {
 };
 
 // Helper to get tip by category
-export const getTipsByCategory = (
-  category: PracticeTip['category']
-): PracticeTip[] => {
-  return PRACTICE_TIPS.filter((tip) => tip.category === category);
+export const getTipsByCategory = (category: PracticeTip['category']): PracticeTip[] => {
+  return PRACTICE_TIPS.filter(tip => tip.category === category);
 };
 
 // How It Works Content
@@ -109,6 +118,23 @@ export const HOW_IT_WORKS = {
   title: 'How practice works',
   description:
     'Start a live voice session with Sarah, your AI dating coach. She guides you through real-world scenarios and gives instant feedback when the call ends.',
+};
+
+// Scenario Definitions
+export const COFFEE_SHOP_SCENARIO: ScenarioMetadata = {
+  id: 'coffee-shop-encounter',
+  title: 'Coffee Shop Encounter',
+  subtitle: 'with Amelia',
+  goal: {
+    description: 'Start a natural conversation and ask for her contact info',
+  },
+  avatarImage: require('../assets/images/avatars/cute_lady_1.png'),
+  hints: [
+    'Hint: Ask about her interests',
+    'Hint: Share something about yourself',
+    'Hint: Keep your tone warm and confident',
+    'Hint: Listen actively and ask follow-up questions',
+  ],
 };
 
 // Practice Screen Copy
