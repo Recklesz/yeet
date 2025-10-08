@@ -186,9 +186,9 @@ const indicator = {
 
 // Gradient Tokens
 const gradient = {
-  // Subtle gradient: white → light blue → light green
-  brandFrom: '255 255 255', // Pure white
-  brandVia: '224 248 255', // Very light blue (primary[0])
+  // Smooth gradient: light blue → aqua → light green
+  brandFrom: '186 230 253', // Light blue (primary[50])
+  brandVia: '209 250 229', // Light mint green (success[50])
   brandTo: '236 253 245', // Very light green (success[0])
 };
 

@@ -1,7 +1,13 @@
 import { Text, VStack } from '@gluestack-ui/themed';
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
-import Animated, { useAnimatedProps, useSharedValue, withSpring } from 'react-native-reanimated';
+import { View, Text as RNText } from 'react-native';
+import Animated, {
+  SharedValue,
+  useAnimatedProps,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
 import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 
 import { designPalette, rgbToRgba } from '@/constants/design-palette';
@@ -13,6 +19,7 @@ import {
 } from '@/constants/ui-tokens';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const AnimatedText = Animated.createAnimatedComponent(RNText);
 
 interface CircularScoreGaugeProps {
   score: number;
@@ -22,6 +29,7 @@ interface CircularScoreGaugeProps {
   animate?: boolean;
   showSentimentText?: boolean;
   variant?: 'light' | 'dark'; // 'light' for light backgrounds, 'dark' for dark backgrounds
+  sentimentTextOpacity?: SharedValue<number>; // Animated opacity SharedValue for sentiment text
 }
 
 export function CircularScoreGauge({
@@ -32,6 +40,7 @@ export function CircularScoreGauge({
   animate = true,
   showSentimentText = false,
   variant = 'dark',
+  sentimentTextOpacity,
 }: CircularScoreGaugeProps) {
   const size = GAUGE_SIZES.default;
   const strokeWidth = GAUGE_SIZES.strokeWidth;
@@ -56,6 +65,13 @@ export function CircularScoreGauge({
     const strokeDashoffset = circumference * (1 - progress.value);
     return {
       strokeDashoffset,
+    };
+  });
+
+  // Animated style for sentiment text opacity
+  const sentimentTextAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: sentimentTextOpacity?.value ?? 1,
     };
   });
 
@@ -137,9 +153,18 @@ export function CircularScoreGauge({
       </View>
 
       {showSentimentText && (
-        <Text className="text-lg font-semibold" style={{ color: sentimentTextColor }}>
+        <AnimatedText
+          style={[
+            {
+              color: sentimentTextColor,
+              fontSize: 18,
+              fontWeight: '600',
+            },
+            sentimentTextAnimatedStyle,
+          ]}
+        >
           {getSentimentText()}
-        </Text>
+        </AnimatedText>
       )}
     </VStack>
   );

@@ -32,8 +32,8 @@ export const GAUGE_SIZES = {
 
 // Header heights (in pixels)
 export const HEADER_HEIGHTS = {
-  max: 216, // Reduced for tighter spacing with scenario card
-  min: 180, // Increased to accommodate 160px gauge + sentiment text + padding
+  max: 260, // Accommodate 160px gauge + sentiment text + safe area + padding
+  min: 200, // Accommodate collapsed gauge + sentiment text
 } as const;
 
 // Spacing values (semantic mapping to shared scale)
@@ -110,8 +110,8 @@ export const SENTIMENT_COLORS_SOFT = {
 // Brand gradient stops (in hex format for LinearGradient)
 export const GRADIENTS = {
   brand: [
-    rgbToHex(designPalette.gradient.brandFrom), // Pink #ec4899
-    rgbToHex(designPalette.gradient.brandVia), // Red #ef4444
-    rgbToHex(designPalette.gradient.brandTo), // Yellow #eab308
+    rgbToHex(designPalette.gradient.brandFrom), // Light blue
+    rgbToHex(designPalette.gradient.brandVia), // Light mint
+    rgbToHex(designPalette.gradient.brandTo), // Light green
   ],
 } as const;

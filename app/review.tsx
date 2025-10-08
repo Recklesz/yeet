@@ -3,7 +3,7 @@ import cx from 'clsx';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef } from 'react';
-import Animated from 'react-native-reanimated';
+import Animated, { interpolate, useDerivedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ReviewHeader } from '@/components/review/ReviewHeader';
@@ -27,9 +27,20 @@ export default function ReviewScreen() {
     height: headerHeight,
     headerStyle,
     handleScroll,
+    animatedHeight,
   } = useAnimatedHeader({
     maxHeight: HEADER_HEIGHTS.max,
     minHeight: HEADER_HEIGHTS.min,
+  });
+
+  // Calculate sentiment text opacity - fade out as header collapses
+  const sentimentTextOpacity = useDerivedValue(() => {
+    return interpolate(
+      animatedHeight.value,
+      [HEADER_HEIGHTS.min, HEADER_HEIGHTS.max],
+      [0, 1],
+      'clamp'
+    );
   });
 
   // Calculate content padding to account for header + safe area
@@ -111,6 +122,7 @@ export default function ReviewScreen() {
                 sentiment={reviewData.sentiment}
                 showSentimentText={true}
                 variant="light"
+                sentimentTextOpacity={sentimentTextOpacity}
               />
             }
           />

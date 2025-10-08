@@ -14,13 +14,13 @@ export type ReviewHeaderProps = {
 
   /**
    * Maximum height when fully expanded
-   * @default HEADER_HEIGHTS.max (216)
+   * @default HEADER_HEIGHTS.max (260)
    */
   maxHeight?: number;
 
   /**
    * Minimum height when fully collapsed
-   * @default HEADER_HEIGHTS.min (180)
+   * @default HEADER_HEIGHTS.min (200)
    */
   minHeight?: number;
 
@@ -87,7 +87,7 @@ export function ReviewHeader({
 
   return (
     <BrandGradient className="rounded-b-3xl" style={{ height }}>
-      <Animated.View style={contentContainerStyle} className="flex-1 px-5 pb-2">
+      <Animated.View style={contentContainerStyle} className="flex-1 px-5 pb-4">
         {/* Title and Subtitle */}
         {(title || subtitle) && (
           <Animated.View className="gap-0">
