@@ -46,7 +46,8 @@ export const mockReviewData: ConversationReview = {
   overallScore: 78,
   sentiment: 'great',
   avatarName: 'Sarah',
-  avatarImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
+  avatarImage:
+    'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
   metrics: [
     {
       id: 'confidence',
@@ -105,7 +106,8 @@ export const mockReviewData: ConversationReview = {
       id: 'opp-1',
       type: 'opportunity',
       title: 'Slow Down',
-      description: 'You rushed through the middle section. Take a breath and let the conversation breathe.',
+      description:
+        'You rushed through the middle section. Take a breath and let the conversation breathe.',
       icon: 'tortoise.fill',
     },
     {
@@ -136,5 +138,6 @@ export const mockReviewData: ConversationReview = {
       scenarioId: 'bookstore-connection',
     },
   ],
-  transcriptSummary: 'You approached confidently and started with a genuine compliment about her book choice. The conversation flowed naturally as you discussed literature and coffee preferences. You showed great active listening skills but could have been more direct when suggesting to exchange numbers.',
+  transcriptSummary:
+    'You approached confidently and started with a genuine compliment about her book choice. The conversation flowed naturally as you discussed literature and coffee preferences. You showed great active listening skills but could have been more direct when suggesting to exchange numbers.',
 };

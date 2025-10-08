@@ -11,7 +11,7 @@ interface FeedbackAccordionProps {
 
 export function FeedbackAccordion({
   opportunities,
-  title = '💡 Areas to Improve',
+  title = 'Areas to Improve',
 }: FeedbackAccordionProps) {
   const safeOpportunities = Array.isArray(opportunities) ? opportunities : [];
 
