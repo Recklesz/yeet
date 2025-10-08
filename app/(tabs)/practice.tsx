@@ -70,7 +70,7 @@ export default function PracticeSessionScreen() {
   // Idle State Layout
   if (status === 'idle') {
     return (
-      <SafeAreaScreen className="bg-background-0 flex-1">
+      <SafeAreaScreen className="bg-background-0 flex-1" edges={['top', 'left', 'right']}>
         <StatusBar style="dark" />
         <View className="flex-1 justify-center items-center px-6">
           {/* Back and Close controls */}

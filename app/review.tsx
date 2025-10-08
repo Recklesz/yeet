@@ -106,7 +106,7 @@ export default function ReviewScreen() {
   };
 
   return (
-    <SafeAreaScreen className="bg-white">
+    <SafeAreaScreen className="bg-white" edges={['top', 'left', 'right']}>
       <Box className="flex-1">
         <StatusBar style="dark" />
 

@@ -60,7 +60,7 @@ export default function HomeScreen() {
   const latestScore = useMemo(() => `${mockReviewData.overallScore}/10`, []);
 
   return (
-    <SafeAreaScreen className="bg-background-0">
+    <SafeAreaScreen className="bg-background-0" edges={['top', 'left', 'right']}>
       <VStack className="flex-1">
         <StatusBar style="dark" />
 
