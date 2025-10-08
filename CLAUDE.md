@@ -28,7 +28,6 @@ This app is only going to be developed for iOS - iphones.
 
 - Ship small, focused components; have AI draft scaffolds but normalize to our patterns before committing.
 - Keep prompts contextual: mention target screen, `className` preference, Gluestack token usage, and accessibility expectations.
-- Validate AI output with unit/story snapshots where practical and exercise it in `npx expo start` before handoff.
 - Document reusable patterns in `planned-changes/` so future AI requests stay aligned with our design language.
 
 ## Current Project Structure
