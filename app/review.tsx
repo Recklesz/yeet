@@ -139,6 +139,7 @@ export default function ReviewScreen() {
               title={reviewData.title}
               avatarName={reviewData.avatarName}
               avatarImage={require('@/assets/images/avatars/cute_lady_1.png')}
+              avatarSubtitle="Cute"
               durationSeconds={reviewData.durationSeconds}
               completedAt={reviewData.completedAt}
             />
