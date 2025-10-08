@@ -13,6 +13,7 @@ import { CircularScoreGauge } from '@/components/review/CircularScoreGauge';
 import { FeedbackAccordion } from '@/components/review/FeedbackAccordion';
 import { MetricGrid } from '@/components/review/MetricGrid';
 import { PromptList } from '@/components/review/PromptList';
+import { ScenarioOverviewCard } from '@/components/review/ScenarioOverviewCard';
 import { mockReviewData } from '@/constants/review';
 import { HEADER_HEIGHTS } from '@/constants/ui-tokens';
 import { useAnimatedHeader } from '@/hooks/use-animated-header';
@@ -134,6 +135,14 @@ export default function ReviewScreen() {
           showsVerticalScrollIndicator={false}
         >
           <VStack className="gap-6">
+            <ScenarioOverviewCard
+              title={reviewData.title}
+              avatarName={reviewData.avatarName}
+              avatarImage={require('@/assets/images/avatars/cute_lady_1.png')}
+              durationSeconds={reviewData.durationSeconds}
+              completedAt={reviewData.completedAt}
+            />
+
             <MetricGrid metrics={reviewData.metrics} />
 
             <Divider backgroundColor="$gray200" />

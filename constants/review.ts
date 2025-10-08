@@ -27,6 +27,7 @@ export interface ConversationReview {
   scenarioId: string;
   title: string;
   completedAt: Date;
+  durationSeconds: number;
   overallScore: number; // 0-100
   sentiment: 'excellent' | 'great' | 'good' | 'needs-work';
   metrics: Metric[];
@@ -43,6 +44,7 @@ export const mockReviewData: ConversationReview = {
   scenarioId: 'coffee-shop-approach',
   title: 'Coffee Shop Approach',
   completedAt: new Date(),
+  durationSeconds: 323, // 5 min 23 sec
   overallScore: 78,
   sentiment: 'great',
   avatarName: 'Sarah',

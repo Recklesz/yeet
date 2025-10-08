@@ -34,11 +34,10 @@ export function CustomHeader({
   onMicPress,
 }: CustomHeaderProps) {
   const insets = useSafeAreaInsets();
-  const backgroundColor = '#1a1f36';
 
   return (
-    <Box className="rounded-b-3xl" style={{ paddingTop: insets.top, backgroundColor }}>
-      <Box className="px-5 pb-6 pt-10" style={{ backgroundColor }}>
+    <Box className="rounded-b-3xl bg-[#1a1f36]" style={{ paddingTop: insets.top }}>
+      <Box className="px-5 pb-6 pt-10 bg-[#1a1f36]">
         <VStack className="gap-2">
           <Text className="text-3xl font-bold text-white">{title}</Text>
           {subtitle ? <Text className="text-lg text-white/80">{subtitle}</Text> : null}

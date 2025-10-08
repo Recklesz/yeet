@@ -1,6 +1,7 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import React from 'react';
 import { View } from 'react-native';
+import cx from 'clsx';
 
 const DEFAULT_COLORS = [
   'rgb(var(--gradient-brand-from) / 1)',
@@ -34,12 +35,13 @@ export function BrandGradient({
   ...props
 }: BrandGradientProps) {
   return (
-    <View className={className} style={{ overflow: 'hidden' }}>
+    <View className={cx('overflow-hidden', className)}>
       <LinearGradient
         colors={colors}
         start={start}
         end={end}
-        style={[{ flex: 1 }, style]}
+        className="flex-1"
+        style={style}
         {...props}
       >
         {children}
