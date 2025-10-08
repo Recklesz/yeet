@@ -28,7 +28,8 @@
       "Read(//tmp/gluestack-ui-starter-kits/**)",
       "Bash(npm run typecheck:*)",
       "Read(//var/folders/sl/0rdq8tks1fdgmw7xr6_s8vbh0000gn/T/TemporaryItems/NSIRD_screencaptureui_wjXdhy/**)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)"
     ],
     "deny": [],
     "ask": []

@@ -13,7 +13,7 @@ interface PromptListProps {
 export function PromptList({ prompts, onPromptPress }: PromptListProps) {
   return (
     <VStack className="gap-4">
-      <Text className={cx('text-xl font-bold', 'text-black')}>Suggested Next Steps</Text>
+      <Text className={cx('text-xl font-bold', 'text-black')}>What to Try Next</Text>
 
       <VStack className="gap-3">
         {prompts.map(prompt => (

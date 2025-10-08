@@ -152,7 +152,7 @@ export default function ReviewScreen() {
 
             {reviewData.transcriptSummary && (
               <VStack className="gap-3">
-                <Text className={cx('text-xl font-bold', 'text-black')}>📝 Summary</Text>
+                <Text className={cx('text-xl font-bold', 'text-black')}>Summary</Text>
                 <Box className={cx('rounded-2xl p-4', 'bg-gray-50')}>
                   <Text className={cx('text-sm leading-5', 'text-gray-700')}>
                     {reviewData.transcriptSummary}
