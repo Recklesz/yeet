@@ -173,12 +173,12 @@ export function AnimatedHeader({
                 ? {
                     left: 0,
                     right: 0,
-                    bottom: 20,
+                    bottom: 8,
                     alignItems: 'center',
                   }
                 : {
                     right: 20,
-                    bottom: 20,
+                    bottom: 8,
                   }),
             },
             rightContentContainerStyle,
