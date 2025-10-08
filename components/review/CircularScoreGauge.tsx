@@ -75,7 +75,7 @@ export function CircularScoreGauge({
 
   return (
     <VStack className="items-center gap-2">
-      <View style={{ width: size, height: size, position: 'relative' }}>
+      <View className="relative" style={{ width: size, height: size }}>
         <Svg width={size} height={size}>
           <Defs>
             <LinearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -111,16 +111,7 @@ export function CircularScoreGauge({
         </Svg>
 
         {/* Centered text */}
-        <VStack
-          className="items-center justify-center gap-0"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        >
+        <VStack className="absolute inset-0 items-center justify-center gap-0">
           <Text className={cx('text-5xl font-bold', 'text-white')}>{score}</Text>
           <Text className={cx('text-sm font-medium', 'text-white/80')}>{label}</Text>
         </VStack>
