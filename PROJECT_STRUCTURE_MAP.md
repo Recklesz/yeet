@@ -1,41 +1,42 @@
 # Project Structure Map
 
 ## Overview
-- **Platform** Expo-managed React Native iOS app for the `yeet` practice gym.
-- **Navigation** Expo Router with file-based tabs inside `app/(tabs)/`.
-- **Design system** Gluestack UI + NativeWind utilities, colors sourced from `constants/ui-tokens.ts`.
-- **Realtime voice** VAPI client keyed off `constants/vapi.ts` and wired into practice flows.
+- **Platform** Expo-managed React Native iOS app with Expo Router tabs in `app/(tabs)/`.
+- **Design** Gluestack UI + NativeWind, tokens sourced from `constants/design-palette.*` and `constants/ui-tokens.ts`.
+- **Voice** VAPI client exposed via `constants/vapi.ts`, consumed by practice flows and adapters.
 
-## Core App Entry (`app/`)
-- **`_layout.tsx`** Sets up `GluestackUIProvider`, theme sync, and the root stack.
-- **`(tabs)/_layout.tsx`** Configures the bottom tab navigator.
-- **`(tabs)/index.tsx`** Landing tab with hero copy, quick links, and navigation affordances.
-- **`(tabs)/practice.tsx`** Primary practice session UI: scenario card, progress timer, hint cycling, and controls driven by `usePracticeSession()`.
-- **`(tabs)/explore.tsx`** Lightweight VAPI call demo retained for regression testing.
-- **`review.tsx`** Standalone review flow that reads serialized feedback via router params and renders `components/review/*` widgets.
-- **`modal.tsx`** Example modal route kept as a reference implementation.
+## App Entrypoints (`app/`)
+- **`_layout.tsx`** Root stack + `GluestackUIProvider` wiring.
+- **Tabs** `(tabs)/_layout.tsx` defines navigation; `index.tsx` (landing), `practice.tsx` (primary session), `explore.tsx` (VAPI regression).
+- **`review.tsx`** Renders serialized feedback using `components/review/*` widgets.
+- **`modal.tsx`** Reference modal route.
 
 ## Shared UI & Logic
-- **`components/common/`** Cross-screen primitives such as `SafeAreaScreen`, `BrandGradient`, `CustomHeader`, and confirmation dialogs.
-- **`components/practice/PracticeControls.tsx`** Clustered microphone/mute/end controls reused across call states.
-- **`components/review/`** Feedback visualization (score gauge, accordion, checklist) powering `app/review.tsx`.
-- **`components/ui/`** Gluestack provider wiring, icons, and collapsible helpers for composable layouts.
-- **`hooks/usePracticeSession.ts`** Encapsulates VAPI client lifecycle, status state machine, and mute/start/stop handlers consumed by `practice.tsx`.
+- **`components/common/`** Cross-screen wrappers like `SafeAreaScreen`, `BrandGradient`, dialogs.
+- **`components/practice/PracticeControls.tsx`** Reusable start/mute/end cluster.
+- **`components/review/`** Score gauge, accordion, checklist modules.
+- **`components/ui/`** Gluestack provider, icons, collapsible helpers.
+- **`hooks/usePracticeSession.ts`** VAPI lifecycle + status state machine.
+- **`hooks/practiceSessionAdapter.ts`** Shapes practice state and feedback payloads.
+- **`hooks/use-animated-header.ts`** Shared scroll-driven header animation helpers.
 
-## Data & Configuration
-- **`constants/practice.ts`** Scenario copy, hint lists, and CTA text for the practice session.
-- **`constants/review.ts`** Feedback types plus mock dataset for the review screen.
-- **`constants/vapi.ts`** Exposes `EXPO_PUBLIC_VAPI_API_KEY` lookup and the `DATING_COACH_ASSISTANT_ID`.
-- **`constants/ui-tokens.ts`** Central palette + typography tokens feeding NativeWind and Gluestack themes.
+## Data & Config
+- **`constants/practice.ts`** Scenario copy, hints, CTA text.
+- **`constants/review.ts`** Feedback schema and mock data.
+- **`constants/scenarios.ts`** Scenario catalog shared with cards and review.
+- **`constants/runtime.ts`** Environment helpers for dev vs prod flags.
+- **`constants/vapi.ts`** API key lookup + `DATING_COACH_ASSISTANT_ID`.
+- **`constants/design-palette.*` / `ui-tokens.ts`** Palette, spacing, typography tokens.
 
-## Assets, Docs & Planning
-- **`assets/`** Avatar art and icons declared in `app.json`.
-- **`AGENTS.md`** High-level product brief and working agreements for agents.
-- **`planned-changes/`** Feature design notes (e.g., practice screen redesign requirements) that inform current implementation.
+## Assets & Docs
+- **`assets/`** Avatar art and icons referenced by `app.json`.
+- **`AGENTS.md`** Product brief and working agreements.
+- **`docs/`** Classname conventions and token system references.
+- **`planned-changes/`** Current feature specs and design notes.
 
-## Tooling & Environment
-- **`package.json`** Expo SDK 54 app with Gluestack UI, NativeWind, and `@vapi-ai/react-native`; includes dev-client scripts (`npm run ios:sim`, `npm run start:dev`).
-- **`app.json`** App metadata plus iOS microphone, background audio, and VoIP entitlements required for VAPI.
-- **`tsconfig.json`, `eslint.config.js`, `tailwind.config.js`, `global.css`** Type, lint, and styling configuration.
-- **`babel.config.js`, `metro.config.js`** Bundler configuration for Expo.
-- **`.env.example`** Documents required runtime secrets; copy to `.env` before launching the dev client.
+## Tooling
+- **`package.json`** Expo SDK 54 deps and dev-client scripts (`npm run ios:sim`, `npm run start:dev`).
+- **`app.json`** Metadata + mic/background audio/VoIP entitlements.
+- **Configs** `tsconfig.json`, `eslint.config.js`, `tailwind.config.js`, `global.css` for typing, lint, styling.
+- **Bundler** `babel.config.js`, `metro.config.js`.
+- **Secrets** `.env.example` documents `EXPO_PUBLIC_VAPI_API_KEY`.

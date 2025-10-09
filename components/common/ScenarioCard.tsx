@@ -25,7 +25,7 @@ export function ScenarioCard({ scenario, onPress }: ScenarioCardProps) {
   return (
     <Pressable
       onPress={onPress}
-      className="w-64 flex-shrink-0 rounded-3xl border border-border-200 bg-background-0 p-4 shadow-lg"
+      className="w-64 flex-shrink-0 rounded-3xl border border-outline-100 bg-background-0 p-4 shadow-soft-1"
     >
       <VStack className="gap-3">
         {/* Image */}
@@ -47,10 +47,10 @@ export function ScenarioCard({ scenario, onPress }: ScenarioCardProps) {
         </Text>
 
         {/* Footer Chips */}
-        <HStack className="justify-center gap-2">
+        <HStack className="justify-center gap-1.5">
           {/* Level Chip */}
           <HStack
-            className={`items-center rounded-full px-2.5 py-0.5 ${LEVEL_STYLES[scenario.level]}`}
+            className={`items-center rounded-full px-2 py-0.5 ${LEVEL_STYLES[scenario.level]}`}
           >
             <Text className={`text-xs font-medium ${LEVEL_TEXT_STYLES[scenario.level]}`}>
               {scenario.level}
@@ -58,7 +58,7 @@ export function ScenarioCard({ scenario, onPress }: ScenarioCardProps) {
           </HStack>
 
           {/* Duration Chip */}
-          <HStack className="items-center rounded-full bg-background-100 px-2.5 py-0.5">
+          <HStack className="items-center rounded-full bg-background-100 px-2 py-0.5">
             <Text className="text-xs font-medium text-typography-700">
               {scenario.durationMinutes} mins
             </Text>
