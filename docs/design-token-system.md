@@ -128,6 +128,23 @@ Use Tailwind/NativeWind classNames:
 <View className="bg-primary-500 p-4 rounded-lg" />
 ```
 
+**IMPORTANT: Text Components**
+Always use React Native's native `Text` component for text rendering with className:
+```tsx
+import { Text } from 'react-native';
+
+<Text className="text-typography-900 text-base font-semibold">
+  Your text here
+</Text>
+```
+
+❌ **Do NOT use Gluestack's Text component** - it does not properly support NativeWind's `className` for text colors:
+```tsx
+// This will NOT work - text colors won't display
+import { Text } from '@gluestack-ui/themed';
+<Text className="text-typography-900">Text</Text>
+```
+
 ### In runtime code (SVG, Reanimated)
 Use `ui-tokens.ts` constants:
 ```tsx
@@ -146,8 +163,9 @@ const color = getTokenColor('primary', 500);
 
 1. **Never hardcode design values** — All colors, spacing, radii must come from `design-palette.json`
 2. **Prefer classNames** — Use Tailwind utilities over inline styles when possible
-3. **Use runtime helpers** — For SVG/animations, use `getTokenColor()` or `COLORS` from `ui-tokens.ts`
-4. **Single edit point** — Design changes happen only in `design-palette.json`
+3. **Use React Native Text** — Always use `Text` from `react-native` (NOT from `@gluestack-ui/themed`) for proper className support
+4. **Use runtime helpers** — For SVG/animations, use `getTokenColor()` or `COLORS` from `ui-tokens.ts`
+5. **Single edit point** — Design changes happen only in `design-palette.json`
 
 ## Common Patterns
 

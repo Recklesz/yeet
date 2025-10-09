@@ -2,16 +2,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, ImageBackground, Pressable, View } from 'react-native';
+import { Alert, Image, ImageBackground, Pressable, Text as RNText, View } from 'react-native';
 
-import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { BrandGradient } from '@/components/common/BrandGradient';
+import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { PracticeControls } from '@/components/practice/PracticeControls';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { COFFEE_SHOP_SCENARIO, PRACTICE_COPY } from '@/constants/practice';
-import { usePracticeSession } from '@/hooks/usePracticeSession';
 import { COLORS } from '@/constants/ui-tokens';
-import { HStack, Text, VStack } from '@gluestack-ui/themed';
+import { usePracticeSession } from '@/hooks/usePracticeSession';
+import { VStack } from '@gluestack-ui/themed';
 
 export default function PracticeSessionScreen() {
   const router = useRouter();
@@ -105,39 +105,29 @@ export default function PracticeSessionScreen() {
 
               {/* Title and subtitle */}
               <VStack gap={8} alignItems="center" marginBottom={16}>
-                <Text
-                  fontSize={24}
-                  fontWeight="$bold"
-                  className="text-typography-900"
-                  textAlign="center"
-                >
+                <RNText className="text-2xl font-bold text-typography-900 text-center">
                   {scenario.title}
-                </Text>
-                <Text fontSize={16} className="text-typography-700" textAlign="center">
+                </RNText>
+                <RNText className="text-base text-typography-700 text-center">
                   {scenario.subtitle}
-                </Text>
+                </RNText>
               </VStack>
 
               {/* Goal card */}
               <View className="bg-white/90 rounded-2xl p-4 mb-6">
-                <HStack gap={12} alignItems="flex-start">
+                <View style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
                   <View className="w-10 h-10 rounded-full bg-primary-100 items-center justify-center">
                     <IconSymbol name="target" size={20} color={COLORS.primary[500]} />
                   </View>
-                  <View className="flex-1">
-                    <Text
-                      fontSize={12}
-                      fontWeight="$semibold"
-                      className="text-typography-600"
-                      marginBottom={4}
-                    >
+                  <View style={{ flex: 1 }}>
+                    <RNText className="text-xs font-semibold text-typography-600 mb-1">
                       YOUR GOAL
-                    </Text>
-                    <Text fontSize={16} className="text-typography-900" fontWeight="$medium">
+                    </RNText>
+                    <RNText className="text-base font-medium text-typography-900">
                       {scenario.goal.description}
-                    </Text>
+                    </RNText>
                   </View>
-                </HStack>
+                </View>
               </View>
 
               {/* Begin Practice button */}
@@ -145,9 +135,7 @@ export default function PracticeSessionScreen() {
                 onPress={handleStart}
                 className="bg-typography-0 rounded-full py-4 px-8 items-center shadow-soft-1"
               >
-                <Text fontSize={16} fontWeight="$semibold" className="text-primary-500">
-                  Begin Practice
-                </Text>
+                <RNText className="text-base font-semibold text-primary-500">Begin Practice</RNText>
               </Pressable>
             </View>
           </BrandGradient>
@@ -174,14 +162,9 @@ export default function PracticeSessionScreen() {
 
           {/* Hint text */}
           {status === 'connected' && (
-            <Text
-              fontSize={12}
-              className="text-typography-300"
-              textAlign="center"
-              marginBottom={16}
-            >
+            <RNText className="text-xs text-typography-200 text-center mb-4">
               {scenario.hints[currentHintIndex]}
-            </Text>
+            </RNText>
           )}
 
           {/* Control cluster */}
