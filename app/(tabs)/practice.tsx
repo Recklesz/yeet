@@ -1,8 +1,7 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, ImageBackground, Pressable, Text as RNText, View } from 'react-native';
+import { Alert, Image, Pressable, Text as RNText, View } from 'react-native';
 
 import { BrandGradient } from '@/components/common/BrandGradient';
 import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
@@ -148,26 +147,32 @@ export default function PracticeSessionScreen() {
 
   // Active Call State Layout (connecting or connected)
   return (
-    <ImageBackground source={scenario.avatarImage} className="flex-1" resizeMode="cover">
-      <StatusBar style="light" />
-      <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.7)']}
-        locations={[0.4, 0.7, 1]}
-        style={{ flex: 1, justifyContent: 'flex-end' }}
-      >
-        {/* Progress bar and hint section */}
-        <View className="px-6 pb-8">
-          {/* Progress bar */}
-          <View className="h-1 bg-typography-0/30 rounded-full overflow-hidden mb-3">
-            <View className="h-full bg-primary-400" style={{ width: `${progress}%` }} />
+    <SafeAreaScreen className="bg-background-0 flex-1" edges={['top', 'left', 'right']}>
+      <StatusBar style="dark" />
+      <View className="flex-1 justify-between px-6 py-8">
+        {/* Top section with avatar */}
+        <View className="flex-1 justify-center items-center">
+          <View className="w-48 h-48 rounded-full overflow-hidden shadow-lg mb-6">
+            <Image source={scenario.avatarImage} className="w-full h-full" resizeMode="cover" />
           </View>
+
+          {/* Name or title */}
+          <RNText className="text-2xl font-bold text-typography-900 mb-2">{scenario.title}</RNText>
 
           {/* Hint text */}
           {status === 'connected' && (
-            <RNText className="text-xs text-typography-200 text-center mb-4">
+            <RNText className="text-sm text-typography-600 text-center px-8">
               {scenario.hints[currentHintIndex]}
             </RNText>
           )}
+        </View>
+
+        {/* Bottom section with progress bar and controls */}
+        <View className="pb-8">
+          {/* Progress bar */}
+          <View className="h-1 bg-typography-200 rounded-full overflow-hidden mb-6">
+            <View className="h-full bg-primary-400" style={{ width: `${progress}%` }} />
+          </View>
 
           {/* Control cluster */}
           <PracticeControls
@@ -178,7 +183,7 @@ export default function PracticeSessionScreen() {
             onToggleMute={toggleMute}
           />
         </View>
-      </LinearGradient>
-    </ImageBackground>
+      </View>
+    </SafeAreaScreen>
   );
 }
