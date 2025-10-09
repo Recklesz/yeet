@@ -153,10 +153,10 @@ export default function PracticeSessionScreen() {
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.7)']}
         locations={[0.4, 0.7, 1]}
-        className="flex-1 justify-end"
+        style={{ flex: 1, justifyContent: 'flex-end' }}
       >
         {/* Progress bar and hint section */}
-        <View className="px-6 pb-24">
+        <View className="px-6 pb-8">
           {/* Progress bar */}
           <View className="h-1 bg-typography-0/30 rounded-full overflow-hidden mb-3">
             <View className="h-full bg-primary-400" style={{ width: `${progress}%` }} />

@@ -67,12 +67,12 @@ export function PracticeControls({ status, isMuted, onEnd, onToggleMute }: Pract
             onPress={onEnd}
             className="w-16 h-16 rounded-full bg-error-500 items-center justify-center shadow-lg"
           >
-            <IconSymbol name="phone.down.fill" size={32} color={COLORS.white.solid} />
+            <IconSymbol name="xmark" size={28} color={COLORS.white.solid} weight="bold" />
           </Pressable>
 
-          {/* Right: Speaker button (placeholder for output control) */}
+          {/* Right: Volume button (placeholder for output control) */}
           <Pressable className="w-14 h-14 rounded-full bg-typography-0 items-center justify-center shadow-lg">
-            <IconSymbol name="speaker.wave.2.fill" size={24} color={COLORS.typography[900]} />
+            <IconSymbol name="speaker.wave.3.fill" size={24} color={COLORS.typography[900]} />
           </Pressable>
         </View>
 
