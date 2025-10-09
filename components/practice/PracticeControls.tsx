@@ -67,7 +67,7 @@ export function PracticeControls({ status, isMuted, onEnd, onToggleMute }: Pract
             onPress={onEnd}
             className="w-16 h-16 rounded-full bg-error-500 items-center justify-center shadow-lg"
           >
-            <IconSymbol name="xmark" size={28} color={COLORS.white.solid} weight="bold" />
+            <IconSymbol name="stop.fill" size={28} color={COLORS.white.solid} />
           </Pressable>
 
           {/* Right: Volume button (placeholder for output control) */}
