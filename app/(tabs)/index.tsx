@@ -50,7 +50,11 @@ export default function HomeScreen() {
               keyExtractor={item => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: 16, paddingHorizontal: 20 }}
+              contentContainerStyle={{
+                gap: 16,
+                paddingHorizontal: 20,
+                paddingVertical: 12,
+              }}
               snapToAlignment="center"
               decelerationRate="fast"
               renderItem={({ item }) => (

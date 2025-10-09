@@ -47,19 +47,19 @@ export function ScenarioCard({ scenario, onPress }: ScenarioCardProps) {
         </Text>
 
         {/* Footer Chips */}
-        <HStack className="justify-center gap-1.5">
+        <HStack className="items-center justify-center gap-1.5">
           {/* Level Chip */}
           <HStack
-            className={`items-center rounded-full px-2 py-0.5 ${LEVEL_STYLES[scenario.level]}`}
+            className={`items-center justify-center self-center rounded-full px-1.5 py-0.5 ${LEVEL_STYLES[scenario.level]}`}
           >
-            <Text className={`text-xs font-medium ${LEVEL_TEXT_STYLES[scenario.level]}`}>
+            <Text className={`text-[11px] font-medium ${LEVEL_TEXT_STYLES[scenario.level]}`}>
               {scenario.level}
             </Text>
           </HStack>
 
           {/* Duration Chip */}
-          <HStack className="items-center rounded-full bg-background-100 px-2 py-0.5">
-            <Text className="text-xs font-medium text-typography-700">
+          <HStack className="items-center justify-center self-center rounded-full bg-background-100 px-1.5 py-0.5">
+            <Text className="text-[11px] font-medium text-typography-700">
               {scenario.durationMinutes} mins
             </Text>
           </HStack>
