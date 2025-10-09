@@ -9,6 +9,7 @@ import { SafeAreaScreen } from '@/components/common/SafeAreaScreen';
 import { PracticeControls } from '@/components/practice/PracticeControls';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { COFFEE_SHOP_SCENARIO, PRACTICE_COPY } from '@/constants/practice';
+import { PRACTICE_MODE } from '@/constants/runtime';
 import { COLORS } from '@/constants/ui-tokens';
 import { usePracticeSession } from '@/hooks/usePracticeSession';
 import { VStack } from '@gluestack-ui/themed';
@@ -47,7 +48,8 @@ export default function PracticeSessionScreen() {
   }, [status]);
 
   const handleStart = async () => {
-    if (!isConfigured) {
+    // Only show config error in live mode
+    if (!isConfigured && PRACTICE_MODE === 'live') {
       Alert.alert('Configuration Error', PRACTICE_COPY.errors.configError);
       return;
     }

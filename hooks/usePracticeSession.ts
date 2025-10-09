@@ -1,8 +1,12 @@
-import Vapi from '@vapi-ai/react-native';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 import { CallStatus } from '@/constants/practice';
+import { PRACTICE_MODE } from '@/constants/runtime';
 import { VAPI_CONFIG } from '@/constants/vapi';
+import {
+  PracticeSessionAdapter,
+  createPracticeSessionAdapter,
+} from './practiceSessionAdapter';
 
 export interface UsePracticeSessionOptions {
   /**
@@ -59,90 +63,103 @@ export function usePracticeSession(
   const [status, setStatus] = useState<CallStatus>('idle');
   const [isMuted, setIsMuted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const vapiRef = useRef<Vapi | null>(null);
+  const adapterRef = useRef<PracticeSessionAdapter | null>(null);
 
-  // Validate configuration
+  // Validate configuration (for live mode, mock mode is always "configured")
   const isConfigured =
-    Boolean(VAPI_CONFIG.API_KEY) && Boolean(VAPI_CONFIG.DATING_COACH_ASSISTANT_ID);
+    PRACTICE_MODE === 'mock' ||
+    (Boolean(VAPI_CONFIG.API_KEY) && Boolean(VAPI_CONFIG.DATING_COACH_ASSISTANT_ID));
 
   useEffect(() => {
-    // Early return if not configured
-    if (!isConfigured) {
+    // Log the active mode
+    console.log(`[usePracticeSession] Initializing in ${PRACTICE_MODE} mode`);
+
+    // Early return if live mode but not configured
+    if (PRACTICE_MODE === 'live' && !isConfigured) {
       console.warn(
-        '[usePracticeSession] VAPI_CONFIG is incomplete. Please add your API key to constants/vapi.ts'
+        '[usePracticeSession] Live mode requires VAPI configuration. Please add your API key to .env'
       );
       return;
     }
 
-    // Initialize VAPI client
-    console.log('[usePracticeSession] Initializing VAPI client...');
-    const vapi = new Vapi(VAPI_CONFIG.API_KEY);
-    vapiRef.current = vapi;
+    // Create the appropriate adapter
+    try {
+      const adapter = createPracticeSessionAdapter(PRACTICE_MODE);
+      adapterRef.current = adapter;
 
-    // Event listener: call started successfully
-    const handleCallStart = () => {
-      console.log('[usePracticeSession] Call started');
-      setStatus('connected');
-      setError(null);
-    };
+      // Event listener: call started successfully
+      const handleCallStart = () => {
+        console.log('[usePracticeSession] Call started');
+        setStatus('connected');
+        setError(null);
+      };
 
-    // Event listener: call ended
-    const handleCallEnd = () => {
-      console.log('[usePracticeSession] Call ended');
-      setStatus('disconnected');
+      // Event listener: call ended
+      const handleCallEnd = () => {
+        console.log('[usePracticeSession] Call ended');
+        setStatus('disconnected');
 
-      // Reset to idle after a brief delay
-      setTimeout(() => {
+        // Reset to idle after a brief delay
+        setTimeout(() => {
+          setStatus('idle');
+          setIsMuted(false);
+        }, 2000);
+      };
+
+      // Event listener: error occurred
+      const handleError = (adapterError: any) => {
+        console.error('[usePracticeSession] Adapter Error:', adapterError);
+        const errorMessage =
+          adapterError?.message || 'An error occurred during the practice session';
+        setError(errorMessage);
         setStatus('idle');
-        setIsMuted(false);
-      }, 2000);
-    };
+      };
 
-    // Event listener: error occurred
-    const handleError = (vapiError: any) => {
-      console.error('[usePracticeSession] VAPI Error:', vapiError);
-      const errorMessage =
-        vapiError?.message || 'An error occurred during the practice session';
-      setError(errorMessage);
-      setStatus('idle');
-    };
+      // Register event listeners
+      adapter.on('call-start', handleCallStart);
+      adapter.on('call-end', handleCallEnd);
+      adapter.on('error', handleError);
 
-    // Register event listeners
-    vapi.on('call-start', handleCallStart);
-    vapi.on('call-end', handleCallEnd);
-    vapi.on('error', handleError);
+      // Cleanup: remove event listeners and dispose adapter
+      return () => {
+        console.log('[usePracticeSession] Cleaning up...');
 
-    // Cleanup: remove event listeners and stop any active call
-    return () => {
-      console.log('[usePracticeSession] Cleaning up...');
+        // Remove event listeners
+        adapter.off('call-start', handleCallStart);
+        adapter.off('call-end', handleCallEnd);
+        adapter.off('error', handleError);
 
-      // Remove event listeners
-      vapi.off('call-start', handleCallStart);
-      vapi.off('call-end', handleCallEnd);
-      vapi.off('error', handleError);
+        // Stop any active call
+        if (status === 'connected' || status === 'connecting') {
+          adapter.stop();
+        }
 
-      // Stop any active call
-      if (status === 'connected' || status === 'connecting') {
-        vapi.stop();
-      }
-
-      vapiRef.current = null;
-    };
-  }, [isConfigured]); // Only re-initialize if configuration status changes
+        // Dispose adapter resources
+        adapter.dispose();
+        adapterRef.current = null;
+      };
+    } catch (err) {
+      console.error('[usePracticeSession] Failed to initialize adapter:', err);
+      setError(err instanceof Error ? err.message : 'Failed to initialize practice session');
+    }
+  }, [PRACTICE_MODE, isConfigured]); // Re-initialize if mode or config changes
 
   /**
    * Start a practice session
    */
   const start = useCallback(async () => {
-    if (!vapiRef.current) {
-      const errorMsg = 'VAPI client is not initialized';
+    if (!adapterRef.current) {
+      const errorMsg = 'Practice session adapter is not initialized';
       console.error('[usePracticeSession]', errorMsg);
       setError(errorMsg);
       return;
     }
 
     if (!isConfigured) {
-      const errorMsg = 'VAPI is not properly configured';
+      const errorMsg =
+        PRACTICE_MODE === 'live'
+          ? 'VAPI is not properly configured'
+          : 'Practice session is not properly configured';
       console.error('[usePracticeSession]', errorMsg);
       setError(errorMsg);
       return;
@@ -153,22 +170,22 @@ export function usePracticeSession(
     setError(null);
 
     try {
-      await vapiRef.current.start(VAPI_CONFIG.DATING_COACH_ASSISTANT_ID);
+      await adapterRef.current.start(VAPI_CONFIG.DATING_COACH_ASSISTANT_ID);
     } catch (err) {
       console.error('[usePracticeSession] Failed to start session:', err);
       const errorMsg = err instanceof Error ? err.message : 'Failed to start practice session';
       setError(errorMsg);
       setStatus('idle');
     }
-  }, [isConfigured]);
+  }, [isConfigured, PRACTICE_MODE]);
 
   /**
    * Stop the current practice session
    */
   const stop = useCallback(() => {
-    if (vapiRef.current && (status === 'connected' || status === 'connecting')) {
+    if (adapterRef.current && (status === 'connected' || status === 'connecting')) {
       console.log('[usePracticeSession] Stopping practice session...');
-      vapiRef.current.stop();
+      adapterRef.current.stop();
     }
   }, [status]);
 
@@ -176,10 +193,10 @@ export function usePracticeSession(
    * Toggle microphone mute state
    */
   const toggleMute = useCallback(() => {
-    if (vapiRef.current && status === 'connected') {
+    if (adapterRef.current && status === 'connected') {
       const newMutedState = !isMuted;
       console.log('[usePracticeSession] Toggling mute:', newMutedState);
-      vapiRef.current.setMuted(newMutedState);
+      adapterRef.current.setMuted(newMutedState);
       setIsMuted(newMutedState);
     }
   }, [isMuted, status]);

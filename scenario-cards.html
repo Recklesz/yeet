@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Yeet - Practice Scenarios</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f0f2f5",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"],
+                        "sans": ["Noto Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+            background-color: white;}
+        .material-symbols-outlined {
+            font-variation-settings:
+                    'FILL' 0,
+                    'wght' 400,
+                    'GRAD' 0,
+                    'opsz' 24
+        }
+        .ripple-effect {
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+        .ripple-effect:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .3s, opacity .5s;
+        }
+        .ripple-effect:active:after {
+            transform: scale(0, 0);
+            opacity: .2;
+            transition: 0s;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-white font-sans">
+<div class="relative flex h-auto min-h-screen w-full flex-col justify-between">
+<div class="flex-grow">
+<header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm">
+<div class="flex items-center justify-between p-4 pt-8">
+<h1 class="text-3xl font-bold font-display text-slate-900 flex-1 text-left">Practice Scenarios</h1>
+</div>
+</header>
+<main class="p-4 overflow-x-auto">
+<div class="flex space-x-4 pb-4 snap-x snap-mandatory">
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person in a coffee shop" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpNmikrw64KBok8GPQD8aS7oMNTyT8DiVINNXXcNfj0nVs4uoz1NNlUlxNKSdOMsos8ZAuacq3ilO9mGK7xM5-jjMxuquApt97HN853jQadDDGYYzxTFkgg9ULjUJZdJ4Rowgs0ouGQI6kU9QUKR-qfThFDoWoshKbWogotdF1mE2U3mN1w2Tvogj0y3tKKFvyBZlNK57ks1AEXsjtaCS62dQEwBOme7N74CiYQ8iV6XeKGrpU8HJxCmf79feXoLmZ--lpnf0cRdtn"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Coffee Shop</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">You spot someone interesting by the espresso machine...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                                Beginner
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                5 mins
+                            </span>
+</div>
+</div>
+</button>
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person in a bookstore" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqB_ktLv-t1SnGG2I-KcUAATgl5ms7yri5kHkV0OEar9Lf9MLM-mMHlrYiyhIWtrleNszexZe216fCqAffu1CUyWaGuMA9t8KyoGoJxK0fIp3wH-u1Y--SelYQKditvmYYdA1_pZ7qfLUYmKDFoi0OuZAJhQpdo17YuYXhtWgqks8OUG7sqgXd271fFAaB7M3nPCAk-MpeGghub2PPwvwPUMpHg0BMCs9XeCAbiezray0D0Pfs0fErR9yK8wfuoQl51K6i3QZEA9yF"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Bookstore</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">A captivating novel catches your eye, and so does someone browsing nearby...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                                Beginner
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                5 mins
+                            </span>
+</div>
+</div>
+</button>
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person in a park" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPR25vHHbaLcfIbmZyw2ohoSh8WsixUSJFF0iELsOVDBhVXYx8MtxKSqhUX3efc_8UNhCURQ2dPPoUIBgwMeNfAanvffDcYYV3KdX5g6qA_XJb_6G_pW-uRy-V8QCDY1aG7alipmbTB8fHdB6bTRb8YeHxPLd-LyBbTrosW8aZ1tYdvIiIZagRNNdmcXF0Gal_V_0er-2FqDvbfLLo8OiJ4pt7R5GiR_iNMM_r1ZQYaLedNXo8H_8SHkutuYzIGEQ9s7MtzN4m21k0"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Park</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">Enjoying a leisurely walk, you notice someone interesting on a bench...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
+                                Intermediate
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                10 mins
+                            </span>
+</div>
+</div>
+</button>
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person in an art gallery" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDON1XwRPYONJxqyr9y3EACa0L5GkT-3odXUBp49SuECrMUYngHX-gcut9NKtNN0IkujTsghGS-CbK7uGsfs3ku_GF4nKUpYhvnEHgoEN6eLgbjqUV-GkKA0c7IinI0kdGJS4wWcud0Fq6Bf5B9PH5Eh2FFC8aMNPkrdvEO2MdWTqOqbIx5rzka9CH6OnA7L221KjT51JG_uxOMuAf6h2XhNtD85A1jDWBr2X8iXp_0vGR7XyTQwdqM8KCa10ANA8A9g677kolGaNDw"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Art Gallery</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">You find yourself captivated by a painting, and someone else is too...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
+                                Intermediate
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                10 mins
+                            </span>
+</div>
+</div>
+</button>
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person at a concert" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdsNFTJvgvf8Mh2COb4bv9KsMPvJrAYZq0JRuNAbgoQGf-pXCgU9Al3rNR5NnjNqbM9TzvdvczVjDaFqrGDdjAnbj-4RHcvXLBZR025Oa45ebBUTumXTVEE2BRKnVSFQQaIN_o5Iz7aK5OaJVIzUkqDzDKgII63j-tQqSJrNbKPxHLSFcUptXvKt7Rym3cbcunBT8yiUbHdXQN3d2J8y6pG0HjhevjcJSIfJ_SuBHUCCtRHQ0NjAxeCviROxEPzdJntquIfQVPkkWq"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Concert</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">Amidst the music and crowd, you notice someone who catches your eye...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
+                                Advanced
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                15 mins
+                            </span>
+</div>
+</div>
+</button>
+<button class="flex-shrink-0 w-64 bg-white p-4 rounded-xl shadow-lg border border-slate-200 ripple-effect snap-center">
+<div class="flex flex-col items-center">
+<img alt="Dynamic modern illustration of a person in a grocery store" class="w-full h-40 rounded-lg object-cover mb-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0SP9kWYK7B8Dfcz5EbVjMWEl_JWvBnM_-oXjuIU9n7Jp3ggu0kc302xJLH-rsFYI9QHPx8Gs2W9ODjSISKnJHkqQd5V6buEO6yhty0pZN0nnDFmym86i89YiKsUV4FZnv10oyRtzDLQuYczc8SKe6-XbbLt0ndrqNO-TzkTgyceV1dt4kWSfbW_TShIHSyA1zplxclzkPADRXchsai5st61iViezI08A2gn7OEcAWEHUjorYewo8H9-M_WvMXam_C3NFfqj63-aX5"/>
+<p class="font-semibold text-slate-900 text-lg text-center mb-2">Grocery Store</p>
+<p class="text-sm text-slate-600 text-center mb-3 line-clamp-2">Reaching for the same item, your hands touch, and you make eye contact...</p>
+<div class="flex space-x-2">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
+                                Beginner
+                            </span>
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                                5 mins
+                            </span>
+</div>
+</div>
+</button>
+</div>
+</main>
+</div>
+<footer class="sticky bottom-0 z-10">
+<div class="bg-white/90 backdrop-blur-sm border-t border-slate-200 px-4 pb-3 pt-2">
+<div class="flex justify-around">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl !font-bold">movie</span>
+<p class="text-xs font-bold">Scenarios</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<p class="text-xs font-medium">Progress</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<p class="text-xs font-medium">Profile</p>
+</a>
+</div>
+</div>
+</footer>
+</div>
+
+</body></html>
